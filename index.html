@@ -1,0 +1,851 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <style>
+        html{
+          height:100%;
+        }
+
+        .wrapper {
+            width:100%;
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .wrapper .file-upload {
+
+            height:55px;
+            width:55px;
+            border-radius: .5rem;
+            position:relative;
+            
+            display:flex;
+            justify-content:center;
+            align-items: center;  
+
+            border:4px solid #FFFFFF;
+            overflow:hidden;
+            background-image: linear-gradient(to bottom, #333 50%, #FFFFFF 50%);
+            background-size: 100% 200%;
+            transition: all 1s;
+            color: #FFFFFF;
+            font-size: 32px;
+            border: 2px solid #333;
+            
+        }
+        .wrapper .file-upload:hover {
+            background-position: 0 -100%;
+            color:#333;
+            border: 2px solid #333;
+        }
+        .wrapper input[type='file']{
+
+            height:200px;
+            width:200px;
+            position:absolute;
+            top:0;
+            left:0;
+            opacity:0;
+            cursor:pointer;
+
+        }
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {            
+            padding: 15px 18px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .search-bar-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        #zipcode {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            border-width: 1px;
+            font-size: 1.6rem;
+            outline: 0;
+        }
+        .d-none {
+            display: none;
+        }
+
+        .navbar .megamenu{ padding: 1rem; }
+        /* ============ desktop view ============ */
+        @media all and (min-width: 992px) {
+            
+            .navbar .has-megamenu{position:static!important;}
+            .navbar .megamenu{left:0; right:0; width:100%; margin-top:0;  }
+            
+        }	
+        /* ============ desktop view .end// ============ */
+
+
+        /* ============ mobile view ============ */
+        @media(max-width: 991px){
+            .navbar.fixed-top .navbar-collapse, .navbar.sticky-top .navbar-collapse{
+                overflow-y: auto;
+                max-height: 90vh;
+                margin-top:10px;
+            }
+        }
+        .profile-wrapper {
+            padding: 1rem 0;
+            border: 1px solid #eee;
+            border-right-width: 0;
+            border-left-width: 0;
+        }
+        .profile-wrapper .tag-item {
+            font-size: .6rem;
+            padding: 0.1rem 0.3rem;
+            border: 1px solid #67bc46;
+            border-radius: 0.2rem;
+            margin: 0.15rem 0;
+            color: #67bc46;
+            white-space: nowrap;
+        }
+
+        .btn-custom {
+            border: none;
+            background: #67bc46;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            letter-spacing: 0.03em;
+            height: fit-content;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background: #53a535;
+            color: white;
+        }
+
+        .btn-custom-white {
+            border: none;
+            background: rgb(243, 248, 251);
+            color: #67bc46;
+            text-align: center;
+            letter-spacing: 0.03em;
+            height: fit-content;
+            min-width: 130px;
+            padding: 10px 30px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .btn-custom-white:hover {
+            color: #67bc46;
+        }
+        
+        #map {
+            height: 100%;
+        }
+        
+        .scrollBar-hidden::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        
+        /* Track */
+        .scrollBar-hidden::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        
+        /* Handle */
+        .scrollBar-hidden::-webkit-scrollbar-thumb {
+            background: #888; 
+        }
+        
+        /* Handle on hover */
+        .scrollBar-hidden::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        .items-wrapper a {
+            display: block;
+            border: 1px solid #67bc46;
+            color: #67bc46;
+            padding: 0.4rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: .2rem;
+            transition: all .3s;
+        }
+        .items-wrapper a:hover {
+            color: white;
+            background: #67bc46;
+        }
+        .items-wrapper .selected {
+            color: white;
+            background: #67bc46;
+        }
+        .checked {
+            color: #67bc46;
+        }
+        .badge-wrapper {
+            position: relative;
+        }
+        .badge {
+            position: absolute;
+            top: -0.7rem;
+            left: -0.7rem;
+            padding: 0.4rem;
+            background: white;    
+            box-shadow: 0px 1px 8px #888888;
+            border-width: 2px 0 0 2px;
+            border-radius: 0.3rem;
+        }
+        .badge span {
+            color: #333;
+            margin-left: 0.2rem;
+            letter-spacing: -0.05em;
+        }
+        .modal-content {
+            margin-top: 4rem;
+            max-height: 38rem;
+            overflow-y: scroll;
+        }
+     
+    </style>
+</head>
+
+<body>
+    <div class="main-content-wrapper">
+        <!-- <div class="bg-block"></div> -->
+        <div class="main-content">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-white mx-2 my-2 rounded-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; ">
+                <div class="container-fluid">
+                    <div class="d-flex navbar-collapse flex-column flex-md-row" id="main_nav" style="flex-basis: auto; align-items: flex-start;">
+                        <ul class="navbar-nav flex-row my-1">
+                            <li class="position-static nav-item dropdown has-megamenu px-1">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown"> Services  </a>
+                                <div class="dropdown-menu megamenu position-absolute w-100" style="left: 0; right: 0" role="menu">
+                                    <div class="row g-3">
+                                        <div class="col-megamenu items-wrapper">
+                                            <ul class="list-unstyled d-flex flex-wrap" id="specialty-wrapper">
+                                            </ul>
+                                        </div>  <!-- col-megamenu.// -->
+                                    </div><!-- end row --> 
+                                </div> <!-- dropdown-mega-menu.// -->
+                            </li>
+                            <li class="position-static nav-item dropdown has-megamenu px-1">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown"> Tags  </a>
+                                <div class="dropdown-menu megamenu position-absolute w-100" style="left: 0; right: 0" role="menu">
+                                    <div class="row g-3">
+                                        <div class="col-megamenu items-wrapper">
+                                            <ul class="list-unstyled d-flex flex-wrap" id="tag-wrapper">
+                                            </ul>
+                                        </div>  <!-- col-megamenu.// -->
+                                    </div><!-- end row --> 
+                                </div> <!-- dropdown-mega-menu.// -->
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto flex-row align-items-center" style="flex-wrap: wrap;">
+                            <li class="nav-item my-1">
+                                <div class="mx-1">                                    
+                                    <input onkeyup="filterUser()" type="text" class="form-control" id="filterZipcode" placeholder="Zipcode" aria-describedby="emailHelp" style="padding: .2rem .7rem;">
+                                </div>
+                            </li>
+                            <li class="nav-item mx-1 my-1">
+                                <select class="form-select form-select-sm" aria-label="Small select example">
+                                    <option value="0">0</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </li>
+                            <li class="nav-item mx-1 my-1">
+                                <a href="register.html" class="btn-custom" style="padding: 7px 15px;">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Join as Practitioner</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> <!-- navbar-collapse.// -->
+                </div> <!-- container-fluid.// -->
+            </nav>
+            <div class="m-2" style="height: calc(100vh - 5rem);">
+                <div class="row g-0 h-100">
+                    <div class="col-lg-6 px-0">
+                        <div id='map' style="min-height: 30rem;"></div>
+                    </div>
+                    <div class="col-lg-6 scrollBar-hidden" style="height: calc(100vh - 5rem); overflow-y: scroll;">
+                        <div class="py-4 px-md-4 px-2" id="filterWrapper">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-bar-wrapper" style="display: none;">
+                <div class="form-group" style="flex: 1; margin-right: 2.5rem;">
+                    <input type="text" name="searchWord" id="zipcode" required/>
+                </div>
+                <div class="form-group">
+                    <div class="wrapper">
+                        <div class="file-upload">
+                          <input id="fileInput" class="uploadForm" data-multiple-caption="{count}" type="file" name="files[]"
+                            accept=".csv" multiple="true" required/>
+                          <i class="fa fa-arrow-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-result" style="display: none;">
+                <table id="customers">
+                    <thead>
+                        <th style="min-width: 11rem;">User Name</th>
+                        <th style="min-width: 11rem;">Company Name</th>
+                        <th style="min-width: 11rem;">Address</th>
+                        <th style="min-width: 11rem;">Phone Number</th>
+                        <th style="min-width: 15rem;">Website</th>
+                        <th style="min-width: 15rem;">Email</th>
+                    </thead>
+                    <tbody id="table-content">
+                    </tbody>
+                </table>
+                <div id="empty-result" class="d-none" style="padding: 2rem; text-align: center">No Search Result</div>
+                <div id="file-empty" class="d-none" style="padding: 2rem; text-align: center">You should upload the file first</div>
+            </div>
+            <!-- <div class="bg-block-hori"></div> -->
+        </div>
+        <!-- The Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="new_form">
+                    <div class="modal-content scrollBar-hidden">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addModalLabel">Add Practictioner</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Modal content goes here -->
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="newFirstName" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="newLastName" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleFormControlInput1" class="form-label">Image URL</label>
+                                    <input type="text" class="form-control" id="newImageURL" placeholder="" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleFormControlInput1" class="form-label">Speciality</label>
+                                    <input type="text" class="form-control" id="newSpecialty" placeholder="" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleFormControlInput1" class="form-label">Tags</label>
+                                    <input type="text" class="form-control" id="newTags" placeholder="" required>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Profile Link</label>
+                                        <input type="text" class="form-control" id="newProfile" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Meeting Link</label>
+                                        <input type="text" class="form-control" id="newMeeting" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Review Link</label>
+                                        <input type="text" class="form-control" id="newReview" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="newAddress" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="newCity" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Zip Code</label>
+                                        <input type="text" class="form-control" id="newZipcode" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">State</label>
+                                        <input type="text" class="form-control" id="newState" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="newEmail" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="newPhone" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Rank</label>
+                                        <select id="newRank" class="form-select" aria-label="Default select example" required>
+                                            <option value="" disabled selected>Select Rank</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Review</label>
+                                        <select id="newReviewStar" class="form-select" aria-label="Default select example" required>
+                                            <option value="" disabled selected>Select Review</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="bg-block"></div> -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+
+    <script>
+        var mainData = [];
+        var file;
+        var markers = [];
+        var specialty = [];
+        var tags = [];
+        var filterSpecialty = [];
+        var filterTag = [];
+        var filterResult = [];
+
+        var API_URL = 'http://localhost:3000/'
+
+        var apiKey = 'pk.eyJ1IjoibmltYTAyIiwiYSI6ImNscW56cW9wMTM2dDQyaXB3d3NtZjA4OXYifQ.GBdKgVN9q399O22V72_M1Q';
+
+        mapboxgl.accessToken = apiKey;
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11', // map style
+            center: [-74.5, 40], // starting position [lng, lat]
+            zoom: 5 // starting zoom
+        })
+
+        function handleFileSelect(event) {
+            file = event.target.files[0];
+
+            // Parse the Excel file using Papa Parse
+            Papa.parse(file, {
+                complete: function(results) {
+                    // Access the parsed data here
+                    mainData = results.data;
+                    // Process and use the data as needed
+                }
+            });
+        }
+        
+        function filterUser() {
+            filterResult = [];
+            mainData.forEach((element, index) => {
+                var specs = element.specialty.split(",");
+                specs.forEach(subElement => {
+                    if(filterSpecialty.includes(subElement)) {
+                        if(filterResult.includes(index) == false) {
+                            filterResult.push(index);
+                        }
+                    }
+                });
+                var subTags = element.tags.split(",");
+                subTags.forEach(subElement => {
+                    if(filterTag.includes(subElement)) {
+                        if(filterResult.includes(index) == false) {
+                            filterResult.push(index);
+                        }
+                    }
+                });
+                if($("#filterZipcode").val() != '') {
+                    if(filterSpecialty.length == 0 && filterTag.length == 0) {
+                        filterResult = [];
+                        mainData.forEach((element, index) => {
+                            if(element.zipcode.toString().indexOf($("#filterZipcode").val()) > -1) {
+                                filterResult.push(index);
+                            }
+                        });
+                    } else {
+                        filterResult.forEach((element, index) => {
+                            if(mainData[element].zipcode.toString().indexOf($("#filterZipcode").val()) < 0) {
+                                filterResult.splice(index, 1);
+                            }
+                        });
+                    }
+                }
+                if($("#filterZipcode").val() == '') {
+                    if(filterSpecialty.length == 0 && filterTag.length == 0) {
+                        filterResult = [];
+                        mainData.forEach((element, index) => {
+                            filterResult.push(index);
+                        });
+                    }
+                }
+            });
+
+            sorter();
+            
+            var tmp = `<h4 class="my-2 mx-2">${filterResult.length} services found</h4>`;
+            filterResult.forEach((element, index) => {
+                var specs = mainData[element].specialty.split(",");
+                var subTags = mainData[element].tags.split(",");
+                tmp += `
+                    <div class="profile-wrapper">
+                        <div class="d-flex flex-sm-row flex-column">
+                            <div class='badge-wrapper'>`
+                                if(mainData[element].upload == 0) {
+                                    tmp += ` <img src="${mainData[element].imageURL}" width="250" height="250" style="border-radius: .3rem;">`;
+                                } else {
+                                    tmp += ` <img src="${API_URL}src/${mainData[element].imageURL}" width="250" height="250" style="border-radius: .3rem;">`;
+                                }
+                                if(mainData[element].rank == 3) {
+                                    tmp += `<div class="d-flex align-items-center badge">
+                                        <img src="./assets/image/logo.png" width="25" height="25" style="border-radius: .3rem;" alt="Uploaded Image">
+                                        <span>Recommended</span>
+                                    </div>`;
+                                }
+                                tmp += `
+                            </div>
+                            <div class="profile-content d-flex flex-column justify-content-center mx-sm-3">
+                                <h3 class="mb-2 mt-4 mt-sm-0">${mainData[element].firstname} ${mainData[element].lastname}</h3>
+                                <h5 class="mb-2">${mainData[element].address}, ${mainData[element].city}, ${mainData[element].state}</h5>
+                                <div class="mb-2">`
+                                    for (let index = 0; index < mainData[element].review; index++) {
+                                        tmp += `<span class="fa fa-star checked"></span>`;
+                                    }
+                                tmp += `</div>
+                                <div class="d-flex mb-2">
+                                    <h6 class='mb-0' style="color: #67bc46;">Specialty </h6>
+                                    <div class="d-flex flex-wrap align-items-center">`
+                                        specs.forEach(subElement => {
+                                            tmp += `<span class='tag-item mx-1'>${subElement}</span>`;
+                                        });
+                                    tmp += `</div>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <h6 class='mb-0' style="color: #67bc46;">Tags </h6>
+                                    <div class="d-flex flex-wrap align-items-center">`
+                                        subTags.forEach(subElement => {
+                                            tmp += `<span class='tag-item mx-1'>${subElement}</span>`;
+                                        });
+                                    tmp += `</div>
+                                </div>
+                                <div class="d-flex">
+                                    <a href="${mainData[element].meetinglink}" target="_blank" class="btn-custom">Schedule a Meeting</a>
+                                    <a href="profile1.html?user_id=${mainData[element].id}" target="_blank" class="btn-custom-white mx-2">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // const apiKey = 'YOUR_API_KEY';
+                var zipcode = mainData[element].zipcode; // Replace with the actual zipcode
+
+                // Construct the Mapbox Geocoding API URL
+                var geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zipcode}.json?country=${mainData[element].country}&access_token=${apiKey}`;
+
+                markers = [];
+                // Make a GET request to the Mapbox Geocoding API
+                fetch(geocodingUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Extract latitude and longitude from the response
+                        const features = data.features;
+                        if (features.length > 0) {
+                            const coordinates = features[0].center;
+                            const latitude = coordinates[1];
+                            const longitude = coordinates[0];
+                            var marker = new mapboxgl.Marker()
+                                .setLngLat([longitude, latitude])
+                                .addTo(map);
+                            markers.push(marker);
+                            if(index == 0) {
+                                map.flyTo({
+                                    center: [longitude, latitude],
+                                    zoom: 5, // Set the zoom level for the fly animation
+                                    speed: 0.8, // Set the speed of the fly animation
+                                    curve: 1 // Set the curve of the fly animation
+                                });
+                            }
+
+                        } else {
+                            console.log("No coordinates found for the zipcode");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching data from Mapbox Geocoding API:", error);
+                    });
+            });
+            $("#filterWrapper").html(tmp);
+        }
+        
+        function specialyClicked(e, selected) {
+            e.preventDefault();
+            if(filterSpecialty.includes(selected)) {
+                filterSpecialty.forEach((element, index) => {
+                    if(element == selected) {
+                        filterSpecialty.splice(index, 1);
+                        e.target.classList.remove('selected');
+                    }
+                });
+            } else {
+                filterSpecialty.push(selected);
+                e.target.classList.add('selected');
+            }
+            
+            filterUser();
+        }
+
+        function tagClicked(e, selected) {
+            e.preventDefault();
+            if(filterTag.includes(selected)) {
+                filterTag.forEach((element, index) => {
+                    if(element == selected) {
+                        filterTag.splice(index, 1);
+                        e.target.classList.remove('selected');
+                    }
+                });
+            } else {
+                filterTag.push(selected);
+                e.target.classList.add('selected');
+            }
+            filterUser();
+        }
+
+        $("#new_form").submit(function(event) {
+            event.preventDefault();
+            const newSheetData = [{
+                'First Name': $("#newFirstName").val(),
+                'Last Name': $("#newLastName").val(),
+                'Specialty': $("#newSpecialty").val(),
+                'Image URL': $("#newImageURL").val(),
+                'Tags': $("#newTags").val(),
+                'Link to profile (button)': $("#newProfile").val(),
+                'Link to meeting (button)': $("#newMeeting").val(),
+                'Link to review page': $("#newReview").val(),
+                'Address': $("#newAddress").val(),
+                'City': $("#newCity").val(),
+                'Zip Code': $("#newZipcode").val(),
+                'State': $("#newState").val(),
+                'Email': $("#newEmail").val(),
+                'Phone': $("#newPhone").val(),
+                'Rank': $("#newRank").val(),
+                'Review Star': $("#newReviewStar").val()
+                }
+            ];
+
+            sendDataToBackend(newSheetData);
+        })
+
+        function s2ab(s) {
+            const buf = new ArrayBuffer(s.length);
+            const view = new Uint8Array(buf);
+            for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+        function clearAddModal() {
+            $("#newFirstName").val('');
+            $("#newLastName").val('');
+            $("#newSpecialty").val('');
+            $("#newImageURL").val('');
+            $("#newTags").val('');
+            $("#newProfile").val('');
+            $("#newMeeting").val('');
+            $("#newReview").val('');
+            $("#newAddress").val('');
+            $("#newCity").val('');
+            $("#newZipcode").val('');
+            $("#newState").val('');
+            $("#newEmail").val('');
+            $("#newPhone").val('');
+            $("#newRank").val('');
+            $("#newReviewStar").val('');
+        }
+        
+        async function getData() {
+            await fetch(`${API_URL}data`) // Replace with the actual backend URL
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then(data => {
+                    mainData = data;
+                    mainData.forEach(element => {
+                        var specialtyArr = element.specialty.split(",");     
+                        var tagArr = element.tags.split(",");     
+                        if(specialtyArr.length > 0) {
+                            specialtyArr.forEach(subElement => {
+                                if(specialty.includes(subElement) == false) {
+                                    specialty.push(subElement);
+                                }
+                            });
+                        }
+                        if(tagArr.length > 0) {
+                            tagArr.forEach(subElement => {
+                                if(tags.includes(subElement) == false) {
+                                    tags.push(subElement);
+                                }
+                            });
+                        }
+                        var tmp = '';
+                        specialty.forEach(element => {
+                            tmp += `<li class="mx-2"><a href="#" onclick="specialyClicked(event, '${element}')">${element}</a></li>`;
+                        });
+                        $("#specialty-wrapper").html(tmp);
+                        tmp = '';
+                        tags.forEach(element => {
+                            tmp += `<li class="mx-2"><a href="#" onclick="tagClicked(event, '${element}')">${element}</a></li>`;
+                        });
+                        $("#tag-wrapper").html(tmp);
+                        filterUser();
+                    });
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        async function sendDataToBackend(data) {
+            const response = await fetch(`${API_URL}saveData`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+        }
+
+        $(document).ready(function() {
+            getData();
+            document.querySelectorAll('.dropdown-menu').forEach(function(element){
+                element.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                });
+            })
+            $('#fileInput').change(handleFileSelect);
+            // $('#zipcode').keyup(function(event) {
+            //     var inputValue = $(this).val();
+            //     searchResult = [];
+            //     if(mainData.length > 0) {
+            //         mainData.forEach((element, index) => {
+            //             if(element.zipcode.indexOf(inputValue) > -1 && index != 0 && inputValue != '') {
+            //                 searchResult.push(element);
+            //             }
+            //         });
+            //         if(element.zipcode != undefined) {
+            //             sorter();
+            //         }
+            //     }
+            //     var tmp = '';
+            //     if(searchResult.length > 0) {
+            //         searchResult.forEach(element => {
+            //             tmp += `<tr>
+            //                         <td>${element[1]} ${element[2]}</td>
+            //                         <td>${element[5]}</td>
+            //                         <td>${element[6]} ${element[7]} ${element[8]} ${element[9]} ${element[10]} ${element[11]}</td>
+            //                         <td>${element[14]}</td>
+            //                         <td></td>
+            //                         <td></td>
+            //                     </tr>`;
+            //         });
+            //     }
+            //     if(tmp == '') {
+            //         $("#empty-result").removeClass('d-none');    
+            //     } else {
+            //         $("#empty-result").addClass('d-none');    
+            //     }
+            //     $("#table-content").html(tmp);
+            // });
+        });
+        
+        function sorter() {
+            filterResult.sort(function(a, b) {
+              return  mainData[b].rank - mainData[a].rank;
+            });
+        }
+
+        
+    </script>
+</body>
+
+</html>

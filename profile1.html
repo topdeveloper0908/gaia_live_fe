@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Muhamad Nauval Azhar">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="This is a login page template based on Bootstrap 5">
+	<title>Practictioner Login Page</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="./assets/style.css" rel="stylesheet">
+    <style>
+        a {
+            cursor: pointer;
+        }
+        .header-title {
+            font-size: 64px;
+        }
+        .text-custom-primary {
+            color: #67bc46;
+        }
+        .bg-custom-primary {
+            background-color: #67bc46;
+        }
+        .font-weight-normal {
+            font-weight: 400;
+        }
+        .font-weight-medium {
+            font-weight: 500;
+        }
+        .font-weight-bold {
+            font-weight: 700;
+        }
+        .btn-custom {
+            font-size: 30px;
+        }
+        .service-description {
+            font-size: 20px;
+        }
+        .service-icon {
+            padding: 0.7rem;
+            box-shadow: 0rem 0rem 0.1rem #000;
+            border-radius: 50%;
+            margin-right: .8rem;
+        }
+        .soundlike-section h3 {
+            text-align: left;
+            font-size: 24px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+        .form-control:disabled, .form-control[readonly] {
+            background-color: white;
+            opacity: 1;
+            border: none;
+        }
+        .tag-item {
+            padding: 0.1rem 0.3rem;
+            border: 1px solid #67bc46;
+            border-radius: 0.2rem;
+            margin: 0.15rem 0;
+            color: #67bc46;
+            white-space: nowrap;
+        }
+        footer a {
+            text-decoration: none;
+            color: #000;
+        }
+        footer a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	    <section class="header">
+            <img class="my-3" src="./assets/image/logo-1.png" width="140" height="50">
+        </section>
+        <section class="intro-section">
+            <h1 class="text-center header-title my-3">Check Your Chakra Balance!</h1>
+            <h2 class="text-center section-subtitle text-custom-primary font-weight-bold mb-5">You Will Receive a 24-Page Report On Your Energy Wellness and Get A Custom Meditation Music File...</h2>
+            <div class="row g-5">
+                <div class="col-6">
+                    <img class="w-100 mb-4" src="./assets/image/bio-well-gdv-scan.jpg">
+                    <img class="w-100 mb-2" src="./assets/image/chakra-t.png">
+                    <h6 class="text-center mt-3 mb-4">Influence of meditating with the custom meditation music file.</h6>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img class="w-100 mb-2" style="max-width: 13rem;" src="./assets/image/bio-well-guarantee.png">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <video class="w-100" height="320" controls>
+                        <source src="https://youtu.be/8iMke5TGwIA" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <a class="btn-custom w-100 mt-4 d-flex align-items-center justify-content-center flex-column">
+                        <span>Reserve Your Spot!</span>
+                        <span style="font-size: 14px; opacity: .7;">Limited Appointments Available.</span>
+                    </a>
+                    <div class="services mt-4 pt-2">
+                        <div class="d-flex align-items-baseline">
+                            <i class="service-icon fa fa-check"></i>
+                            <span class="service-description font-weight-medium mt-2">Visually see your chakra & meridian balance</span>
+                        </div>
+                        <div class="d-flex align-items-baseline mt-2">
+                            <i class="service-icon fa fa-check"></i>
+                            <span class="service-description mt-2"><span class="font-weight-medium">​Check your stress levels</span> and see how your <span class="font-weight-medium">autonomic nervous system</span> is maintaining balance.</span>
+                        </div>
+                        <div class="d-flex align-items-baseline mt-2">
+                            <i class="service-icon fa fa-check"></i>
+                            <span class="service-description mt-2"><span class="font-weight-medium">Analyze your biofield </span> for disruptions of energy so you can focus on the points of depletion.</span>
+                        </div>
+                        <div class="d-flex align-items-baseline mt-2">
+                            <i class="service-icon fa fa-check"></i>
+                            <span class="service-description mt-2"> Get a full report on your <span class="font-weight-medium">biorhythms</span> for 2023 and 2024 to see how your <span class="font-weight-medium">emotional, physical, and mental cycles</span> can influence your decision-making. This way you can plan your life according to your astrology!</span>
+                        </div>
+                        <div class="d-flex align-items-baseline mt-2">
+                            <i class="service-icon fa fa-check"></i>
+                            <span class="service-description mt-2"> Receive a <span class="font-weight-medium">custom meditation music file</span> based on the alignment of your chakras so you can balance your energy centers.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <seciton class="soundlike-section">
+            <h2 data-aos="fade-up" class="header-title text-center text-custom-primary my-5 pt-5">DOES THIS SOUND LIKE YOU?</h2>
+            <div class="row">
+                <div class="col-6">
+                    <h3 data-aos="fade-up" class="mb-5 pb-5">"I have been attending many workshops and seminars but don't know how they have influenced my energy."</h3>
+                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"I feel a bit of discomfort but can't really put my finger on what is bothering me."</h3>
+                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"It would be great if I could visually see how my jewelry is influencing my energy."</h3>
+                </div>
+                <div class="col-6">
+                    <h3 data-aos="fade-up" class="mb-5 mt-5 pt-5 pb-5">"I have been working on aligning my energy centers but don't have a scientific way to see the alignment."</h3>
+                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"I would like to see how COVID has influenced the energy of my respiratory system."</h3>
+                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"I feel exhausted physically & mentally but don't know how to balance my energy or where to focus."</h3>
+                </div>
+            </div>
+        </seciton>
+        <section class="solution-section">
+            <h2 data-aos="fade-up" class="header-title text-center text-custom-primary my-5 pt-5 pb-3"><span class="font-weight-normal">We Have The </span></br>Solution for you!</h2>
+            <h2 data-aos="fade-up" class="header-title text-center text-custom-primary mt-5 py-3 font-weight-normal">Introducing</h2>
+            <div data-aos="fade-up" class="d-flex justify-content-center">
+                <i class="fa fa-angle-double-down" style="padding: 0px;
+                margin: 0px;
+                color: rgba(47, 47, 47, 0.62);
+                text-align: center;
+                font-size: 55px;
+                line-height: 1em;
+                display: block;"></i>
+            </div>
+            <img data-aos="fade-up" class="mt-5" width="100%" src="./assets/image/Screen-Shot-2024-01-05-at-5.18.47-PM.png">
+        </section>
+        <section class="scan-system">
+            <h2 data-aos="fade-up" class="header-title text-center text-custom-primary mt-5 mb-3 pt-2">The Bio-Well 3.0</h2>
+            <h2 data-aos="fade-up" class="header-title text-center mb-5">Reserve Your Bioenergy Scan Today!</h2>
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-center">
+                <a data-aos="fade-up" class="btn-custom d-flex align-items-center justify-content-center flex-column">
+                    <span>Book An Appointment</span>
+                </a>
+            </div>
+            <h3 data-aos="fade-up" class="font-weight-normal text-center mt-4">Get Your Hands on the Most Advanced, Latest Technology in Biophotonics 
+                </br>That Scientists Are Raving About...</h3>
+            <img data-aos="fade-up" class="mt-5" width="100%" src="./assets/image/BEFOREAFTER.png">
+            <h3 data-aos="fade-up" class="font-weight-normal text-center" style="letter-spacing: 3px; font-size: 23px;">UNHEALTHY BIOFIELD VS. HEALTHY BIOFIELD</h3>
+            <h6 data-aos="fade-up" class="text-center font-weight-normal" style="font-style: italic; text-decoration: underline;">We have six months to a year before energetic misbalances manifest into the physical form.</h6>
+        </section>
+        <section class="reservation-section">
+            <h2 data-aos="fade-up" class="text-center mt-5 mb-5 pt-2">This is What You Get With Your Reservation:</h2>
+            <div class="row g-5">
+                <div class="col-6">
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-clock" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Express Energy Assessment</h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">We will scan your energy and generate a 22-page wellness report about the flow of energy in your vital body. </h4>
+                    </div>
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-music" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Custom Solfeggio Music</h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">We will email you a custom solfeggio music files created based on your chakra alignment. You can use that file during your meditations. You can also charge your water with it.</h4>
+                    </div>
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-user" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Emotional & Physiological Analysis</h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">You will be able to see what emotions are influencing you negatively so you can start working on your emotional wellness to improve your physical wellness.</h4>
+                    </div>
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-adjust" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Chakra Reports</h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">Learn how to make sense of chakra movements and how to bring them in balance. Express assessment of chakras in a scientific way. </h4>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-laptop" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Before & After Analysis</h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">You have the option of doing a scan before the conference start and after to see how the session influenced your energy body.  </h4>
+                    </div>
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-spa" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Energy & Wellness Analysis</h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">We will email you the report so you can keep it for your future reference! </br>There are many explanations about the energetic body included in the report.</h4>
+                    </div>
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-balance-scale" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Sympathetic & Parasympathetic Balance </h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">Be able to tell which organs are energetically under stress and out of coherence. </br>Our autonomic nervous system influences the hormone production in the body. </h4>
+                    </div>
+                    <div class="mb-5 pb-5">
+                        <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
+                            <i class="fa fa-bolt" style="font-size: 1.5rem; margin-right: 1rem;"></i>
+                            <h3 class="mb-0">Meridian Energy Flow Reports</h3>
+                        </div>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">Detailed analysis of the flow of energy through the energy pathways. These are connected to the acupuncture points and you will learn how to draw conclusions.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="success-section">
+            <div data-aos="fade-up" class="d-flex justify-content-center align-items-center">
+                <a class="btn-custom d-flex align-items-center justify-content-center flex-column">
+                    <span>Let me reserve my spot before they are taken...</span>
+                </a>
+            </div>
+            <h2 data-aos="fade-up" class="header-title text-center text-custom-primary mt-3 py-3 font-weight-normal">Success Stories!</h2>
+            <div data-aos="fade-up" class="d-flex justify-content-center">
+                <i class="fa fa-angle-double-down" style="padding: 0px;
+                margin: 0px;
+                color: rgba(47, 47, 47, 0.62);
+                text-align: center;
+                font-size: 55px;
+                line-height: 1em;
+                display: block;"></i>
+            </div>
+            <div class="row my-5 pt-5">
+                <div data-aos="fade-up" class="col-3 d-flex">
+                    <img width="190" src="./assets/image/Nima_Farshid.png">
+                </div>
+                <div class="col-1"></div>
+                <div data-aos="fade-up" class="col-8">
+                    <h3 class="font-weight-normal mb-4">" I used the Bio-Well in my personal healing journey when doctors gave me two weeks to live. I was able to heal myself by paying attention to my energy centers and how different modalities were influencing me in real-time."</h3>
+                    <h6 class="font-weight-normal">- Nima Farshid</h6>
+                    <h6 class="font-weight-normal"> Bio-Well Global Educator & Distributor</h6>
+                </div>
+            </div>
+            <div class="row mt-5 pt-5">
+                <div data-aos="fade-up" class="col-3 d-flex">
+                    <img width="190" src="./assets/image/Screenshot-2021-11-08-114907.jpg">
+                </div>
+                <div class="col-1"></div>
+                <div data-aos="fade-up" class="col-8">
+                    <h3 class="font-weight-normal mb-4">" This device has taken my healing practice to a whole new level. Being able to visually show people their before & after has been extremely effective."</h3>
+                    <h6 class="font-weight-normal">- Paul Lowell</h6>
+                    <h6 class="font-weight-normal">Reiki Master, Sound Healer, Shaman</h6>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="mt-5" style="background-color: #ead212;">
+        <div class="container">
+            <section class="plus-section">
+                <h2 data-aos="fade-up" class="header-title text-center text-white pt-5 mb-4">Plus++</h2>
+                <h2 data-aos="fade-up" class="text-center font-weight-normal">Even more bonuses...</h2>
+                <h2 data-aos="fade-up" class="text-center pt-3 mb-4" style="font-size: 38px;">Free Access To Our Holistic Support App</h2>
+                <h6 data-aos="fade-up" class="font-weight-normal text-center mb-4">Included with Your Bio-Well Scan</h6>
+                <img data-aos="fade-up" class="w-100 mb-4" src="./assets/image/top-members2.png">
+                <img data-aos="fade-up" class="w-100 mb-5" src="./assets/image/333888999.png">
+                <h2 data-aos="fade-up" class="header-title text-center text-white pt-5 mb-4">It doesn't stop there...</h2>
+                <h2 data-aos="fade-up" class="text-center pt-3 mb-4" style="font-size: 38px;">FREE Access to Our Private Community, Lightworkers App.</h2>
+                <h4 data-aos="fade-up" class="font-weight-normal text-center mt-4 mb-4">You get to mingle with over 500 open-minded wellness practitioners, and get access to hundreds of Bio-Well researchers.</h4>
+                <img data-aos="fade-up" class="w-100 mb-5" src="./assets/image/member-collage.png">
+            </section>
+        </div>
+    </div>
+    <div class="container">
+        <section class="sum-section">
+            <h3 data-aos="fade-up" class="text-center mt-5">LET'S SUM IT UP -</h3>
+            <h4 data-aos="fade-up" class="text-center font-weight-normal">Here's everything you'll get with your reservation!</h4>
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border: 1px solid; border-width: 1px 0 1px 0;">
+                <div>
+                    <h3 class="mb-3">Bio-Well Scan</h3>
+                    <h5 class="font-weight-normal">We will scan your ten fingers and analyze the data so we can generate a report for you.</h4>
+                </div>
+                <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($99.00 value)</h2>
+            </div>
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+                <div>
+                    <h3 class="mb-3">Custom Solfeggio Music File</h3>
+                    <h5 class="font-weight-normal">We will email you a custom meditation music file based on the alignment of your chakras.</h4>
+                </div>
+                <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($99.00 value)</h2>
+            </div>
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+                <div>
+                    <h3 class="mb-3">22-Page Report on Your Energy Wellness</h3>
+                    <h5 class="font-weight-normal" style="max-width: 50rem;">You'll be emailed a 22-page report that explains the scan and gives you more information about different energy centers or meridian pathways.</h4>
+                </div>
+                <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($99.00 value)</h2>
+            </div>
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+                <div>
+                    <h3 class="mb-3">LIFETIME Access To Our Bio-Well Support App</h3>
+                    <h5 class="font-weight-normal">If you have any questions about your report, you can ask them in our support app.</h4>
+                </div>
+                <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($997 value)</h2>
+            </div>
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+                <div>
+                    <h3 class="mb-3">FREE Access to Our Community "Lightworkers App"</h3>
+                    <h5 class="font-weight-normal">You get to mingle with over 500 open-minded wellness practitioners and join regular webinars.</h4>
+                </div>
+                <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($997 value)</h2>
+            </div>
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+                <div>
+                    <h3 class="mb-3">FREE Access to hundreds of Bio-Well practitioners</h3>
+                    <h5 class="font-weight-normal">Get access to hundreds of Bio-Well researchers in fields of water, environment and biofield.</h4>
+                </div>
+                <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">(Priceless)</h2>
+            </div>
+            <h4 data-aos="fade-up" class="text-center font-weight-normal px-5 mt-3">It’s important that you know the enormous value you’ll get with your reservation. These numbers are not inflated — they’re an honest, actual values, and you can purchase those courses separately.</h4>
+            <h2 data-aos="fade-up" class="text-custom-primary text-center mt-3">Total Value <span style="text-decoration: line-through;">$2,291.00</span></h2>
+            <h2 data-aos="fade-up" class="text-center mt-3">Your Early Bird Price </h2>
+            <h2 data-aos="fade-up" class="text-center mt-3 font-weight-bold" style="background-color: #ead212; font-size: 62px;">ONLY $99</h2>
+        </section>
+        <section class="profile-section d-none">
+            <h2 data-aos="fade-up" class="header-title text-center pt-5 mb-4">BOOK A SESSION NOW</h2>
+            <div class="row pt-4">
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                    <div class="text-center profile-left">
+                        <div data-aos="fade-up" class="d-flex justify-content-center badge-wrapper">
+                            <img id="userAvatar" src="https://biohackingcongress.com/storage/users/June2023/9Q67Ebbs5rPLWWmWGZET.png" width="300" height="300" style="border-radius: .3rem;">
+                            <div class="d-flex align-items-center recommendBadge">
+                                <img src="./assets/image/logo.png" width="25" height="25" style="border-radius: .3rem;">
+                                <span>Recommended</span>
+                            </div>
+                        </div>
+                        <h2 data-aos="fade-up" id="username" class="mt-4 mb-2">Nima Farshid</h2>
+                        <div data-aos="fade-up" id="starWrapper" class="star-wrapper mb-4">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </div>
+                        <a data-aos="fade-up" class="btn-custom d-flex align-items-center justify-content-center flex-column">
+                            <span>Reserve Your Biofield Scan</span>
+                        </a>
+                    </div>    
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <form id="registerForm" style="max-width: 35rem;">
+                            <div class="card-body p-md-5">
+                                <h1 data-aos="fade-up" class="fs-2 card-title fw-bold mb-4 text-center">Practitioner Information</h1>
+                                <div data-aos="fade-up" class="row g-3 mb-3">
+                                    <div class="col-3">
+                                        Name
+                                    </div>
+                                    <div id="profileName" class="col-9">
+                                        Nima Farshid
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" class="row g-3 mb-3">
+                                    <div class="col-3">
+                                        Address
+                                    </div>
+                                    <div id="profileAddress" class="col-9">
+                                        11532 Via Lucerna Cir Windermere 34786 FL US
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" class="row g-3 mb-3">
+                                    <div class="col-3">
+                                        Email
+                                    </div>
+                                    <div class="col-9">
+                                        <a id="profileEmail" href="">topdeveloper0908@gmail.com</a>
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" class="row g-3 mb-3">
+                                    <div class="col-3">
+                                        Phone
+                                    </div>
+                                    <div class="col-9">
+                                        <a id="profilePhone" href="">407-230-8179</a>
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" class="row g-3 mb-3">
+                                    <div class="col-3">
+                                        Speciality
+                                    </div>
+                                    <div class="col-9">
+                                        <div id="profileSpec" class="d-flex flex-wrap align-items-center">
+                                            <span class='tag-item mx-1'>Bio-Well practitioner</span>
+                                            <span class='tag-item mx-1'>Reiki Master</span>
+                                            <span class='tag-item mx-1'>Meditation Coach</span>
+                                            <span class='tag-item mx-1'>Sound Healer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" class="row g-3 mb-3">
+                                    <div class="col-3">
+                                        Tags
+                                    </div>
+                                    <div class="col-9">
+                                        <div id="profileTag" class="d-flex flex-wrap align-items-center">
+                                            <span class='tag-item mx-1'>Reiki</span>
+                                            <span class='tag-item mx-1'>Biowell</span>
+                                            <span class='tag-item mx-1'>Soundhealer</span>
+                                            <span class='tag-item mx-1'>Meditation</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" class="row g-3 mb-3">
+                                    <div class="col-3">
+                                        Reviews
+                                    </div>
+                                    <div class="col-9">
+                                        <div id="profileStarWrapper" class="star-wrapper">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span>(34)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-aos="fade-up" class="row g-3">
+                                    <div class="col-3">
+                                        Status
+                                    </div>
+                                    <div id="profileStatus" class="col-9">
+                                        <span class="badge badge-pill badge-success">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                </div>
+            </div>
+            <div>
+                <img data-aos="fade-up" class="w-100 mt-5" src="./assets/image/cc.jpg">
+            </div>
+        </section>
+        <footer>
+            <h6 data-aos="fade-up"  class="text-center px-5 font-weight-normal mt-5">Consumer Testimonials. As with any business-related program, your results using the Bio-Well may vary from these consumer testimonials. Bio-Well is not a medical instrument, it is not designed for medical diagnostics, it measures energy and stress of a person. In case of health concerns, please, consult your doctor. </h6>
+            <div class="d-flex align-items-center justify-content-center mt-3 mb-5">
+                <a href="#">Gaia Healers</a>
+                <span class="mx-2">|</span>
+                <a href="#">Terms of Use</a>
+                <span class="mx-2">|</span>
+                <a href="#">Privacy Policy</a>
+                <span class="mx-2">|</span>
+                <a href="#">Support</a>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        AOS.init();
+        var API_URL = 'http://localhost:3000/';
+        var data;
+        async function getData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            var formData = {
+                id: urlParams.get('user_id')
+            }
+            const response = await fetch(`${API_URL}user`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            data = await response.json();
+            data = data[0];
+            console.log(data);
+            writeData();
+        }
+        function writeData() {
+            console.log(data);
+            $(".btn-custom").attr('href', data.meetinglink);
+            $(".profile-section").removeClass('d-none');
+            if(data.upload == 0) {
+                $("#userAvatar").attr('src', data.imageURL);
+            } else {
+                $("#userAvatar").attr('src', `${API_URL}src/${data.imageURL}`);
+            }
+            if(data.rank != 3) {
+                $(".recommendBadge").removeClass('d-flex');
+                $(".recommendBadge").addClass('d-none');
+            }
+            $("#username").html(data.firstname + ' ' + data.lastname);
+
+            var tmp = '';
+            for (let index = 0; index < data.review; index++) {
+                tmp += `<span class="fa fa-star checked"></span>`;
+            }
+            $("#starWrapper").html(tmp);
+
+            $("#profileName").html(data.firstname + ' ' + data.lastname);
+            $("#profileAddress").html(data.address + ' ' + data.city + ' ' + data.state + ' ' + data.zipcode + ' ' + data.country);
+            $("#profileEmail").html(data.email);
+            $("#profilePhone").html(data.phone);
+
+            tmp = '';
+            data.specialty.split(',').forEach(element => {
+                tmp += `<span class='tag-item mx-1'>${element}</span>`;
+            });
+            $("#profileSpec").html(tmp);
+
+            tmp = '';
+            data.tags.split(',').forEach(element => {
+                tmp += `<span class='tag-item mx-1'>${element}</span>`;
+            });
+            $("#profileTag").html(tmp);
+
+            tmp = '';
+            for (let index = 0; index < data.review; index++) {
+                tmp += `<span class="fa fa-star checked"></span>`;
+            }
+            $("#profileStarWrapper").html(tmp);
+
+            if(data.status == 'active') {
+                $("#profileStatus").html(`<span class="badge badge-pill badge-success">Active</span>`);
+            } else {
+                $("#profileStatus").html(`<span class="badge badge-pill badge-danger">Pending</span>`);
+            }
+        }
+        $(document).ready(function() {
+            getData();
+        })
+    </script>
+</body>
+</html>

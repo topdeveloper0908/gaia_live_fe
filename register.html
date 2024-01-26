@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Muhamad Nauval Azhar">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="This is a login page template based on Bootstrap 5">
+	<title>Practictioner Login Page</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="./assets/style.css" rel="stylesheet">
+    <style>
+        #country {
+            background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%235a5c69' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat;
+        }
+        .bootstrap-select .dropdown-menu {
+            width: 100%;
+        }
+        .bootstrap-select .btn-group {
+            width: 100%;
+        }
+        .selectedSpecWrapper {
+            display: flex;
+            flex-wrap: wrap;
+            border: 2px solid #aaa;
+            border-radius: 0.3rem;
+            margin: 0.3rem;
+            height: 8rem;
+            overflow-y: scroll;
+        }
+        .selectedTagWrapper {
+            display: flex;
+            flex-wrap: wrap;
+            border: 2px solid #aaa;
+            border-radius: 0.3rem;
+            margin: 0.3rem;
+            height: 8rem;
+            overflow-y: scroll;
+        }
+        .selectedItem {
+            padding: 0.3rem 0.7rem;
+            border: 1px solid #67bc46;
+            height: 2.2rem;
+            border-radius: 0.3rem;
+            color: #67bc46;
+            margin-bottom: .2rem;
+            margin-right: .2rem;
+        }
+        .selectedItem .itemIcon{
+            font-size: 0.9rem;
+            margin-left: 0.3rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+	<section class="h-100">
+        <div class="h-100">
+            <div class="row g-0">
+                <div class="col-md-6 d-flex align-items-center justify-content-center flex-column">
+                    <div class="text-center mb-4 mt-5">
+                        <img src="./assets/image/logo-1.png" alt="logo" width="300">
+                    </div>
+                    <div class="text-center" style="max-width: 36rem;">
+                        <div>
+                            <iframe class="w-100" src="https://player.vimeo.com/video/67733848?title=0&amp;byline=0&amp;portrait=0&amp;color=44b4ad" width="500" height="281" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" style="border-radius: .3rem;"></iframe>
+                        </div>
+                        <div class="d-flex flex-sm-row flex-column justify-content-center my-5 pb-sm-5">
+                            <img class="rounded-circle mx-sm-2 mx-auto" style="border: 5px solid #9d9d9d;" src="https://biohackingcongress.com/storage/users/June2023/9Q67Ebbs5rPLWWmWGZET.png" width="120" height="120">
+                            <div class="pl-2">
+                                <h3 class="mt-4 mt-md-0">Nima Farshid, CEO</h3>
+                                <p style="max-width: 26rem;">
+                                    "Let's together change the way the world looks at health and wellness by creating an integrative holistic network of consumers, holistic practitioners, and wellness centers."
+                                </p>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+                <div class="col-md-6 d-flex align-items-center justify-content-center" style="background-color: #f3f8f6; height: 100vh;">
+                    <div class="d-flex flex-column align-items-center justify-content-center mt-5 pt-5">
+                        <div class="card shadow-lg">
+                            <form id="registerForm" enctype="multipart/form-data">
+                                <div class="card-body p-md-5">
+                                    <div class="registerWrapper" style="max-width: 26rem;">
+                                        <div id="registerFirstStep">
+                                            <h1 class="fs-3 card-title fw-bold mt-sm-0 pt-md-5 mt-5 mb-4 pb-md-5 text-center">Apply to become a Gaia Healer and feature your practice!</h1>
+                                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                                <input id="firstName" type="text" placeholder="First Name*" class="form-control" name="firstName" value="" required>    
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                                <input id="lastName" type="text" placeholder="Last Name*" class="form-control" name="lastName" value="" required>    
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                                <input id="email" type="email" placeholder="Email*" class="form-control" name="email" value="" required>    
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                                <input id="phone" type="text" placeholder="Phone*" class="form-control" name="phone" value="" required>    
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center pb-md-5 mb-3">
+                                                <button id="applyRegister" type="button" class="btn btn-custom btn-custom-lg">Apply Now</button>
+                                            </div>
+                                        </div>
+                                        <div id="registerSecondStep" class="d-none">
+                                            <h1 class="fs-4 card-title fw-bold mt-sm-0 mt-4 mb-4 text-center">Thank you for applying! To expedite the process please fill in the information below</h1>
+                                            <div class="row g-3 mb-2">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <input id="address" type="text" placeholder="Address*" class="form-control" name="address" value="" required>    
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mb-2">
+                                                <div class="col-6 d-flex align-items-center justify-content-center">
+                                                    <input id="city" type="text" placeholder="City*" class="form-control" name="City" value="" required>    
+                                                </div>
+                                                <div class="col-6 d-flex align-items-center justify-content-center">
+                                                    <input id="state" type="text" placeholder="State" class="form-control" name="state" value="">    
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mb-2">
+                                                <div class="col-6 d-flex align-items-center justify-content-center">
+                                                    <input id="zipcode" type="text" placeholder="ZipCode*" class="form-control" name="ZipCode" value="" required>    
+                                                </div>
+                                                <div class="col-6 d-flex align-items-center justify-content-center">
+                                                    <select id="country" class="form-select"></select>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row g-3 mb-2">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <input id="address" onclick="openLocationModal()" type="text" placeholder="Address" class="form-control" name="address" value="" required readonly>    
+                                                </div>
+                                            </div> -->
+                                            <div class="row g-3 pt-1 mb-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="form-check mx-4">
+                                                        <input onchange="setImageLink()" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                          Use Image Link
+                                                        </label>
+                                                      </div>
+                                                      <div class="form-check">
+                                                        <input onchange="setImageUpload()" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                          Use Custom Image
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mb-2">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <input id="avatarURL" type="text" placeholder="Image URL*" class="form-control" name="avatarURL" value="">    
+                                                    <input class="form-control d-none" type="file" id="avatarUpload" accept="image/*">
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mb-2">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <input onclick="openSpecModal()" id="speciality" type="text" placeholder="Specialty*" class="form-control" name="speciality" value="" required readonly style="background-color: white;">    
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mb-2">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <input onclick="openTagModal()" id="tags" type="text" placeholder="Tags*" class="form-control" name="tags" value="" required readonly style="background-color: white;">    
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mb-2">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <input id="meetingLink" type="text" placeholder="Meeting Link*" class="form-control" name="meetingLink" value="" required>    
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                                <button type="submit" class="btn btn-custom btn-custom-lg">Register</button>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <!-- <button type="submit" class="btn btn-primary ms-auto">
+                                                    Login
+                                                </button> -->
+                                            </div>
+                                        </div>
+                                        <div id="registerThirdStep" class="d-none" style="width: 26rem; min-height: 30rem;">
+                                            <div id="success-notice" class="mt-5">
+                                                <h1 class="fs-4 card-title fw-bold mb-2 text-center">Thank you for applying!</h1>
+                                                <h1 class="fs-4 card-title fw-bold mb-2 text-center">We'll contact you shortly.</h1>
+                                            </div>
+                                            <div id="duplicate-notice" class="mt-5 d-none">
+                                                <h1 class="fs-4 text-danger card-title fw-bold mb-2 text-center">User is duplicated</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-center mt-4 text-muted">
+                            Copyright &copy; 2024 &mdash; Gaia Healers 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="locationModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 60rem;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Map Preview</h5>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"  aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="height: 35rem">
+                        <div id="map" style='position: absolute; top: 0; left: 0; right: 0; bottom: 0;'></div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="d-flex align-items-center justify-content-between w-100">
+                            <div id="address-location"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="specialityModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Select Specialty</h5>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"  aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <select onchange="changeSpecialty()" id="specialitySelect" class="selectpicker mb-2" data-actions-box="true" multiple data-width="100%" data-title="Select Specialty">
+                        </select>
+                        <div class="d-flex mb-2">
+                            <input id="customSpecialty" type="text" placeholder="Custom Speciality" class="form-control mx-1">    
+                            <button onclick="addSpecialty()" type="button" class="btn btn-custom mx-1">Add</button>
+                        </div>
+                        <div class="selectedSpecWrapper px-2 py-2 scrollBar-hidden">
+                            <div class="selectedItem">
+                                <span class="mr-2">Element</span>
+                                <span class="itemIcon"><i class="fa fa-minus"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="d-flex align-items-center justify-content-center w-100">
+                            <button onclick="saveSelectSpecialty()" type="button" class="btn btn-success mx-1">Save</button>
+                            <button onclick="cancelSelectSpecialty()" type="button" class="btn btn-danger mx-1">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="tagModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Select Tag</h5>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"  aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <select onchange="changeTag()" id="tagSelect" class="selectpicker mb-2" data-actions-box="true" multiple data-width="100%" data-title="Select Specialty">
+                        </select>
+                        <div class="d-flex mb-2">
+                            <input id="customTag" type="text" placeholder="Custom Tag" class="form-control mx-1">    
+                            <button onclick="addTag()" type="button" class="btn btn-custom mx-1">Add</button>
+                        </div>
+                        <div class="selectedTagWrapper px-2 py-2 scrollBar-hidden">
+                            <div class="selectedItem">
+                                <span class="mr-2">Element</span>
+                                <span class="itemIcon"><i class="fa fa-minus"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="d-flex align-items-center justify-content-center w-100">
+                            <button onclick="saveSelectTag()" type="button" class="btn btn-success mx-1">Save</button>
+                            <button onclick="cancelSelectTag()" type="button" class="btn btn-danger mx-1">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</section>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+	<script src="assets/js/login.js"></script>
+    <script>
+
+        var apiKey = 'pk.eyJ1IjoibmltYTAyIiwiYSI6ImNscW56cW9wMTM2dDQyaXB3d3NtZjA4OXYifQ.GBdKgVN9q399O22V72_M1Q';
+        mapboxgl.accessToken = apiKey;
+
+        var location_long = -74.5;
+        var location_lat = 40;
+
+        var apiSpecs = [];
+        var apiTags = [];
+        
+        var selectedSpecialty = [];
+        var selectedTag = [];
+        var customSpecialty = [];
+        var customTag = [];
+        var uniqueSpecialty = [];
+        var uniqueTag = [];
+
+        var API_URL = 'http://localhost:3000/';
+
+        function openLocationModal() {
+            if($("#address").attr('readOnly') != true) {
+                $('#locationModal').modal();
+                var map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/mapbox/streets-v11', // map style
+                    center: [location_long, location_lat], // starting position [lng, lat]
+                    zoom: 5 // starting zoom
+                })
+                map.on('load', function() {
+                    var marker = new mapboxgl.Marker()
+                        .setLngLat(map.getCenter())
+                        .addTo(map);
+                    map.on('move', function() {
+                        marker.setLngLat(map.getCenter());
+                    });
+                    map.on('moveend', function() {
+                        var coordinates = marker.getLngLat();
+                        fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?access_token=${apiKey}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                var address = data.features[0].place_name;
+                                location_lat = coordinates.lat;
+                                location_long = coordinates.lng;
+                                console.log(location_lat, location_long);
+                                $("#address").val(address);
+                                $("#address-location").html(address);
+                                $("#sendLocationBtn").removeAttr('disabled');
+                            });
+                    });
+                });
+            }
+        }
+
+        function setImageLink(e) {
+            if($("#flexRadioDefault1").prop('checked') == true) {
+                $("#avatarURL").removeClass('d-none');
+                $("#avatarUpload").addClass('d-none');
+                $("#avatarUpload").val('');
+            } else {
+                $("#avatarURL").addClass('d-none');
+                $("#avatarURL").val('');
+                $("#avatarUpload").removeClass('d-none');
+            }
+        }
+
+        function setImageUpload(e) {
+            if($("#flexRadioDefault2").prop('checked') == true) {
+                $("#avatarURL").addClass('d-none');
+                $("#avatarURL").val('');
+                $("#avatarUpload").removeClass('d-none');
+            } else {
+                $("#avatarURL").removeClass('d-none');
+                $("#avatarUpload").addClass('d-none');
+                $("#avatarUpload").val('');
+            }
+        }
+
+        $("#registerForm").on('submit', async function (event) {
+            event.preventDefault();
+            const newSheetData = {
+                firstname: $("#firstName").val(),
+                lastname: $("#lastName").val(),
+                specialty: $("#speciality").val(),
+                imageURL: $("#avatarURL").val(),
+                uploaded: 0,
+                tags: $("#tags").val(),
+                meetingLink: $("#meetingLink").val(),
+                address: $("#address").val(),
+                city: $("#city").val(),
+                state: $("#state").val(),
+                zipcode: $("#zipcode").val(),
+                country: $("#country").val(),
+                email: $("#email").val(),
+                phone: $("#phone").val(),
+            };
+            if($("#avatarURL").hasClass('d-none')) {
+                var formData = new FormData();
+                formData.append('image', $('#avatarUpload')[0].files[0]);
+                await $.ajax({
+                    url: `${API_URL}media`, // Replace with your backend endpoint
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        fielName = response;
+                        newSheetData.imageURL = response;
+                        newSheetData.uploaded = 1;
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error uploading file: ' + error);
+                    }
+                });
+            }
+
+            sendDataToBackend(newSheetData);
+        })
+
+        async function sendDataToBackend(data) {
+            const response = await fetch(`${API_URL}new`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if(result == 'success') {
+                $("#registerSecondStep").addClass('d-none');
+                $("#registerThirdStep").removeClass('d-none');
+            } else if(result == 'duplicated') {
+                $("#registerSecondStep").addClass('d-none');
+                $("#registerThirdStep").removeClass('d-none');
+                $("#success-notice").addClass('d-none');
+                $("#duplicate-notice").removeClass('d-none');
+            }
+        }
+
+        async function getData() {
+            await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then(data => {
+                    apiSpecs = data.specs;
+                    apiTags = data.tags;
+
+                    var tmp = '';
+                    apiSpecs.forEach(element => {
+                        tmp += `<option value='${element}'>${element}</option>`;
+                    });
+                    $("#specialitySelect").html(tmp);
+                    $("#specialitySelect").selectpicker('refresh');
+
+                    tmp = '';
+                    apiTags.forEach(element => {
+                        tmp += `<option value='${element}'>${element}</option>`;
+                    });
+                    $("#tagSelect").html(tmp);
+                    $("#tagSelect").selectpicker('refresh');
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+
+        $(document).ready(function() {
+            getData();
+            fetch(`https://trial.mobiscroll.com/content/countries.json`)
+                .then(response => response.json())
+                .then(data => {
+                    var tmp = '';
+                    data.forEach(element => {
+                        if(element.value == 'US') {
+                            tmp += `<option value='${element.value}' selected>${element.text}</option>`;
+                        } else {
+                            tmp += `<option value='${element.value}'>${element.text}</option>`;
+                        }
+                    });
+                    $("#country").html(tmp);
+                });
+
+            $("#applyRegister").on('click', function () {
+                if($("#firstName").val() == '') {
+                    Toastify({
+                        text: "You should input the First Name",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    return;
+                }
+                if($("#lastName").val() == '') {
+                    Toastify({
+                        text: "You should input the Last Name",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    return;
+                }
+                if($("#email").val() == '') {
+                    Toastify({
+                        text: "You should input the email",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    return;
+                }
+                if($("#phone").val() == '') {
+                    Toastify({
+                        text: "You should input the Phone Number",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    return;
+                }
+                
+                $("#registerFirstStep").addClass('d-none');
+                $("#registerSecondStep").removeClass('d-none');
+            })
+            $('#specialitySelect').selectpicker('refresh');
+        });
+
+        function openSpecModal() {
+            writeSelectedSpecialty();
+            $("#specialityModal").modal();
+        }
+
+        function openTagModal() {
+            writeSelectedTag();
+            $("#tagModal").modal();
+        }
+
+        function writeSelectedSpecialty() {
+            var tmp = '';
+            var combinedArray = [];
+            selectedSpecialty.forEach(element => {
+                combinedArray.push(element);
+            });
+            customSpecialty.forEach(element => {
+                combinedArray.push(element);
+            });
+            combinedArray.forEach((element, index) => {
+                tmp += `<div class="selectedItem">
+                            <span class="mr-2">${element}</span>
+                            <span class="itemIcon" onclick="removeSpecItem('${element}')"><i class="fa fa-minus"></i></span>
+                        </div>`;
+            });
+            $(".selectedSpecWrapper").html(tmp);
+        }
+
+        function writeSelectedTag() {
+            var tmp = '';
+            var combinedArray = [];
+            selectedTag.forEach(element => {
+                combinedArray.push(element);
+            });
+            customTag.forEach(element => {
+                combinedArray.push(element);
+            });
+            combinedArray.forEach((element, index) => {
+                tmp += `<div class="selectedItem">
+                            <span class="mr-2">${element}</span>
+                            <span class="itemIcon" onclick="removeTagItem('${element}')"><i class="fa fa-minus"></i></span>
+                        </div>`;
+            });
+            $(".selectedTagWrapper").html(tmp);
+        }
+
+        function removeSpecItem(value) {
+            customSpecialty.forEach((element, index) => {
+                if(element == value) {
+                    customSpecialty.splice(index, 1);
+                }
+            });
+            selectedSpecialty.forEach((element, index) => {
+                if(element == value) {
+                    selectedSpecialty.splice(index, 1);
+                }
+            });
+            writeSelectedSpecialty();
+        }
+
+        function removeTagItem(value) {
+            customTag.forEach((element, index) => {
+                if(element == value) {
+                    customTag.splice(index, 1);
+                }
+            });
+            selectedTag.forEach((element, index) => {
+                if(element == value) {
+                    selectedTag.splice(index, 1);
+                }
+            });
+            writeSelectedTag();
+        }
+
+        function addSpecialty(e) {
+            var value = $("#customSpecialty").val();
+            if(value == '') {
+                Toastify({
+                    text: "You should input the Specialty",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                    stopOnFocus: true,
+                }).showToast();   
+                return;
+            } else {
+                if(selectedSpecialty.indexOf(value) > -1 || customSpecialty.indexOf(value) > -1) {
+                    Toastify({
+                        text: "Duplicated Specialty",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                        stopOnFocus: true,
+                    }).showToast();   
+                } else {
+                    customSpecialty.push(value);
+                    writeSelectedSpecialty();
+                    $("#customSpecialty").val('');
+                }
+            }
+        }
+
+        function addTag(e) {
+            var value = $("#customTag").val();
+            if(value == '') {
+                Toastify({
+                    text: "You should input the Tag",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                    stopOnFocus: true,
+                }).showToast();   
+                return;
+            } else {
+                if(selectedTag.indexOf(value) > -1 || customTag.indexOf(value) > -1) {
+                    Toastify({
+                        text: "Duplicated Tag",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                        stopOnFocus: true,
+                    }).showToast();   
+                } else {
+                    customTag.push(value);
+                    writeSelectedTag();
+                    $("#customTag").val('');
+                }
+            }
+        }
+
+        function changeSpecialty() {
+            selectedSpecialty = $("#specialitySelect").val();
+            writeSelectedSpecialty();
+        }
+
+        function changeTag() {
+            selectedTag = $("#tagSelect").val();
+            writeSelectedTag();
+        }
+        
+        function cancelSelectSpecialty() {
+            customSpecialty = [];
+            selectedSpecialty = [];
+            $("#customSpecialty").val('');
+            $("#specialitySelect").val([]);
+            $("#specialitySelect").selectpicker('refresh');
+            writeSelectedSpecialty();
+            $("#specialityModal").modal('hide');
+        }
+
+        function cancelSelectTag() {
+            customTag = [];
+            selectedTag = [];
+            $("#customTag").val('');
+            $("#tagSelect").val([]);
+            $("#tagSelect").selectpicker('refresh');
+            writeSelectedTag();
+            $("#tagModal").modal('hide');
+        }
+
+        function saveSelectSpecialty() {
+            var combinedArray = [];
+            selectedSpecialty.forEach(element => {
+                combinedArray.push(element);
+            });
+            customSpecialty.forEach(element => {
+                combinedArray.push(element);
+            });
+
+            uniqueSpecialty = $.unique(combinedArray);
+            $("#speciality").val(uniqueSpecialty.join(','));
+            $("#specialityModal").modal('hide');
+        }
+
+        function saveSelectTag() {
+            var combinedArray = [];
+            selectedTag.forEach(element => {
+                combinedArray.push(element);
+            });
+            customTag.forEach(element => {
+                combinedArray.push(element);
+            });
+
+            uniqueTag = $.unique(combinedArray);
+            $("#tags").val(uniqueTag.join(','));
+            $("#tagModal").modal('hide');
+        }
+
+        $('#specialityModal').on('hidden.bs.modal', function () {
+            saveSelectSpecialty();
+        });
+
+        $('#tagModal').on('hidden.bs.modal', function () {
+            saveSelectTag();
+        });
+
+    </script>
+</body>
+</html>

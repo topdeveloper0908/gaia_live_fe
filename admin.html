@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Sidebar 09</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+    <style>
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      .tag-wrapper .tag-item {
+        display: inline-block;
+        font-size: 0.6rem;
+        color: #67bc46;
+        padding: 0.3rem;
+        border: 1px solid;
+        margin-bottom: 0.2rem;
+        border-radius: 0.2rem;
+        line-height: .8rem;
+        margin-right: 0.2rem;
+      }
+      .star-wrapper {
+        color: #67bc46;
+      }
+      .table-striped tbody tr:nth-of-type(odd) {
+        background-color: white;
+      }
+      table.dataTable.table-striped>tbody>tr:nth-of-type(2n+1)>* {
+        box-shadow: none;
+      }
+      .dataTables_wrapper .dataTables_length select {
+        margin-left: .4rem;
+      }
+      .btn-success {
+        color: #fff;
+        background-color: #67bc46;
+        border-color: #67bc46;
+      }
+      .badge-success {
+        color: #fff;
+        background-color: #67bc46;
+      }
+      .badge {
+        padding: 0.3rem 0.5rem;
+        font-weight: 500;
+      }
+      .form-control {
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	        </button>
+        </div>
+	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+	  			<div class="user-logo mt-5">
+	  				<div class="img" style="background-image: url(https://biohackingcongress.com/storage/users/June2023/9Q67Ebbs5rPLWWmWGZET.png);"></div>
+	  				<h3>Administrator</h3>
+	  			</div>  
+	  		</div>
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-plus mr-3"></span> Add Practictioner</a>
+          </li>
+          <li>
+            <a onclick="signOut(event)" href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="my-4">Practictioner List</h2>
+          <input onchange="uploadedDB(event)" class="form-control d-none" type="file" id="dbUpload" accept=".xlsx, .xls, .csv">
+          <button id="dbInput" onclick="uploadDB()" class="btn btn-success d-block my-4" style="font-size: .8rem;">Upload Excel File</button>
+        </div>
+        <table id="dataTable" class="table table-striped" style="width:100%">
+            <thead>
+              <tr>
+                <th width="24%">Info</th>
+                <th width="18%">Specialty</th>
+                <th width="18%">Tags</th>
+                <th width="10%">Links</th>
+                <th width="7%">Rank</th>
+                <th width="8%">Review</th>
+                <th width="6%">Status</th>
+                <th width="10%">Action</th>
+              </tr>
+            </thead>
+            <tbody id="tableContent">
+            </tbody>
+            <tfoot>
+              <tr>
+                <th width="24%">Info</th>
+                <th width="18%">Specialty</th>
+                <th width="18%">Tags</th>
+                <th width="10%">Links</th>
+                <th width="7%">Rank</th>
+                <th width="8%">Review</th>
+                <th width="6%">Status</th>
+                <th width="10%">Action</th>
+              </tr>
+            </tfoot>
+        </table>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <form id="new_form">
+            <div class="modal-content scrollBar-hidden">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="addModalLabel">Edit Practictioner</h5>
+                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <!-- Modal content goes here -->
+                  <div class="row">
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="newFirstName" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="newLastName" placeholder="">
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Image URL</label>
+                        <input type="text" class="form-control" id="newImageURL" placeholder="">
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Speciality</label>
+                        <input type="text" class="form-control" id="newSpecialty" placeholder="">
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Tags</label>
+                        <input type="text" class="form-control" id="newTags" placeholder="">
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Meeting Link</label>
+                        <input type="text" class="form-control" id="newMeeting" placeholder="">
+                    </div>
+                    <div class="col-6">
+                      <div class="mb-2">
+                          <label for="exampleFormControlInput1" class="form-label">Address</label>
+                          <input type="text" class="form-control" id="newAddress" placeholder="">
+                      </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">City</label>
+                            <input type="text" class="form-control" id="newCity" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Zip Code</label>
+                            <input type="text" class="form-control" id="newZipcode" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">State</label>
+                            <input type="text" class="form-control" id="newState" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleFormControlInput1" class="form-label">Country</label>
+                        <input type="text" class="form-control" id="newCountry" placeholder="">
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="newEmail" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="newPhone" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="mb-2">
+                          <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                          <select id="newStatus" class="form-select" aria-label="Default select example">
+                            <option value="active">Active</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Rank</label>
+                            <select id="newRank" class="form-select" aria-label="Default select example">
+                                <option value="" disabled selected>Select Rank</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Review</label>
+                            <select id="newReviewStar" class="form-select" aria-label="Default select example">
+                                <option value="" disabled selected>Select Review</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeModalLabel">Are you sure to remove this Practictioner?</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <button type="button" onclick="removePractitioner()" class="btn btn-primary ml-auto">Delete</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          <div>
+        </div>
+      </div>
+		</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery/jquery.cookie.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+      var API_URL = 'http://localhost:3000/';
+      var mainData;
+      var selected;
+
+      async function getData() {
+        var token = $.cookie('token');
+        if(token == undefined || token == null) {
+          window.location.href="login.html";
+        } else{
+            await $.ajax({
+              url: `${API_URL}all`, // Replace with your backend endpoint
+              type: 'GET',
+              headers: {
+                  'Authorization': token
+              },
+              success: function(response) {
+                mainData = response;
+                writeTable();
+              },
+              error: function(xhr, status, error) {
+                console.log('Error : ' + error);
+                window.location.href = 'login.html'
+              }
+            });
+          // await fetch(`${API_URL}all`) // Replace with the actual backend URL
+          //     .then(response => {
+          //         if (!response.ok) {
+          //             throw new Error('Network response was not ok');
+          //         }
+          //         return response.json(); // Assuming the response is in JSON format
+          //     })
+          //     .then(data => {
+          //       console.log(data);
+          //         mainData = data;
+          //         writeTable();
+          //     })
+          //     .catch(error => {
+          //         console.error('There was a problem with the fetch operation:', error);
+          //     });
+          }
+        }
+      new DataTable('#example', {
+          select: true
+      });
+
+      getData();
+
+      function writeTable() {
+        $('#dataTable').DataTable().destroy();
+        var tmp = '';
+        mainData.forEach((element) => {
+          console.log(element);
+          tmp += `<tr>`;
+          tmp += `<td>
+                    <div class="d-flex">`
+                      if(element.upload == 0) {
+                          tmp += `<img src="${element.imageURL}" width="80" height="80" style="border-radius: .3rem;">`;
+                      } else {
+                          tmp += `<img src="${API_URL}src/${element.imageURL}" width="80" height="80" style="border-radius: .3rem;">`;
+                      }
+                      tmp +=`
+                      <div class="ml-2">
+                        <span class="mb-1 d-block font-weight-bold">${element.firstname} ${element.lastname}</span>
+                        <span class="d-block" style="margin-bottom: .4rem; line-height: .9rem;">${element.address} ${element.city} ${element.state} ${element.zipcode} ${element.country}</span>
+                        <span>${element.phone}</span>
+                        <span>${element.email}</span>
+                      </div>
+                    </div>
+                  </td>`;
+          tmp += `<td>
+                    <div class="tag-wrapper">`;
+                      element.specialty.split(',').forEach(subElement => {
+                        tmp += `<span class="tag-item">${subElement}</span>`;
+                      });
+                    tmp += `</div>
+                  </td>`;
+          tmp += `<td>
+                    <div class="tag-wrapper">`;
+                      element.tags.split(',').forEach(subElement => {
+                        tmp += `<span class="tag-item">${subElement}</span>`;
+                      });
+                    tmp += `</div>
+                  </td>`;
+          tmp += `<td>
+                    <div>
+                      <a href="profile1.html?user_id=${element.id}" target="_blank" class="btn btn-success d-block mb-1" style="font-size: .8rem;">Link to Profile</a>
+                      <a href="${element.meetinglink}" class="btn btn-success d-block mb-1" style="font-size: .8rem;">Link to Meeting</a>
+                    </div>
+                  </td>`;
+          tmp += `<td>
+                    <div class="star-wrapper">`;
+                      for (let index = 0; index < element.rank; index++) {
+                        tmp += `<span class="fa fa-star checked"></span>`;
+                      }
+                    tmp += `</div>
+                  </td>`;
+          tmp += `<td>
+                    <div class="star-wrapper">`;
+                      for (let index = 0; index < element.review; index++) {
+                        tmp += `<span class="fa fa-star checked"></span>`;
+                      }
+                    tmp += `</div>
+                  </td>`;
+          if(element.status == 'active') {
+            tmp += `<td>
+                      <span class="badge badge-pill badge-success">Active</span>
+                    </td>`;
+          } else {
+            tmp += `<td>
+                      <span class="badge badge-pill badge-danger">Pending</span>
+                    </td>`;
+          }
+          tmp += `<td>
+                  <div class="d-flex">
+                    <button onclick="openEditModal(${element.id})" type="button" class="btn btn-success mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+                      </svg>
+                    </button>
+                    <button onclick="openDeleteModal(${element.id})" type="button" class="btn btn-danger">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </td>`;
+          tmp += `</tr>`;
+        });
+        $("#tableContent").html(tmp);
+        $('#dataTable').dataTable();
+      }
+      function openEditModal(index) {
+        selected = index;
+        $("#editModal").modal();
+        mainData.forEach(element => {
+          if(element.id == index) {
+            $("#newFirstName").val(element.firstname);
+            $("#newLastName").val(element.lastname);
+            $("#newImageURL").val(element.imageURL);
+            $("#newSpecialty").val(element.specialty);
+            $("#newTags").val(element.tags);
+            $("#newMeeting").val(element.meetinglink);
+            $("#newAddress").val(element.address);
+            $("#newCity").val(element.city);
+            $("#newZipcode").val(element.zipcode);
+            $("#newState").val(element.state);
+            $("#newEmail").val(element.email);
+            $("#newPhone").val(element.phone);
+            $("#newRank").val(element.rank);
+            $("#newReviewStar").val(element.review);
+            $("#newCountry").val(element.country);
+            $("#newStatus").val(element.status);
+          }
+        });
+      }
+
+      $("#new_form").on('submit', function(e) {
+        e.preventDefault();
+        var formData = {
+          id: selected,
+          firstname: $("#newFirstName").val(),
+          lastname: $("#newLastName").val(),
+          specialty: $("#newSpecialty").val(),
+          imageURL: $("#newImageURL").val(),
+          tags: $("#newTags").val(),
+          meetingLink: $("#newMeeting").val(),
+          address: $("#newAddress").val(),
+          city: $("#newCity").val(),
+          state: $("#newState").val(),
+          zipcode: $("#newZipcode").val(),
+          country: $("#newCountry").val(),
+          email: $("#newEmail").val(),
+          phone: $("#newPhone").val(),
+          rank: $("#newRank").val(),
+          review: $("#newReviewStar").val(),
+          status: $("#newStatus").val()
+        };
+        updateData(formData)
+      })
+      async function updateData(formData) {
+        const response = await fetch(`${API_URL}update`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        if(result == 'success') {
+          mainData.forEach((element, index) => {
+            if(element.id == selected) {
+              mainData[index].firstname = formData.firstname ;
+              mainData[index].lastname = formData.lastname ;
+              mainData[index].specialty = formData.specialty ;
+              mainData[index].imageURL = formData.imageURL ;
+              mainData[index].tags = formData.tags;
+              mainData[index].meetingLink = formData.meetingLink;
+              mainData[index].address = formData.address;
+              mainData[index].city = formData.city;
+              mainData[index].state = formData.state;
+              mainData[index].zipcode = formData.zipcode;
+              mainData[index].country = formData.country;
+              mainData[index].email = formData.email;
+              mainData[index].phone = formData.phone;
+              mainData[index].rank = formData.rank ;
+              mainData[index].review = formData.review;
+              mainData[index].status = formData.status;
+              writeTable();
+              $("#editModal").modal('hide');
+            }
+          });
+        }
+      }
+      function uploadDB() {
+        $('#dbUpload').click();
+      }
+
+      function openDeleteModal(index) {
+        selected = index;
+        $("#removeModal").modal();
+      }
+      function signOut(e) {
+        e.preventDefault();
+        $.removeCookie('token');
+        window.location.href="login.html";
+      }
+      async function removePractitioner() {
+        var formData = {
+          id: selected
+        };
+        const response = await fetch(`${API_URL}remove`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        if(result == 'success') {
+          mainData.forEach((element, index) => {
+            if(element.id == selected) {
+              mainData.splice(index, 1);
+              writeTable();
+              $("#editModal").modal('hide');
+            }
+          });
+        }
+      }
+
+      function uploadedDB(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        var excelCheck = true;
+        var excelTemplate = [
+          "First Name",
+          "Last Name",
+          "Email",
+          "Phone",
+          "Address",
+          "City",
+          "State",
+          "Zipcode",
+          "Country",
+          "ImageURL",
+          "Specialty",
+          "Tags",
+          "MeetingLink"
+        ];
+        reader.onload = async function(e) {
+          var data = new Uint8Array(e.target.result);
+          var workbook = XLSX.read(data, {type: 'array'});
+          var sheetName = workbook.SheetNames[0];
+          var sheet = workbook.Sheets[sheetName];
+          var jsonData = XLSX.utils.sheet_to_json(sheet, {header: 1});
+          console.log(jsonData[0]);
+          excelTemplate.forEach((element, index) => {
+            if(element != jsonData[0][index]) {
+              excelCheck = false;
+            }
+          });
+          if(excelCheck == false) {
+            Toastify({
+                text: "Excel template is not correct",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                stopOnFocus: true,
+            }).showToast();
+            return;
+          } else {
+            var objectData = jsonData.map(row => {
+            var obj = {};
+            jsonData[0].forEach((key, i) => obj[key] = row[i]);
+              return obj;
+            });
+
+            const response = await fetch(`${API_URL}updateDB`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(objectData)
+            });
+            const result = await response.json();
+            if(result == 'success') {
+              getData();
+            }
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    </script>
+  </body>
+</html>
