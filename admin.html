@@ -288,7 +288,7 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-      var API_URL = 'https://d2rdakfrcmzou9.cloudfront.net/api/';
+      var API_URL = 'https://d32oo4yrlotqei.cloudfront.net/api/';
       var mainData;
       var selected;
 
@@ -588,6 +588,9 @@
             jsonData[0].forEach((key, i) => obj[key] = row[i]);
               return obj;
             });
+
+            console.log(jsonData)
+            return
 
             const response = await fetch(`${API_URL}updateDB`, {
                 method: 'POST',
