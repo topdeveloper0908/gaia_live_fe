@@ -339,7 +339,6 @@
         $('#dataTable').DataTable().destroy();
         var tmp = '';
         mainData.forEach((element) => {
-          console.log(element);
           tmp += `<tr>`;
           tmp += `<td>
                     <div class="d-flex">`
@@ -566,7 +565,6 @@
           var sheetName = workbook.SheetNames[0];
           var sheet = workbook.Sheets[sheetName];
           var jsonData = XLSX.utils.sheet_to_json(sheet, {header: 1});
-          console.log(jsonData[0]);
           excelTemplate.forEach((element, index) => {
             if(element != jsonData[0][index]) {
               excelCheck = false;
@@ -588,9 +586,6 @@
             jsonData[0].forEach((key, i) => obj[key] = row[i]);
               return obj;
             });
-
-            console.log(jsonData)
-            return
 
             const response = await fetch(`${API_URL}updateDB`, {
                 method: 'POST',

@@ -127,7 +127,6 @@
           processData: false,
           contentType: false,
           success: function (response) {
-            console.log(response);
             $.cookie("token", response.token);
             window.location.href = "admin.html";
           },
