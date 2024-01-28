@@ -216,6 +216,22 @@
                         </h1>
                         <div class="row g-3 mb-2">
                           <div
+                            class="col-12 d-flex align-items-center justify-content-center"
+                          >
+                            <select
+                              name="sex"
+                              placeholder="Sex"
+                              class="form-select"
+                              id="sex"
+                            >
+                              <option selected>Male</option>
+                              <option>Female</option>
+                              <option>Other</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="row g-3 mb-2">
+                          <div
                             class="d-flex align-items-center justify-content-center"
                           >
                             <input
@@ -720,6 +736,7 @@
           country: $("#country").val(),
           email: $("#email").val(),
           phone: $("#phone").val(),
+          sex: $("#sex").val(),
         };
         if ($("#avatarURL").hasClass("d-none")) {
           var formData = new FormData();
