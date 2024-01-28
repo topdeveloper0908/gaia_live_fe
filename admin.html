@@ -146,10 +146,23 @@
                             <input type="text" class="form-control" id="newLastName" placeholder="">
                         </div>
                     </div>
-                    <div class="mb-2">
+                    <div class="col-6">
+                      <div class="mb-2">
                         <label for="exampleFormControlInput1" class="form-label">Image URL</label>
                         <input type="text" class="form-control" id="newImageURL" placeholder="">
                     </div>
+                    </div>
+                      <div class="col-6">
+                        <div class="mb-2">
+                          <label for="exampleFormControlInput1" class="form-label">Sex</label>
+                          <select id="newSex" class="form-select" aria-label="Default select example">
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                      </div>
                     <div class="mb-2">
                         <label for="exampleFormControlInput1" class="form-label">Speciality</label>
                         <input type="text" class="form-control" id="newSpecialty" placeholder="">
@@ -429,6 +442,7 @@
             $("#newReviewStar").val(element.review);
             $("#newCountry").val(element.country);
             $("#newStatus").val(element.status);
+            $("#newSex").val(element.sex)
           }
         });
       }
@@ -452,7 +466,8 @@
           phone: $("#newPhone").val(),
           rank: $("#newRank").val(),
           review: $("#newReviewStar").val(),
-          status: $("#newStatus").val()
+          status: $("#newStatus").val(),
+          sex: $("#newSex").val()
         };
         updateData(formData)
       })
