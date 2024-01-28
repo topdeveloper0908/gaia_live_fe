@@ -15,6 +15,7 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    
     <style>
         html{
           height:100%;
@@ -475,11 +476,13 @@
         </div>
         <!-- <div class="bg-block"></div> -->
     </div>
+    <script src="assets/js/countries.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
 
     <script>
+
         var mainData = [];
         var file;
         var markers = [];
@@ -562,7 +565,7 @@
             sorter();
             
             var tmp = `<h4 class="my-2 mx-2">${filterResult.length} services found</h4>`;
-            filterResult.forEach((element, index) => {
+            filterResult.forEach(async (element, index) => {
                 var specs = mainData[element].specialty.split(",");
                 var subTags = mainData[element].tags.split(",");
                 tmp += `
@@ -618,12 +621,21 @@
                 // const apiKey = 'YOUR_API_KEY';
                 var zipcode = mainData[element].zipcode; // Replace with the actual zipcode
 
+
+                var country = mainData[element].country;
+                // use short code for the country, such as 'us' for 'United States'
+                // there are countries in form of {"code": "full name"} in countries.js
+                Object.entries(countries).forEach(([key, value]) => {
+                    if(value == country) {
+                        country = key;
+                    }
+                });
                 // Construct the Mapbox Geocoding API URL
-                var geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zipcode}.json?country=${mainData[element].country}&access_token=${apiKey}`;
+                var geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zipcode}.json?country=${country}&access_token=${apiKey}`;
 
                 markers = [];
                 // Make a GET request to the Mapbox Geocoding API
-                fetch(geocodingUrl)
+                await fetch(geocodingUrl)
                     .then(response => response.json())
                     .then(data => {
                         // Extract latitude and longitude from the response
@@ -739,7 +751,7 @@
             $("#newRank").val('');
             $("#newReviewStar").val('');
         }
-        
+         
         async function getData() {
             await fetch(`${API_URL}data`) // Replace with the actual backend URL
                 .then(response => {
@@ -748,7 +760,7 @@
                     }
                     return response.json(); // Assuming the response is in JSON format
                 })
-                .then(data => {
+                .then(async data => {
                     mainData = data;
                     mainData.forEach(element => {
                         var specialtyArr = element.specialty.split(",");     
