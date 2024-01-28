@@ -343,9 +343,21 @@
           tmp += `<td>
                     <div class="d-flex">`
                       if(element.upload == 0) {
-                          tmp += `<img src="${element.imageURL}" width="80" height="80" style="border-radius: .3rem;">`;
-                      } else {
-                          tmp += `<img src="${API_URL}src/${element.imageURL}" width="80" height="80" style="border-radius: .3rem;">`;
+                          if (!element.imageURL || element.imageURL == ""){
+                              if(element.sex == "Male"){
+                                  tmp += ` <img src="https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34a0dbca137ef4f425e.png" width="250" height="250" style="border-radius: .3rem;">`;
+                              
+                              }
+                              else{
+                                  tmp += ` <img src="https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34ab7ea181193716085.png" width="250" height="250" style="border-radius: .3rem;">`;
+                              }
+                          }
+                          else{
+                              tmp += ` <img src="${element.imageURL}" width="250" height="250" style="border-radius: .3rem;">`;
+                          }
+                      } 
+                      else {
+                          tmp += ` <img src="${API_URL}src/${element.imageURL}" width="250" height="250" style="border-radius: .3rem;">`;
                       }
                       tmp +=`
                       <div class="ml-2">

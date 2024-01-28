@@ -573,18 +573,18 @@
                         <div class="d-flex flex-sm-row flex-column">
                             <div class='badge-wrapper'>`
                                 if(mainData[element].upload == 0) {
-                                if (!mainData[element].imageURL || mainData[element].imageURL == ""){
-                                    if(mainData[element].sex == "Male"){
-                                        tmp += ` <img src="https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34a0dbca137ef4f425e.png" width="250" height="250" style="border-radius: .3rem;">`;
-                                    
+                                    if (!mainData[element].imageURL || mainData[element].imageURL == ""){
+                                        if(mainData[element].sex == "Male"){
+                                            tmp += ` <img src="https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34a0dbca137ef4f425e.png" width="250" height="250" style="border-radius: .3rem;">`;
+                                        
+                                        }
+                                        else{
+                                            tmp += ` <img src="https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34ab7ea181193716085.png" width="250" height="250" style="border-radius: .3rem;">`;
+                                        }
                                     }
                                     else{
-                                        tmp += ` <img src="https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34ab7ea181193716085.png" width="250" height="250" style="border-radius: .3rem;">`;
+                                        tmp += ` <img src="${mainData[element].imageURL}" width="250" height="250" style="border-radius: .3rem;">`;
                                     }
-                                }
-                                else{
-                                    tmp += ` <img src="${mainData[element].imageURL}" width="250" height="250" style="border-radius: .3rem;">`;
-                                }
                                 } 
                                 else {
                                     tmp += ` <img src="${API_URL}src/${mainData[element].imageURL}" width="250" height="250" style="border-radius: .3rem;">`;
