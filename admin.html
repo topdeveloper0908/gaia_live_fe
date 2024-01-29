@@ -340,6 +340,7 @@
       getData();
 
       function writeTable() {
+        sorter();
         $('#dataTable').DataTable().destroy();
         var tmp = '';
         mainData.forEach((element) => {
@@ -554,6 +555,12 @@
             }
           });
         }
+      }
+
+      function sorter() {
+        mainData.sort(function(a, b) {
+          return  b.rank - a.rank;
+        });
       }
 
       function uploadedDB(e) {
