@@ -555,7 +555,7 @@
                         });
                     }
 
-                    if($("#rangeSelect").val() != '') {
+                    if($("#rangeSelect").val() != '' && $("#filterZipcode").val().length == 5) {
                         changeRangeSelect();
                     }
                 }
@@ -927,7 +927,7 @@
                     console.error("Error fetching data from Mapbox Geocoding API:", error);
                 });
         }
-        async function changeRangeSelect() {
+        async function changeRangeSelect(noWrite) {
             var value = $("#rangeSelect").val();
             value = Number(value);
             var zipcode = $("#filterZipcode").val();
@@ -957,8 +957,6 @@
                                 }
                             }
                         }));
-                        console.log({final: filterResult});
-                        writeData();
                     } else {
                         // The zip code is invalid or no results were found
                         console.log("Invalid or not found zip code");
@@ -977,6 +975,10 @@
                     // Handle any errors in the request
                     console.error('Error querying Mapbox Geocoding API:', error);
                 })
+                console.log({final: filterResult});
+                if(!noWrite) {
+                    writeData();
+                }
         }
 
         async function getDistance(zipCode1, zipCode2) {
