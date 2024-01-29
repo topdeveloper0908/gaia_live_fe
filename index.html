@@ -131,10 +131,10 @@
             border: 1px solid #eee;
             border-right-width: 0;
             border-left-width: 0;
+            padding: 15px;
         }
         .active-profile {
             background-color: #04aa6d19;
-            padding: 15px;
             /* border-radius: 20px; */
         }
         .profile-wrapper .tag-item {
@@ -674,6 +674,13 @@
                             var marker = new mapboxgl.Marker()
                                 .setLngLat([longitude, latitude])
                                 .addTo(map);
+                            // add click event to the marker
+                            marker.getElement().addEventListener('click', function() {
+                                moveMap(mainData[element].id);
+                                $(".profile-wrapper").removeClass('active-profile');
+                                $("#profile-" + mainData[element].id).addClass('active-profile');
+                                window.scrollTo(0, $("#profile-" + mainData[element].id).offset().top - 100);
+                            });
                             markers.push(marker);
                             if(index == 0 && !init) {
                                 map.flyTo({
