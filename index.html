@@ -291,7 +291,7 @@
                                 </div>
                             </li>
                             <li class="nav-item mx-1 my-1">
-                                <select onchange="changeRangeSelect()" id="rangeSelect" class="form-select form-select-sm" aria-label="Small select example">
+                                <select oninput="changeRangeSelect()" id="rangeSelect" class="form-select form-select-sm" aria-label="Small select example">
                                     <option value="0">0</option>
                                     <option value="5">5</option>
                                     <option value="10">10</option>
@@ -929,6 +929,7 @@
         }
         async function changeRangeSelect() {
             var value = $("#rangeSelect").val();
+            value = Number(value);
             var zipcode = $("#filterZipcode").val();
 
             // filterResult = [];
@@ -936,19 +937,28 @@
             // Check if the zipcode is correct
             await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + zipcode + '.json?access_token=' + apiKey)
                 .then(response => response.json())
-                .then(data => {
+                .then(async data => {
                     // Check the response to determine if the zip code is valid and obtain location details
                     if (data.features.length > 0) {
                         // The zip code is valid, you can access the location information
                         var locationDetails = data.features[0];
-                        mainData.forEach(async (element, index) => {
+
+                        await Promise.all(mainData.map(async (element, index) => {
                             var dis = await getDistance(zipcode, element.zipcode);
-                            if(dis < $("#rangeSelect").val()) {
+                            if(dis <= value) {
+                                console.log({dis, firstname: element.firstname,value, filterResult, index})
                                 if(filterResult.indexOf(index) == -1) {
-                                    filterResult.push(index);
+                                    filterResult = [...filterResult, index];
                                 }
                             }
-                        });
+                            else {
+                                if(filterResult.indexOf(index) > -1) {
+                                    filterResult.splice(filterResult.indexOf(index), 1);
+                                }
+                            }
+                        }));
+                        console.log({final: filterResult});
+                        writeData();
                     } else {
                         // The zip code is invalid or no results were found
                         console.log("Invalid or not found zip code");
@@ -966,8 +976,7 @@
                 .catch(error => {
                     // Handle any errors in the request
                     console.error('Error querying Mapbox Geocoding API:', error);
-                });
-            writeData();
+                })
         }
 
         async function getDistance(zipCode1, zipCode2) {
@@ -983,7 +992,6 @@
                             var coordinates2 = data2.features[0].center;  // Latitude and longitude for zip code 2
                             // Calculate distance using the obtained coordinates (Haversine formula or other methods)
                             tmp = calculateDistance(coordinates1, coordinates2);
-                            console.log('aaa', tmp);
                         })
                         .catch(error => {
                             console.error('Error obtaining coordinates for zip code 2:', error);
