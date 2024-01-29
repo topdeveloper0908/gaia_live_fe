@@ -56,6 +56,10 @@
       .form-control {
         border: 1px solid #ccc;
       }
+      .profile-img img {
+        width: 7rem;
+        height: 7rem;
+      }
     </style>
   </head>
   <body>
@@ -341,7 +345,7 @@
         mainData.forEach((element) => {
           tmp += `<tr>`;
           tmp += `<td>
-                    <div class="d-flex">`
+                    <div class="d-flex profile-img">`
                       if(element.upload == 0) {
                           if (!element.imageURL || element.imageURL == ""){
                               if(element.sex == "Male"){
