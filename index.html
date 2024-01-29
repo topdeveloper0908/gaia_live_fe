@@ -494,6 +494,7 @@
         var filterSpecialty = [];
         var filterTag = [];
         var filterResult = [];
+        var init = true;
 
         var API_URL = 'https://d32oo4yrlotqei.cloudfront.net/api/'
 
@@ -504,7 +505,7 @@
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11', // map style
             center: [-74.5, 40], // starting position [lng, lat]
-            zoom: 5 // starting zoom
+            zoom: 0 // starting zoom
         })
 
         function handleFileSelect(event) {
@@ -669,7 +670,7 @@
                                 .setLngLat([longitude, latitude])
                                 .addTo(map);
                             markers.push(marker);
-                            if(index == 0) {
+                            if(index == 0 && !init) {
                                 map.flyTo({
                                     center: [longitude, latitude],
                                     zoom: 5, // Set the zoom level for the fly animation
