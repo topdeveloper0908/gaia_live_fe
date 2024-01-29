@@ -132,6 +132,10 @@
             border-right-width: 0;
             border-left-width: 0;
         }
+        .active-profile {
+            background-color: #04aa6d19;
+            /* border-radius: 20px; */
+        }
         .profile-wrapper .tag-item {
             font-size: .6rem;
             padding: 0.1rem 0.3rem;
@@ -580,7 +584,7 @@
                 var specs = mainData[element].specialty.split(",");
                 var subTags = mainData[element].tags.split(",");
                 tmp += `
-                <div class="profile-wrapper">
+                <div class="profile-wrapper" id="profile-${mainData[element].id}">
                     <div class="d-flex flex-sm-row flex-column">
                         <div class='badge-wrapper' onclick="moveMap(${mainData[element].id})">`
                             if(mainData[element].upload == 0) {
@@ -881,6 +885,9 @@
         }
 
         async function moveMap(value) {
+            // add active-profile class to div with profile-value
+            $(".profile-wrapper").removeClass('active-profile');
+            $("#profile-" + value).addClass('active-profile');
             var tmp;
             mainData.forEach(element => {
                 if(element.id == value) {
