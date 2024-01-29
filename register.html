@@ -78,6 +78,11 @@
         margin-left: 0.3rem;
         cursor: pointer;
       }
+      @media (min-width: 425px) {
+        .register-wrapper {
+          height: 100vh
+        }
+      }
     </style>
   </head>
   <body>
@@ -126,11 +131,11 @@
             </div>
           </div>
           <div
-            class="col-md-6 d-flex align-items-center justify-content-center"
-            style="background-color: #f3f8f6; height: 100vh"
+            class="col-md-6 d-flex align-items-center justify-content-center register-wrapper"
+            style="background-color: #f3f8f6"
           >
             <div
-              class="d-flex flex-column align-items-center justify-content-center mt-5 pt-5"
+              class="d-flex flex-column align-items-center justify-content-center mt-2 mt-sm-5 pt-5"
             >
               <div class="card shadow-lg">
                 <form id="registerForm" enctype="multipart/form-data">
@@ -226,7 +231,6 @@
                             >
                               <option selected class="Male">Male</option>
                               <option value="Female">Female</option>
-                              <option value="Other">Other</option>
                             </select>
                           </div>
                         </div>
@@ -395,11 +399,10 @@
                             <input
                               id="meetingLink"
                               type="text"
-                              placeholder="Meeting Link*"
+                              placeholder="Meeting Link"
                               class="form-control"
                               name="meetingLink"
                               value=""
-                              required
                             />
                           </div>
                         </div>
@@ -444,7 +447,7 @@
                   </div>
                 </form>
               </div>
-              <div class="text-center mt-4 text-muted">
+              <div class="text-center mt-4 mb-sm-0 mb-5 text-muted">
                 Copyright &copy; 2024 &mdash; Gaia Healers
               </div>
             </div>

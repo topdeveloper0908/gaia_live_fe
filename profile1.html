@@ -62,7 +62,6 @@
             border-radius: 0.2rem;
             margin: 0.15rem 0;
             color: #67bc46;
-            white-space: nowrap;
         }
         footer a {
             text-decoration: none;
@@ -75,18 +74,32 @@
         .badge-wrapper {
             cursor: pointer;
         }
+        @media (max-width: 425px) {
+            .header-title {
+                font-size: 37px;
+            }
+            .btn-custom {
+                font-size: 28px;
+            }
+            footer a {
+                font-size: .7rem;
+            }
+            #registerForm .col-3 {
+                font-size: .8rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-	    <section class="header">
+	    <section class="header d-flex justify-content-center justify-content-sm-left">
             <img class="my-3" src="./assets/image/logo-1.png" width="140" height="50">
         </section>
         <section class="intro-section">
             <h1 class="text-center header-title my-3">Check Your Chakra Balance!</h1>
             <h2 class="text-center section-subtitle text-custom-primary font-weight-bold mb-5">You Will Receive a 24-Page Report On Your Energy Wellness and Get A Custom Meditation Music File...</h2>
-            <div class="row g-5">
-                <div class="col-6">
+            <div class="row g-2 g-sm-5">
+                <div class="col-sm-6">
                     <img class="w-100 mb-4" src="./assets/image/bio-well-gdv-scan.jpg">
                     <img class="w-100 mb-2" src="./assets/image/chakra-t.png">
                     <h6 class="text-center mt-3 mb-4">Influence of meditating with the custom meditation music file.</h6>
@@ -94,7 +107,7 @@
                         <img class="w-100 mb-2" style="max-width: 13rem;" src="./assets/image/bio-well-guarantee.png">
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-sm-6">
                     <video class="w-100" height="320" controls>
                         <source src="https://youtu.be/8iMke5TGwIA" type="video/mp4">
                         Your browser does not support the video tag.
@@ -131,15 +144,15 @@
         <seciton class="soundlike-section">
             <h2 data-aos="fade-up" class="header-title text-center text-custom-primary my-5 pt-5">DOES THIS SOUND LIKE YOU?</h2>
             <div class="row">
-                <div class="col-6">
-                    <h3 data-aos="fade-up" class="mb-5 pb-5">"I have been attending many workshops and seminars but don't know how they have influenced my energy."</h3>
-                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"I feel a bit of discomfort but can't really put my finger on what is bothering me."</h3>
-                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"It would be great if I could visually see how my jewelry is influencing my energy."</h3>
+                <div class="col-sm-6">
+                    <h3 data-aos="fade-up" class="mb-sm-5 text-sm-left text-center pb-sm-5">"I have been attending many workshops and seminars but don't know how they have influenced my energy."</h3>
+                    <h3 data-aos="fade-up" class="mb-sm-5 text-sm-left text-center pt-5 pb-sm-5">"I feel a bit of discomfort but can't really put my finger on what is bothering me."</h3>
+                    <h3 data-aos="fade-up" class="mb-sm-5 text-sm-left text-center pt-5 pb-sm-5">"It would be great if I could visually see how my jewelry is influencing my energy."</h3>
                 </div>
-                <div class="col-6">
-                    <h3 data-aos="fade-up" class="mb-5 mt-5 pt-5 pb-5">"I have been working on aligning my energy centers but don't have a scientific way to see the alignment."</h3>
-                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"I would like to see how COVID has influenced the energy of my respiratory system."</h3>
-                    <h3 data-aos="fade-up" class="mb-5 pt-5 pb-5">"I feel exhausted physically & mentally but don't know how to balance my energy or where to focus."</h3>
+                <div class="col-sm-6">
+                    <h3 data-aos="fade-up" class="mb-sm-5 text-sm-left text-center mt-sm-5 pt-5 pb-sm-5">"I have been working on aligning my energy centers but don't have a scientific way to see the alignment."</h3>
+                    <h3 data-aos="fade-up" class="mb-sm-5 text-sm-left text-center pt-5 pb-sm-5">"I would like to see how COVID has influenced the energy of my respiratory system."</h3>
+                    <h3 data-aos="fade-up" class="mb-sm-5 text-sm-left text-center pt-5 pb-sm-5">"I feel exhausted physically & mentally but don't know how to balance my energy or where to focus."</h3>
                 </div>
             </div>
         </seciton>
@@ -173,70 +186,70 @@
         </section>
         <section class="reservation-section">
             <h2 data-aos="fade-up" class="text-center mt-5 mb-5 pt-2">This is What You Get With Your Reservation:</h2>
-            <div class="row g-5">
-                <div class="col-6">
-                    <div class="mb-5 pb-5">
+            <div class="row g-3 g-sm-5">
+                <div class="col-sm-6">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-clock" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Express Energy Assessment</h3>
+                            <h3 class="mb-0 text-sm-left text-center">Express Energy Assessment</h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">We will scan your energy and generate a 22-page wellness report about the flow of energy in your vital body. </h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">We will scan your energy and generate a 22-page wellness report about the flow of energy in your vital body. </h4>
                     </div>
-                    <div class="mb-5 pb-5">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-music" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Custom Solfeggio Music</h3>
+                            <h3 class="mb-0 text-sm-left text-center">Custom Solfeggio Music</h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">We will email you a custom solfeggio music files created based on your chakra alignment. You can use that file during your meditations. You can also charge your water with it.</h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">We will email you a custom solfeggio music files created based on your chakra alignment. You can use that file during your meditations. You can also charge your water with it.</h4>
                     </div>
-                    <div class="mb-5 pb-5">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-user" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Emotional & Physiological Analysis</h3>
+                            <h3 class="mb-0 text-sm-left text-center">Emotional & Physiological Analysis</h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">You will be able to see what emotions are influencing you negatively so you can start working on your emotional wellness to improve your physical wellness.</h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">You will be able to see what emotions are influencing you negatively so you can start working on your emotional wellness to improve your physical wellness.</h4>
                     </div>
-                    <div class="mb-5 pb-5">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-adjust" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Chakra Reports</h3>
+                            <h3 class="mb-0 text-sm-left text-center">Chakra Reports</h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">Learn how to make sense of chakra movements and how to bring them in balance. Express assessment of chakras in a scientific way. </h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">Learn how to make sense of chakra movements and how to bring them in balance. Express assessment of chakras in a scientific way. </h4>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="mb-5 pb-5">
+                <div class="col-sm-6">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-laptop" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Before & After Analysis</h3>
+                            <h3 class="mb-0 text-sm-left text-center">Before & After Analysis</h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">You have the option of doing a scan before the conference start and after to see how the session influenced your energy body.  </h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">You have the option of doing a scan before the conference start and after to see how the session influenced your energy body.  </h4>
                     </div>
-                    <div class="mb-5 pb-5">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-spa" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Energy & Wellness Analysis</h3>
+                            <h3 class="mb-0 text-sm-left text-center">Energy & Wellness Analysis</h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">We will email you the report so you can keep it for your future reference! </br>There are many explanations about the energetic body included in the report.</h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">We will email you the report so you can keep it for your future reference! </br>There are many explanations about the energetic body included in the report.</h4>
                     </div>
-                    <div class="mb-5 pb-5">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-balance-scale" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Sympathetic & Parasympathetic Balance </h3>
+                            <h3 class="mb-0 text-sm-left text-center">Sympathetic & Parasympathetic Balance </h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">Be able to tell which organs are energetically under stress and out of coherence. </br>Our autonomic nervous system influences the hormone production in the body. </h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">Be able to tell which organs are energetically under stress and out of coherence. </br>Our autonomic nervous system influences the hormone production in the body. </h4>
                     </div>
-                    <div class="mb-5 pb-5">
+                    <div class="mb-sm-5 pb-3 pb-sm-5">
                         <div data-aos="fade-up" class="d-flex align-items-center text-custom-primary">
                             <i class="fa fa-bolt" style="font-size: 1.5rem; margin-right: 1rem;"></i>
-                            <h3 class="mb-0">Meridian Energy Flow Reports</h3>
+                            <h3 class="mb-0 text-sm-left text-center">Meridian Energy Flow Reports</h3>
                         </div>
-                        <h4 data-aos="fade-up" class="font-weight-normal mt-3">Detailed analysis of the flow of energy through the energy pathways. These are connected to the acupuncture points and you will learn how to draw conclusions.</h4>
+                        <h4 data-aos="fade-up" class="font-weight-normal mt-3 text-sm-left text-center">Detailed analysis of the flow of energy through the energy pathways. These are connected to the acupuncture points and you will learn how to draw conclusions.</h4>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="success-section">
+        <section class="success-section mt-5 mt-sm-0">
             <div data-aos="fade-up" class="d-flex justify-content-center align-items-center">
                 <a class="btn-custom d-flex align-items-center justify-content-center flex-column">
                     <span>Let me reserve my spot before they are taken...</span>
@@ -252,26 +265,26 @@
                 line-height: 1em;
                 display: block;"></i>
             </div>
-            <div class="row my-5 pt-5">
-                <div data-aos="fade-up" class="col-3 d-flex">
+            <div class="row flex-sm-row flex-column my-5 pt-5">
+                <div data-aos="fade-up" class="col-sm-3 justify-content-sm-start justify-content-center d-flex">
                     <img width="190" src="./assets/image/Nima_Farshid.png">
                 </div>
-                <div class="col-1"></div>
-                <div data-aos="fade-up" class="col-8">
-                    <h3 class="font-weight-normal mb-4">" I used the Bio-Well in my personal healing journey when doctors gave me two weeks to live. I was able to heal myself by paying attention to my energy centers and how different modalities were influencing me in real-time."</h3>
-                    <h6 class="font-weight-normal">- Nima Farshid</h6>
-                    <h6 class="font-weight-normal"> Bio-Well Global Educator & Distributor</h6>
+                <div class="col-1 d-none d-sm-block"></div>
+                <div data-aos="fade-up" class="col-sm-8">
+                    <h3 class="font-weight-normal text-sm-left text-center mb-4">" I used the Bio-Well in my personal healing journey when doctors gave me two weeks to live. I was able to heal myself by paying attention to my energy centers and how different modalities were influencing me in real-time."</h3>
+                    <h6 class="font-weight-normal text-sm-left text-center">- Nima Farshid</h6>
+                    <h6 class="font-weight-normal text-sm-left text-center"> Bio-Well Global Educator & Distributor</h6>
                 </div>
             </div>
-            <div class="row mt-5 pt-5">
-                <div data-aos="fade-up" class="col-3 d-flex">
+            <div class="row flex-sm-row flex-column my-sm-5 pt-sm-5">
+                <div data-aos="fade-up" class="col-sm-3 justify-content-sm-start justify-content-center d-flex">
                     <img width="190" src="./assets/image/Screenshot-2021-11-08-114907.jpg">
                 </div>
-                <div class="col-1"></div>
-                <div data-aos="fade-up" class="col-8">
-                    <h3 class="font-weight-normal mb-4">" This device has taken my healing practice to a whole new level. Being able to visually show people their before & after has been extremely effective."</h3>
-                    <h6 class="font-weight-normal">- Paul Lowell</h6>
-                    <h6 class="font-weight-normal">Reiki Master, Sound Healer, Shaman</h6>
+                <div class="col-1 d-none d-sm-block"></div>
+                <div data-aos="fade-up" class="col-sm-8">
+                    <h3 class="font-weight-normal text-sm-left text-center mb-4">" This device has taken my healing practice to a whole new level. Being able to visually show people their before & after has been extremely effective."</h3>
+                    <h6 class="font-weight-normal text-sm-left text-center">- Paul Lowell</h6>
+                    <h6 class="font-weight-normal text-sm-left text-center">Reiki Master, Sound Healer, Shaman</h6>
                 </div>
             </div>
         </section>
@@ -296,42 +309,42 @@
         <section class="sum-section">
             <h3 data-aos="fade-up" class="text-center mt-5">LET'S SUM IT UP -</h3>
             <h4 data-aos="fade-up" class="text-center font-weight-normal">Here's everything you'll get with your reservation!</h4>
-            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border: 1px solid; border-width: 1px 0 1px 0;">
+            <div data-aos="fade-up" class="d-flex flex-sm-row flex-column align-items-center justify-content-between py-4 px-5" style="border: 1px solid; border-width: 1px 0 1px 0;">
                 <div>
                     <h3 class="mb-3">Bio-Well Scan</h3>
                     <h5 class="font-weight-normal">We will scan your ten fingers and analyze the data so we can generate a report for you.</h4>
                 </div>
                 <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($99.00 value)</h2>
             </div>
-            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+            <div data-aos="fade-up" class="d-flex flex-sm-row flex-column align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
                 <div>
                     <h3 class="mb-3">Custom Solfeggio Music File</h3>
                     <h5 class="font-weight-normal">We will email you a custom meditation music file based on the alignment of your chakras.</h4>
                 </div>
                 <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($99.00 value)</h2>
             </div>
-            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+            <div data-aos="fade-up" class="d-flex flex-sm-row flex-column align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
                 <div>
                     <h3 class="mb-3">22-Page Report on Your Energy Wellness</h3>
                     <h5 class="font-weight-normal" style="max-width: 50rem;">You'll be emailed a 22-page report that explains the scan and gives you more information about different energy centers or meridian pathways.</h4>
                 </div>
                 <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($99.00 value)</h2>
             </div>
-            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+            <div data-aos="fade-up" class="d-flex flex-sm-row flex-column align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
                 <div>
                     <h3 class="mb-3">LIFETIME Access To Our Bio-Well Support App</h3>
                     <h5 class="font-weight-normal">If you have any questions about your report, you can ask them in our support app.</h4>
                 </div>
                 <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($997 value)</h2>
             </div>
-            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+            <div data-aos="fade-up" class="d-flex flex-sm-row flex-column align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
                 <div>
                     <h3 class="mb-3">FREE Access to Our Community "Lightworkers App"</h3>
                     <h5 class="font-weight-normal">You get to mingle with over 500 open-minded wellness practitioners and join regular webinars.</h4>
                 </div>
                 <h2 class="px-5 text-white bg-custom-primary text-center" style="width: 19rem;">($997 value)</h2>
             </div>
-            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
+            <div data-aos="fade-up" class="d-flex flex-sm-row flex-column align-items-center justify-content-between py-4 px-5" style="border-bottom: 1px solid;">
                 <div>
                     <h3 class="mb-3">FREE Access to hundreds of Bio-Well practitioners</h3>
                     <h5 class="font-weight-normal">Get access to hundreds of Bio-Well researchers in fields of water, environment and biofield.</h4>
@@ -346,7 +359,7 @@
         <section class="profile-section d-none">
             <h2 data-aos="fade-up" class="header-title text-center pt-5 mb-4">BOOK A SESSION NOW</h2>
             <div class="row pt-4">
-                <div class="col-6 d-flex justify-content-center align-items-center">
+                <div class="col-sm-6 d-flex justify-content-center align-items-center">
                     <div class="text-center profile-left">
                         <div data-aos="fade-up" class="d-flex justify-content-center badge-wrapper">
                             <img id="userAvatar" src="https://biohackingcongress.com/storage/users/June2023/9Q67Ebbs5rPLWWmWGZET.png" width="300" height="300" style="border-radius: .3rem;">
@@ -368,7 +381,7 @@
                         </a>
                     </div>    
                 </div>
-                <div class="col-6">
+                <div class="col-sm-6">
                     <div class="card">
                         <form id="registerForm" style="max-width: 35rem;">
                             <div class="card-body p-md-5">
@@ -464,7 +477,7 @@
             </div>
         </section>
         <footer>
-            <h6 data-aos="fade-up"  class="text-center px-5 font-weight-normal mt-5">Consumer Testimonials. As with any business-related program, your results using the Bio-Well may vary from these consumer testimonials. Bio-Well is not a medical instrument, it is not designed for medical diagnostics, it measures energy and stress of a person. In case of health concerns, please, consult your doctor. </h6>
+            <h6 data-aos="fade-up"  class="text-center px-sm-5 font-weight-normal mt-5">Consumer Testimonials. As with any business-related program, your results using the Bio-Well may vary from these consumer testimonials. Bio-Well is not a medical instrument, it is not designed for medical diagnostics, it measures energy and stress of a person. In case of health concerns, please, consult your doctor. </h6>
             <div class="d-flex align-items-center justify-content-center mt-3 mb-5">
                 <a href="#">Gaia Healers</a>
                 <span class="mx-2">|</span>
@@ -504,8 +517,16 @@
             console.log(data);
             $(".btn-custom").attr('href', data.meetinglink);
             $(".profile-section").removeClass('d-none');
-            if(data.upload == 0) {
-                $("#userAvatar").attr('src', data.imageURL);
+            if(data.upload == 0) { 
+                if(data.imageURL == '') {
+                    if(data.sex = 'Male') {
+                        $("#userAvatar").attr('src', 'https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34a0dbca137ef4f425e.png');    
+                    } else {
+                        $("#userAvatar").attr('src', 'https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34ab7ea181193716085.png');    
+                    }
+                } else {
+                    $("#userAvatar").attr('src', data.imageURL);
+                }
             } else {
                 $("#userAvatar").attr('src', `${API_URL}src/${data.imageURL}`);
             }

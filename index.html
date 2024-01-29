@@ -262,7 +262,7 @@
                         <ul class="navbar-nav flex-row my-1">
                             <li class="position-static nav-item dropdown has-megamenu px-1">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown"> Services  </a>
-                                <div class="dropdown-menu megamenu position-absolute w-100" style="left: 0; right: 0" role="menu">
+                                <div class="dropdown-menu megamenu position-absolute mt-1 shadow border-0" style="left: 0; right: 0" role="menu">
                                     <div class="row g-3">
                                         <div class="col-megamenu items-wrapper">
                                             <ul class="list-unstyled d-flex flex-wrap" id="specialty-wrapper">
@@ -273,7 +273,7 @@
                             </li>
                             <li class="position-static nav-item dropdown has-megamenu px-1">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown"> Tags  </a>
-                                <div class="dropdown-menu megamenu position-absolute w-100" style="left: 0; right: 0" role="menu">
+                                <div class="dropdown-menu megamenu position-absolute mt-1 shadow border-0" style="left: 0; right: 0" role="menu">
                                     <div class="row g-3">
                                         <div class="col-megamenu items-wrapper">
                                             <ul class="list-unstyled d-flex flex-wrap" id="tag-wrapper">
@@ -290,7 +290,7 @@
                                 </div>
                             </li>
                             <li class="nav-item mx-1 my-1">
-                                <select class="form-select form-select-sm" aria-label="Small select example">
+                                <select onchange="changeRangeSelect()" id="rangeSelect" class="form-select form-select-sm" aria-label="Small select example">
                                     <option value="0">0</option>
                                     <option value="5">5</option>
                                     <option value="10">10</option>
@@ -570,11 +570,11 @@
                 var specs = mainData[element].specialty.split(",");
                 var subTags = mainData[element].tags.split(",");
                 tmp += `
-                    <div class="profile-wrapper">
-                        <div class="d-flex flex-sm-row flex-column">
-                            <div class='badge-wrapper'>`
-                                if(mainData[element].upload == 0) {
-                                    if (!mainData[element].imageURL || mainData[element].imageURL == ""){
+                <div class="profile-wrapper">
+                    <div class="d-flex flex-sm-row flex-column">
+                        <div class='badge-wrapper' onclick="moveMap(${mainData[element].id})">`
+                            if(mainData[element].upload == 0) {
+                                if (mainData[element].imageURL == null || mainData[element].imageURL == ""){
                                         if(mainData[element].sex == "Male"){
                                             tmp += ` <img src="https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34a0dbca137ef4f425e.png" width="250" height="250" style="border-radius: 50%;">`;
                                         
@@ -600,7 +600,7 @@
                             </div>
                             <div class="profile-content d-flex flex-column justify-content-center mx-sm-3">
                                 <h3 class="mb-2 mt-4 mt-sm-0">${mainData[element].firstname} ${mainData[element].lastname}</h3>
-                                <h5 class="mb-2">${mainData[element].address}, ${mainData[element].city}, ${mainData[element].state}</h5>
+                                <h5 class="mb-2">${mainData[element].address}, ${mainData[element].city}, ${mainData[element].state}, ${mainData[element].zipcode}, ${mainData[element].country}</h5>
                                 <div class="mb-2">`
                                     for (let index = 0; index < mainData[element].review; index++) {
                                         tmp += `<span class="fa fa-star checked"></span>`;
@@ -633,8 +633,6 @@
 
                 // const apiKey = 'YOUR_API_KEY';
                 var zipcode = mainData[element].zipcode; // Replace with the actual zipcode
-
-
                 var country = mainData[element].country;
                 // use short code for the country, such as 'us' for 'United States'
                 // there are countries in form of {"code": "full name"} in countries.js
@@ -643,6 +641,7 @@
                         country = key;
                     }
                 });
+
                 // Construct the Mapbox Geocoding API URL
                 var geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zipcode}.json?country=${country}&access_token=${apiKey}`;
 
@@ -775,6 +774,7 @@
                 })
                 .then(async data => {
                     mainData = data;
+                    console.log(mainData);
                     mainData.forEach(element => {
                         var specialtyArr = element.specialty.split(",");     
                         var tagArr = element.tags.split(",");     
@@ -870,6 +870,130 @@
             });
         }
 
+        async function moveMap(value) {
+            var tmp;
+            mainData.forEach(element => {
+                if(element.id == value) {
+                    tmp = element;
+                }
+            });
+            var zipcode = tmp.zipcode; // Replace with the actual zipcode
+
+
+            var country = tmp.country;
+            // use short code for the country, such as 'us' for 'United States'
+            // there are countries in form of {"code": "full name"} in countries.js
+            Object.entries(countries).forEach(([key, value]) => {
+                if(value == country) {
+                    country = key;
+                }
+            });
+            // Construct the Mapbox Geocoding API URL
+            var geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zipcode}.json?country=${country}&access_token=${apiKey}`;
+
+            markers = [];
+            // Make a GET request to the Mapbox Geocoding API
+            await fetch(geocodingUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // Extract latitude and longitude from the response
+                    const features = data.features;
+                    if (features.length > 0) {
+                        const coordinates = features[0].center;
+                        const latitude = coordinates[1];
+                        const longitude = coordinates[0];
+                        map.flyTo({
+                            center: [longitude, latitude],
+                            zoom: 10, // Set the zoom level for the fly animation
+                            speed: 0.8, // Set the speed of the fly animation
+                            curve: 1 // Set the curve of the fly animation
+                        });
+
+                    } else {
+                        console.log("No coordinates found for the zipcode");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching data from Mapbox Geocoding API:", error);
+                });
+        }
+        async function changeRangeSelect() {
+            var value = $("#rangeSelect").val();
+            var zipcode = $("#filterZipcode").val();
+
+            // Check if the zipcode is correct
+            await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + zipcode + '.json?access_token=' + apiKey)
+                .then(response => response.json())
+                .then(data => {
+                    // Check the response to determine if the zip code is valid and obtain location details
+                    if (data.features.length > 0) {
+                        // The zip code is valid, you can access the location information
+                        var locationDetails = data.features[0];
+                        console.log('here', locationDetails.center);
+                        mainData.forEach(element => {
+                            console.log('aaa', getDistance(zipcode, element.zipcode));
+                        });
+                    } else {
+                        // The zip code is invalid or no results were found
+                        console.log("Invalid or not found zip code");
+                    }
+                })
+                .catch(error => {
+                    // Handle any errors in the request
+                    console.error('Error querying Mapbox Geocoding API:', error);
+                });
+        }
+
+        async function getDistance(zipCode1, zipCode2) {
+            var tmp = 100000000;
+            // Call Mapbox Geocoding API to obtain coordinates for the zip codes
+            await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + zipCode1 + '.json?access_token=' + apiKey)
+                .then(response1 => response1.json())
+                .then(async data1 => {
+                    var coordinates1 = data1.features[0].center;  // Latitude and longitude for zip code 1
+                    await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + zipCode2 + '.json?access_token=' + apiKey)
+                        .then(response2 => response2.json())
+                        .then(data2 => {
+                            var coordinates2 = data2.features[0].center;  // Latitude and longitude for zip code 2
+                            // Calculate distance using the obtained coordinates (Haversine formula or other methods)
+                            tmp = calculateDistance(coordinates1, coordinates2);
+                        })
+                        .catch(error => {
+                            console.error('Error obtaining coordinates for zip code 2:', error);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error obtaining coordinates for zip code 1:', error);
+                    });
+            return tmp;
+        }
+
+        // Function to calculate distance using Haversine formula and return the result in miles
+        function calculateDistance(coords1, coords2) {
+            const earthRadiusMiles = 3958.8;  // Radius of the Earth in miles
+            const lat1 = coords1[1];
+            const lon1 = coords1[0];
+            const lat2 = coords2[1];
+            const lon2 = coords2[0];
+
+            const dLat = degreesToRadians(lat2 - lat1);
+            const dLon = degreesToRadians(lon2 - lon1);
+
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = earthRadiusMiles * c;  // Distance in miles
+
+            return distance;
+        }
+
+        // Function to convert degrees to radians
+        function degreesToRadians(degrees) {
+            return degrees * (Math.PI / 180);
+        }
         
     </script>
 </body>

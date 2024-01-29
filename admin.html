@@ -344,6 +344,7 @@
         $('#dataTable').DataTable().destroy();
         var tmp = '';
         mainData.forEach((element) => {
+          console.log(element);
           tmp += `<tr>`;
           tmp += `<td>
                     <div class="d-flex profile-img">`
@@ -551,7 +552,7 @@
             if(element.id == selected) {
               mainData.splice(index, 1);
               writeTable();
-              $("#editModal").modal('hide');
+              $("#removeModal").modal('hide');
             }
           });
         }
@@ -580,7 +581,8 @@
           "ImageURL",
           "Specialty",
           "Tags",
-          "MeetingLink"
+          "MeetingLink",
+          "Sex"
         ];
         reader.onload = async function(e) {
           var data = new Uint8Array(e.target.result);
