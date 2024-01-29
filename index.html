@@ -15,6 +15,7 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     
     <style>
         html{
@@ -479,6 +480,7 @@
     </div>
     <script src="assets/js/countries.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
 
@@ -552,6 +554,10 @@
                             }
                         });
                     }
+
+                    if($("#rangeSelect").val() != '') {
+                        changeRangeSelect();
+                    }
                 }
                 if($("#filterZipcode").val() == '') {
                     if(filterSpecialty.length == 0 && filterTag.length == 0) {
@@ -564,7 +570,10 @@
             });
 
             sorter();
-            
+            writeData();
+        }
+
+        function writeData() {
             var tmp = `<h4 class="my-2 mx-2">${filterResult.length} services found</h4>`;
             filterResult.forEach(async (element, index) => {
                 var specs = mainData[element].specialty.split(",");
@@ -600,7 +609,7 @@
                             </div>
                             <div class="profile-content d-flex flex-column justify-content-center mx-sm-3">
                                 <h3 class="mb-2 mt-4 mt-sm-0">${mainData[element].firstname} ${mainData[element].lastname}</h3>
-                                <h5 class="mb-2">${mainData[element].address}, ${mainData[element].city}, ${mainData[element].state}, ${mainData[element].zipcode}, ${mainData[element].country}</h5>
+                                <h5 class="mb-2">${mainData[element].address} ${mainData[element].city} ${mainData[element].state} ${mainData[element].zipcode} ${mainData[element].country}</h5>
                                 <div class="mb-2">`
                                     for (let index = 0; index < mainData[element].review; index++) {
                                         tmp += `<span class="fa fa-star checked"></span>`;
@@ -922,6 +931,8 @@
             var value = $("#rangeSelect").val();
             var zipcode = $("#filterZipcode").val();
 
+            // filterResult = [];
+
             // Check if the zipcode is correct
             await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + zipcode + '.json?access_token=' + apiKey)
                 .then(response => response.json())
@@ -930,19 +941,33 @@
                     if (data.features.length > 0) {
                         // The zip code is valid, you can access the location information
                         var locationDetails = data.features[0];
-                        console.log('here', locationDetails.center);
-                        mainData.forEach(element => {
-                            console.log('aaa', getDistance(zipcode, element.zipcode));
+                        mainData.forEach(async (element, index) => {
+                            var dis = await getDistance(zipcode, element.zipcode);
+                            if(dis < $("#rangeSelect").val()) {
+                                if(filterResult.indexOf(index) == -1) {
+                                    filterResult.push(index);
+                                }
+                            }
                         });
                     } else {
                         // The zip code is invalid or no results were found
                         console.log("Invalid or not found zip code");
+                        Toastify({
+                            text: "Invalid or not found zip code",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                            stopOnFocus: true,
+                        }).showToast();
+                        return;
                     }
                 })
                 .catch(error => {
                     // Handle any errors in the request
                     console.error('Error querying Mapbox Geocoding API:', error);
                 });
+            writeData();
         }
 
         async function getDistance(zipCode1, zipCode2) {
@@ -958,6 +983,7 @@
                             var coordinates2 = data2.features[0].center;  // Latitude and longitude for zip code 2
                             // Calculate distance using the obtained coordinates (Haversine formula or other methods)
                             tmp = calculateDistance(coordinates1, coordinates2);
+                            console.log('aaa', tmp);
                         })
                         .catch(error => {
                             console.error('Error obtaining coordinates for zip code 2:', error);
@@ -989,6 +1015,7 @@
 
             return distance;
         }
+
 
         // Function to convert degrees to radians
         function degreesToRadians(degrees) {
