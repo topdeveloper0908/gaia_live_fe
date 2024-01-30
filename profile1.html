@@ -500,14 +500,13 @@
         var data;
         async function getShowProfileStatus() {
             const response = await fetch(`${API_URL}hide_info`);
-            hideInfo = await response.json();
+            var hideInfo = await response.json();
             hideInfo = hideInfo[0].hide;
             if(hideInfo == 0){
                 $(".profile-info").removeClass('d-none');
             } else {
                 $(".profile-info").addClass('d-none');
             }
-            console.log({hideInfo});
         }
         async function getData() {
             const urlParams = new URLSearchParams(window.location.search);

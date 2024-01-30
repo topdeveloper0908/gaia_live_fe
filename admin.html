@@ -94,8 +94,13 @@
       <div id="content" class="p-4 p-md-5 pt-5">
         <div class="d-flex align-items-center justify-content-between">
           <h2 class="my-4">Practictioner List</h2>
-          <input onchange="uploadedDB(event)" class="form-control d-none" type="file" id="dbUpload" accept=".xlsx, .xls, .csv">
-          <button id="dbInput" onclick="uploadDB()" class="btn btn-success d-block my-4" style="font-size: .8rem;">Upload Excel File</button>
+          <div class="d-flex align-items-center justify-content-between">     
+            <button onclick="" class="btn btn-danger d-block my-4 hide-profile-button" style="font-size: .8rem; margin-right: 10px;">Hide User Info</button>     
+            <div>
+              <input onchange="uploadedDB(event)" class="form-control d-none" type="file" id="dbUpload" accept=".xlsx, .xls, .csv">
+              <button id="dbInput" onclick="uploadDB()" class="btn btn-success d-block my-4" style="font-size: .8rem;">Upload Excel File</button>
+            </div>
+          </div>
         </div>
         <table id="dataTable" class="table table-striped" style="width:100%">
             <thead>
@@ -296,6 +301,53 @@
       var mainData;
       var selected;
 
+      async function getShowProfileStatus() {
+            const response = await fetch(`${API_URL}hide_info`);
+            var hideInfo = await response.json();
+            hideInfo = hideInfo[0].hide;
+            if(hideInfo == 0){
+                $(".hide-profile-button").addClass('btn-danger');
+                // content
+                $(".hide-profile-button").html('Hide User Info');
+                // onclick
+                $(".hide-profile-button").click(async function(){
+                    await fetch(`${API_URL}hide_info`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': $.cookie('token')
+                        },
+                    }).then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        if(data == 'success') {
+                        }
+                        getShowProfileStatus();
+                    });
+                });
+            } else {
+              $(".hide-profile-button").addClass('btn-success');
+              // content
+              $(".hide-profile-button").html('Show User Info');
+              // onclick
+              $(".hide-profile-button").click(async function(){
+                    fetch(`${API_URL}hide_info`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': $.cookie('token')
+                        },
+                    }).then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        if(data == 'success') {
+                        }
+                        getShowProfileStatus();
+                    });
+                });
+            }
+        }
+
       async function getData() {
         var token = $.cookie('token');
         if(token == undefined || token == null) {
@@ -338,6 +390,7 @@
       });
 
       getData();
+      getShowProfileStatus();
 
       function writeTable() {
         sorter();
