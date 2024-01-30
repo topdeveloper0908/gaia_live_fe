@@ -498,16 +498,6 @@
         AOS.init();
         var API_URL = 'https://d32oo4yrlotqei.cloudfront.net/api/';
         var data;
-        async function getShowProfileStatus() {
-            const response = await fetch(`${API_URL}hide_info`);
-            var hideInfo = await response.json();
-            hideInfo = hideInfo[0].hide;
-            if(hideInfo == 0){
-                $(".profile-info").removeClass('d-none');
-            } else {
-                $(".profile-info").addClass('d-none');
-            }
-        }
         async function getData() {
             const urlParams = new URLSearchParams(window.location.search);
             var formData = {
@@ -582,10 +572,12 @@
             } else {
                 $("#profileStatus").html(`<span class="badge badge-pill badge-danger">Pending</span>`);
             }
+            if(data.hide == 1){
+                $(".profile-info").addClass('d-none');
+            }
         }
         $(document).ready(async function() {
             await getData();
-            await getShowProfileStatus();
         })
     </script>
 </body>
