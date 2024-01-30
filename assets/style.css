@@ -49,6 +49,38 @@
     background: #53a535;
     color: white;
 }
+.btn-custom-outline {
+    background-color: white;
+    color: #67bc46;
+    border: 2px solid #67bc46;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all .3s;
+}
+.btn-custom-outline:hover {
+    background: #53a535;
+    color: white;
+}
+.btn-custom-white {
+    border: none;
+    background: rgb(243, 248, 251);
+    color: #67bc46;
+    text-align: center;
+    letter-spacing: 0.03em;
+    height: fit-content;
+    min-width: 130px;
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.btn-custom-white:hover {
+    color: #67bc46;
+}
+
 .badge-success {
     color: #fff;
     background-color: #67bc46;

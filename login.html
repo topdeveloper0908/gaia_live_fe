@@ -16,6 +16,7 @@
       integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   </head>
 
   <body>
@@ -105,6 +106,7 @@
         </div>
       </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="vendor/jquery/jquery.cookie.js"></script>
     <script src="assets/js/login.js"></script>
@@ -126,12 +128,30 @@
           },
           processData: false,
           contentType: false,
-          success: function (response) {
-            $.cookie("token", response.token);
+          success: async function (response) {
+            await $.cookie("token", response.token);
             window.location.href = "admin.html";
           },
           error: function (xhr, status, error) {
-            console.log("Error : " + error);
+            if(xhr.status == 401) {
+              Toastify({
+                text: "Invalid Credentials!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                stopOnFocus: true,
+              }).showToast();
+            } else {
+              Toastify({
+                text: "Login Failed",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                stopOnFocus: true,
+              }).showToast();
+            }
           },
         });
       });
