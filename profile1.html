@@ -394,28 +394,30 @@
                                         Nima Farshid
                                     </div>
                                 </div>
-                                <div data-aos="fade-up" class="row g-3 mb-3">
-                                    <div class="col-3">
-                                        Address
+                                <div class="profile-info">
+                                    <div data-aos="fade-up" class="row g-3 mb-3">
+                                        <div class="col-3">
+                                            Address
+                                        </div>
+                                        <div id="profileAddress" class="col-9">
+                                            11532 Via Lucerna Cir Windermere 34786 FL US
+                                        </div>
                                     </div>
-                                    <div id="profileAddress" class="col-9">
-                                        11532 Via Lucerna Cir Windermere 34786 FL US
+                                    <div data-aos="fade-up" class="row g-3 mb-3">
+                                        <div class="col-3">
+                                            Email
+                                        </div>
+                                        <div class="col-9">
+                                            <a id="profileEmail" href="">topdeveloper0908@gmail.com</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div data-aos="fade-up" class="row g-3 mb-3">
-                                    <div class="col-3">
-                                        Email
-                                    </div>
-                                    <div class="col-9">
-                                        <a id="profileEmail" href="">topdeveloper0908@gmail.com</a>
-                                    </div>
-                                </div>
-                                <div data-aos="fade-up" class="row g-3 mb-3">
-                                    <div class="col-3">
-                                        Phone
-                                    </div>
-                                    <div class="col-9">
-                                        <a id="profilePhone" href="">407-230-8179</a>
+                                    <div data-aos="fade-up" class="row g-3 mb-3">
+                                        <div class="col-3">
+                                            Phone
+                                        </div>
+                                        <div class="col-9">
+                                            <a id="profilePhone" href="">407-230-8179</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div data-aos="fade-up" class="row g-3 mb-3">
@@ -496,6 +498,17 @@
         AOS.init();
         var API_URL = 'https://d32oo4yrlotqei.cloudfront.net/api/';
         var data;
+        async function getShowProfileStatus() {
+            const response = await fetch(`${API_URL}hide_info`);
+            hideInfo = await response.json();
+            hideInfo = hideInfo[0].hide;
+            if(hideInfo == 0){
+                $(".profile-info").removeClass('d-none');
+            } else {
+                $(".profile-info").addClass('d-none');
+            }
+            console.log({hideInfo});
+        }
         async function getData() {
             const urlParams = new URLSearchParams(window.location.search);
             var formData = {
@@ -571,8 +584,9 @@
                 $("#profileStatus").html(`<span class="badge badge-pill badge-danger">Pending</span>`);
             }
         }
-        $(document).ready(function() {
-            getData();
+        $(document).ready(async function() {
+            await getData();
+            await getShowProfileStatus();
         })
     </script>
 </body>
