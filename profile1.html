@@ -517,7 +517,10 @@
         }
         function writeData() {
             console.log(data);
-            $(".btn-custom").attr('href', data.meetinglink);
+            $("button, a").click(() => {
+                window.location.href = data.meetinglink;
+            })
+            // $(".btn-custom").attr('href', data.meetinglink);
             $(".profile-section").removeClass('d-none');
             if(data.upload == 0) { 
                 if(data.imageURL == '') {
