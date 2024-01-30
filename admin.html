@@ -307,10 +307,20 @@
             hideInfo = hideInfo[0].hide;
             if(hideInfo == 0){
                 $(".hide-profile-button").addClass('btn-danger');
+                $(".hide-profile-button").removeClass('btn-success');
                 // content
                 $(".hide-profile-button").html('Hide User Info');
                 // onclick
-                $(".hide-profile-button").click(async function(){
+            } else {
+              $(".hide-profile-button").addClass('btn-success');
+              $(".hide-profile-button").removeClass('btn-danger');
+              // content
+              $(".hide-profile-button").html('Show User Info');
+              // onclick
+            }
+        }
+
+        $(".hide-profile-button").click(async function(){
                     await fetch(`${API_URL}hide_info`, {
                         method: 'POST',
                         headers: {
@@ -325,28 +335,6 @@
                         getShowProfileStatus();
                     });
                 });
-            } else {
-              $(".hide-profile-button").addClass('btn-success');
-              // content
-              $(".hide-profile-button").html('Show User Info');
-              // onclick
-              $(".hide-profile-button").click(async function(){
-                    fetch(`${API_URL}hide_info`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': $.cookie('token')
-                        },
-                    }).then(function(response) {
-                        return response.json();
-                    }).then(function(data) {
-                        if(data == 'success') {
-                        }
-                        getShowProfileStatus();
-                    });
-                });
-            }
-        }
 
       async function getData() {
         var token = $.cookie('token');
