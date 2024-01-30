@@ -792,15 +792,15 @@
                         var tagArr = element.tags.split(",");     
                         if(specialtyArr.length > 0) {
                             specialtyArr.forEach(subElement => {
-                                if(specialty.includes(subElement) == false) {
-                                    specialty.push(subElement);
+                                if(specialty.includes(subElement.trim()) == false) {
+                                    specialty.push(subElement.trim());
                                 }
                             });
                         }
                         if(tagArr.length > 0) {
                             tagArr.forEach(subElement => {
-                                if(tags.includes(subElement) == false) {
-                                    tags.push(subElement);
+                                if(tags.includes(subElement.trim()) == false) {
+                                    tags.push(subElement.trim());
                                 }
                             });
                         }
