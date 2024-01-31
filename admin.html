@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 		<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/style.css">
     <style>
       ul {
         list-style: none;
@@ -122,7 +123,8 @@ input:checked + .slider:before {
     </style>
   </head>
   <body>
-		
+    <div id="my-loader-element"></div>
+    <div id="my-loader-wrapper"></div>
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="custom-menu">
@@ -378,27 +380,13 @@ input:checked + .slider:before {
               success: function(response) {
                 mainData = response;
                 writeTable();
+                disableLoader();
               },
               error: function(xhr, status, error) {
                 console.log('Error : ' + error);
                 window.location.href = 'login.html'
               }
             });
-          // await fetch(`${API_URL}all`) // Replace with the actual backend URL
-          //     .then(response => {
-          //         if (!response.ok) {
-          //             throw new Error('Network response was not ok');
-          //         }
-          //         return response.json(); // Assuming the response is in JSON format
-          //     })
-          //     .then(data => {
-          //       console.log(data);
-          //         mainData = data;
-          //         writeTable();
-          //     })
-          //     .catch(error => {
-          //         console.error('There was a problem with the fetch operation:', error);
-          //     });
           }
         }
       new DataTable('#example', {

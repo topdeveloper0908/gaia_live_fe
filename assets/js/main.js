@@ -17,3 +17,12 @@
   });
 
 })(jQuery);
+
+function enableLoader(){
+	document.getElementById("my-loader-element").classList.remove("d-none");
+    document.getElementById("my-loader-wrapper").classList.remove("d-none");
+}
+function disableLoader(){
+    document.getElementById("my-loader-element").classList.add("d-none");
+	document.getElementById("my-loader-wrapper").classList.add("d-none");
+}

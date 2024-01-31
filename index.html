@@ -247,6 +247,8 @@
 </head>
 
 <body>
+    <div id="my-loader-element"></div>
+    <div id="my-loader-wrapper"></div>
     <div class="main-content-wrapper">
         <!-- <div class="bg-block"></div> -->
         <div class="main-content">
@@ -467,6 +469,7 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+    <script src="assets/js/main.js"></script>
 
     <script>
 
@@ -787,7 +790,7 @@
                 .then(async data => {
                     mainData = data;
                     console.log(mainData);
-                    mainData.forEach(element => {
+                    mainData.forEach( async element => {
                         var specialtyArr = element.specialty.split(",");     
                         var tagArr = element.tags.split(",");     
                         if(specialtyArr.length > 0) {
@@ -814,8 +817,9 @@
                             tmp += `<a class="mx-1" href="#" onclick="tagClicked(event, '${element}')">${element}</a>`;
                         });
                         $("#tag-wrapper").html(tmp);
-                        filterUser();
+                        await filterUser();
                     });
+                    disableLoader();
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
@@ -841,39 +845,6 @@
                 });
             })
             $('#fileInput').change(handleFileSelect);
-            // $('#zipcode').keyup(function(event) {
-            //     var inputValue = $(this).val();
-            //     searchResult = [];
-            //     if(mainData.length > 0) {
-            //         mainData.forEach((element, index) => {
-            //             if(element.zipcode.indexOf(inputValue) > -1 && index != 0 && inputValue != '') {
-            //                 searchResult.push(element);
-            //             }
-            //         });
-            //         if(element.zipcode != undefined) {
-            //             sorter();
-            //         }
-            //     }
-            //     var tmp = '';
-            //     if(searchResult.length > 0) {
-            //         searchResult.forEach(element => {
-            //             tmp += `<tr>
-            //                         <td>${element[1]} ${element[2]}</td>
-            //                         <td>${element[5]}</td>
-            //                         <td>${element[6]} ${element[7]} ${element[8]} ${element[9]} ${element[10]} ${element[11]}</td>
-            //                         <td>${element[14]}</td>
-            //                         <td></td>
-            //                         <td></td>
-            //                     </tr>`;
-            //         });
-            //     }
-            //     if(tmp == '') {
-            //         $("#empty-result").removeClass('d-none');    
-            //     } else {
-            //         $("#empty-result").addClass('d-none');    
-            //     }
-            //     $("#table-content").html(tmp);
-            // });
         });
         
         function sorter() {

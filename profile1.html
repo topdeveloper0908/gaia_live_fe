@@ -108,14 +108,14 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <video class="w-100" height="320" controls>
-                        <source src="https://youtu.be/8iMke5TGwIA" type="video/mp4">
+                    <video class="w-100" height="320" controls autoplay>
+                        <source src="./assets/video/intro.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <a class="btn-custom w-100 mt-4 d-flex align-items-center justify-content-center flex-column">
+                    <button onclick="goProfileSection()" class="btn-custom w-100 mt-4 d-flex align-items-center justify-content-center flex-column">
                         <span>Reserve Your Spot!</span>
                         <span style="font-size: 14px; opacity: .7;">Limited Appointments Available.</span>
-                    </a>
+                    </button>
                     <div class="services mt-4 pt-2">
                         <div class="d-flex align-items-baseline">
                             <i class="service-icon fa fa-check"></i>
@@ -174,9 +174,9 @@
             <h2 data-aos="fade-up" class="header-title text-center text-custom-primary mt-5 mb-3 pt-2">The Bio-Well 3.0</h2>
             <h2 data-aos="fade-up" class="header-title text-center mb-5">Reserve Your Bioenergy Scan Today!</h2>
             <div data-aos="fade-up" class="d-flex align-items-center justify-content-center">
-                <a data-aos="fade-up" class="btn-custom d-flex align-items-center justify-content-center flex-column">
+                <button onclick="goProfileSection()" data-aos="fade-up" class="btn-custom d-flex align-items-center justify-content-center flex-column">
                     <span>Book An Appointment</span>
-                </a>
+                </button>
             </div>
             <h3 data-aos="fade-up" class="font-weight-normal text-center mt-4">Get Your Hands on the Most Advanced, Latest Technology in Biophotonics 
                 </br>That Scientists Are Raving About...</h3>
@@ -251,9 +251,9 @@
         </section>
         <section class="success-section mt-5 mt-sm-0">
             <div data-aos="fade-up" class="d-flex justify-content-center align-items-center">
-                <a class="btn-custom d-flex align-items-center justify-content-center flex-column">
+                <button onclick="goProfileSection()" class="btn-custom d-flex align-items-center justify-content-center flex-column">
                     <span>Let me reserve my spot before they are taken...</span>
-                </a>
+                </button>
             </div>
             <h2 data-aos="fade-up" class="header-title text-center text-custom-primary mt-3 py-3 font-weight-normal">Success Stories!</h2>
             <div data-aos="fade-up" class="d-flex justify-content-center">
@@ -356,7 +356,7 @@
             <h2 data-aos="fade-up" class="text-center mt-3">Your Early Bird Price </h2>
             <h2 data-aos="fade-up" class="text-center mt-3 font-weight-bold" style="background-color: #ead212; font-size: 62px;">ONLY $99</h2>
         </section>
-        <section class="profile-section d-none">
+        <section id="profile-section" class="d-none">
             <h2 data-aos="fade-up" class="header-title text-center pt-5 mb-4">BOOK A SESSION NOW</h2>
             <div class="row pt-4">
                 <div class="col-sm-6 d-flex justify-content-center align-items-center">
@@ -376,7 +376,7 @@
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                         </div>
-                        <a data-aos="fade-up" class="btn-custom d-flex align-items-center justify-content-center flex-column">
+                        <a href="#" id="meeting-btn" data-aos="fade-up" class="btn-custom d-flex align-items-center justify-content-center flex-column">
                             <span>Reserve Your Biofield Scan</span>
                         </a>
                     </div>    
@@ -517,11 +517,11 @@
         }
         function writeData() {
             console.log(data);
-            $("button, a").click(() => {
-                window.location.href = data.meetinglink;
-            })
+            if(data.meetinglink != '') {
+                $("#meeting-btn").attr('href', data.meetinglink); 
+            }
             // $(".btn-custom").attr('href', data.meetinglink);
-            $(".profile-section").removeClass('d-none');
+            $("#profile-section").removeClass('d-none');
             if(data.upload == 0) { 
                 if(data.imageURL == '') {
                     if(data.sex = 'Male') {
@@ -578,6 +578,11 @@
             if(data.hide == 1){
                 $(".profile-info").addClass('d-none');
             }
+        }
+
+        function goProfileSection() {
+            var specialSection = document.getElementById('profile-section');
+            specialSection.scrollIntoView({ behavior: 'smooth' });
         }
         $(document).ready(async function() {
             await getData();
