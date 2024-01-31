@@ -607,7 +607,11 @@
                             </div>
                             <div class="profile-content d-flex flex-column justify-content-center mx-sm-3">
                                 <h3 class="mb-2 mt-4 mt-sm-0">${mainData[element].firstname} ${mainData[element].lastname}</h3>
-                                <h5 class="mb-2">${mainData[element].address} ${mainData[element].city} ${mainData[element].state} ${mainData[element].zipcode} ${mainData[element].country}</h5>
+                                <h5 class="mb-2">`;
+                                    if(mainData[element].hide == 0) {
+                                        tmp += `${mainData[element].address} `;
+                                    }
+                                    tmp += `${mainData[element].city} ${mainData[element].state} ${mainData[element].zipcode} ${mainData[element].country}</h5>
                                 <div class="mb-2">`
                                     for (let index = 0; index < mainData[element].review; index++) {
                                         tmp += `<span class="fa fa-star checked"></span>`;
