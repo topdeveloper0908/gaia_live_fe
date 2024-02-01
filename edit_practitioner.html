@@ -101,6 +101,8 @@
     </style>
   </head>
   <body>
+    <div id="my-loader-element"></div>
+    <div id="my-loader-wrapper"></div>
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="custom-menu">
@@ -108,16 +110,13 @@
             </div>
             <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
                 <div class="user-logo mt-5">
-                    <div class="img" style="background-image: url(https://biohackingcongress.com/storage/users/June2023/9Q67Ebbs5rPLWWmWGZET.png);"></div>
-                    <h3>Administrator</h3>
+                    <img id="avatar" class="img" src="https://biohackingcongress.com/storage/users/June2023/9Q67Ebbs5rPLWWmWGZET.png">
+                    <h3 id="username">Administrator</h3>
                 </div>  
             </div>
             <ul class="list-unstyled components mb-5">
-            <li>
-                <a href="admin.html"><span class="fa fa-home mr-3"></span> Home</a>
-            </li>
             <li class="active">
-                <a href="add_practitioner.html"><span class="fa fa-plus mr-3"></span> Add a practitioner</a>
+                <a href="admin.html"><span class="fa fa-home mr-3"></span> Home</a>
             </li>
             <li>
                 <a onclick="signOut(event)" href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
@@ -127,7 +126,7 @@
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5 pt-5">
             <h1 class="fs-3 card-title fw-bold mt-sm-0 pt-md-5 mt-5 mb-4 pb-md-5 text-center">
-                Add a Practictioner
+                Edit Profile
             </h1>
             <form id="registerForm" enctype="multipart/form-data">
                 <div class="row">
@@ -372,7 +371,7 @@
                         type="submit"
                         class="btn btn-custom btn-custom-lg"
                     >
-                        Add
+                        Save
                     </button>
                 </div>
             </form>
@@ -528,8 +527,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="assets/js/main.js"></script>
 
     <script>
+        
         var API_URL = 'https://d32oo4yrlotqei.cloudfront.net/api/';
         var apiSpecs = [];
         var apiTags = [];
@@ -540,44 +541,43 @@
         var customTag = [];
         var uniqueSpecialty = [];
         var uniqueTag = [];
-        var practitioner_list;
-
-        async function getData() {
-            var token = $.cookie('token');
-            if(token == undefined || token == null) {
-                window.location.href="login.html";
-            } else{
-                await $.ajax({
-                    url: `${API_URL}all`, // Replace with your backend endpoint
-                    type: 'GET',
-                    headers: {
-                        'Authorization': token
-                    },
-                    success: function(response) {
-                        practitioner_list = response;
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error : ' + error);
-                        window.location.href = 'login.html'
-                    }
-                });
-            }
-        }
+        var data;
+        var countries;
 
         async function getCountries() {
             await fetch(`https://trial.mobiscroll.com/content/countries.json`)
                 .then((response) => response.json())
                 .then((data) => {
+                    countries = data;
                     var tmp = "";
                     data.forEach((element) => {
-                    if (element.value == "US") {
-                        tmp += `<option value='${element.value}' selected>${element.text}</option>`;
-                    } else {
-                        tmp += `<option value='${element.value}'>${element.text}</option>`;
-                    }
+                        if (element.value == "US") {
+                            tmp += `<option value='${element.value}' selected>${element.text}</option>`;
+                        } else {
+                            tmp += `<option value='${element.value}'>${element.text}</option>`;
+                        }
                     });
                     $("#country").html(tmp);
                 });
+        }
+
+        async function getData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            var formData = {
+                id: urlParams.get('user_id')
+            }
+            const response = await fetch(`${API_URL}user`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            data = await response.json();
+            data = data[0];
+            console.log(data);
+            writeData();
+            disableLoader();
         }
 
         async function getMetaData() {
@@ -649,10 +649,10 @@
             var tmp = "";
             var combinedArray = [];
             selectedSpecialty.forEach((element) => {
-            combinedArray.push(element);
+                combinedArray.push(element);
             });
             customSpecialty.forEach((element) => {
-            combinedArray.push(element);
+                combinedArray.push(element);
             });
             combinedArray.forEach((element, index) => {
             tmp += `<div class="selectedItem">
@@ -841,6 +841,65 @@
             saveSelectTag();
         });
 
+        function writeData() {
+            $("#username").html(data.firstname + ' ' + data.lastname);
+            $("#avatar").attr('src', data.imageURL);
+
+            $("#firstName").val(data.firstname);
+            $("#lastName").val(data.lastname);
+            $("#email").val(data.email);
+            $("#phone").val(data.phone);
+            $("#sex").val(data.sex);
+            $("#avatarURL").val(data.imageURL);
+
+            $("#address").val(data.address);
+            $("#city").val(data.city);
+            $("#state").val(data.state);
+            $("#zipcode").val(data.zipcode);
+            countries.forEach(element => {
+                if(element.text == data.country) {
+                    $("#country").val(element.value);
+                }
+            });
+
+            $("#newReviewStart").val(data.review);
+            $("#newRank").val(data.rank);
+
+            $("#newMeeting").val(data.meetinglink);
+            $("#newProfile").val(data.profileLink);
+
+            $("#speciality").val(data.specialty);
+            data.specialty.split(',').forEach(element => {
+                if(element.charAt(0) == ' ') {
+                    element = element.substring(1);
+                }
+                if(apiSpecs.indexOf(element) > -1) {
+                    selectedSpecialty.push(element);
+                } else {
+                    customSpecialty.push(element);
+                }
+            });
+            $('#specialitySelect').val(selectedSpecialty);
+            $("#specialitySelect").selectpicker("refresh");
+            writeSelectedSpecialty();
+
+            $("#tags").val(data.tags);
+            data.tags.split(',').forEach(element => {
+                if(element.charAt(0) == ' ') {
+                    element = element.substring(1);
+                }
+                if(apiTags.indexOf(element) > -1) {
+                    selectedTag.push(element);
+                } else {
+                    customTag.push(element);
+                }
+            });
+            $('#tagSelect').val(selectedTag);
+            $("#tagSelect").selectpicker("refresh");
+            writeSelectedTag();
+        }
+
+
         $("#registerForm").on("submit", async function (event) {
             event.preventDefault();
             const newSheetData = {
@@ -916,10 +975,10 @@
                 }).showToast();
             }
         }
-        $(document).ready(function() {
-            getData();
-            getCountries();
-            getMetaData();
+        $(document).ready(async function() {
+            await getCountries();
+            await getMetaData();
+            await getData();
         })
 
     </script>
