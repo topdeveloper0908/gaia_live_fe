@@ -246,6 +246,10 @@ input:checked + .slider:before {
                         <input type="text" class="form-control" id="newTags" placeholder="">
                     </div>
                     <div class="mb-2">
+                      <label for="exampleFormControlInput1" class="form-label">Profile Link</label>
+                      <input type="text" class="form-control" id="newProfileLink" placeholder="">
+                  </div>
+                    <div class="mb-2">
                         <label for="exampleFormControlInput1" class="form-label">Meeting Link</label>
                         <input type="text" class="form-control" id="newMeeting" placeholder="">
                     </div>
@@ -446,7 +450,7 @@ input:checked + .slider:before {
                   </td>`;
           tmp += `<td>
                     <div>
-                      <a href="profile1.html?user_id=${element.id}" target="_blank" class="btn btn-success d-block mb-1" style="font-size: .8rem;">Link to Profile</a>
+                      <a href="${element.profileLink && element.profileLink != "" ? element.profileLink : "profile1.html?user_id=" + element.id}" target="_blank" class="btn btn-success d-block mb-1" style="font-size: .8rem;">Link to Profile</a>
                       <a href="${element.meetinglink}" class="btn btn-success d-block mb-1" style="font-size: .8rem;">Link to Meeting</a>
                     </div>
                   </td>`;
@@ -504,6 +508,7 @@ input:checked + .slider:before {
             $("#newImageURL").val(element.imageURL);
             $("#newSpecialty").val(element.specialty);
             $("#newTags").val(element.tags);
+            $("#newProfileLink").val(element.profileLink);
             $("#newMeeting").val(element.meetinglink);
             $("#newAddress").val(element.address);
             $("#newCity").val(element.city);
@@ -531,6 +536,7 @@ input:checked + .slider:before {
           imageURL: $("#newImageURL").val(),
           tags: $("#newTags").val(),
           meetingLink: $("#newMeeting").val(),
+          profileLink: $("#newProfileLink").val(),
           address: $("#newAddress").val(),
           city: $("#newCity").val(),
           state: $("#newState").val(),
@@ -563,6 +569,7 @@ input:checked + .slider:before {
               mainData[index].specialty = formData.specialty ;
               mainData[index].imageURL = formData.imageURL ;
               mainData[index].tags = formData.tags;
+              mainData[index].profileLink = formData.profileLink;
               mainData[index].meetingLink = formData.meetingLink;
               mainData[index].address = formData.address;
               mainData[index].city = formData.city;
