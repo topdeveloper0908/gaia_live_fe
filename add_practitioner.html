@@ -314,6 +314,19 @@
                   style="background-color: white"
                 />
               </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Practitioner Type</label
+                >
+                <select
+                  id="newType"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option value="0">Physical</option>
+                  <option value="1">Remote</option>
+                </select>
+              </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
@@ -617,8 +630,6 @@
                 });
               }
             }
-
-      <<<<<<< HEAD
               async function getCountries() {
                   await fetch(`https://trial.mobiscroll.com/content/countries.json`)
                       .then((response) => response.json())
@@ -699,25 +710,6 @@
                   writeSelectedTag();
                   $("#tagModal").modal();
               }
-
-              function writeSelectedSpecialty() {
-      =======
-            async function getCountries() {
-              await fetch(`https://trial.mobiscroll.com/content/countries.json`)
-                .then((response) => response.json())
-                .then((data) => {
-      >>>>>>> e39cf36ca9cd2920bdff3de45bca62aef7db23ac
-                  var tmp = "";
-                  data.forEach((element) => {
-                    if (element.value == "US") {
-                      tmp += `<option value='${element.value}' selected>${element.text}</option>`;
-                    } else {
-                      tmp += `<option value='${element.value}'>${element.text}</option>`;
-                    }
-                  });
-                  $("#country").html(tmp);
-                });
-            }
 
             async function getData() {
               await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
