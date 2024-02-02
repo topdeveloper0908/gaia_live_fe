@@ -15,6 +15,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -220,18 +221,34 @@
                           fill in the information below
                         </h1>
                         <div class="row g-3 mb-2">
-                          <div
-                            class="col-12 d-flex align-items-center justify-content-center"
-                          >
-                            <select
-                              name="sex"
-                              placeholder="Sex"
-                              class="form-select"
-                              id="sex"
+                          <div class="col-6">
+                            <div
+                              class="d-flex align-items-center justify-content-center"
                             >
-                              <option selected class="Male">Male</option>
-                              <option value="Female">Female</option>
-                            </select>
+                              <select
+                                name="sex"
+                                placeholder="Sex"
+                                class="form-select"
+                                id="sex"
+                              >
+                                <option selected class="Male">Male</option>
+                                <option value="Female">Female</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div
+                              class="d-flex align-items-center justify-content-center"
+                            >
+                              <select
+                                name="userType"
+                                class="form-select"
+                                id="userType"
+                              >
+                                <option selected class="Physical">Physical</option>
+                                <option value="Remote">Remote</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                         <div class="row g-3 mb-2">

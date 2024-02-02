@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -217,7 +218,7 @@ input:checked + .slider:before {
                           <input type="text" class="form-control" id="newImageURL" placeholder="">
                         </div>
                       </div>
-                      <div class="col-6">
+                      <div class="col-4">
                         <div class="mb-2">
                           <label for="exampleFormControlInput1" class="form-label">Hide Profile Info</label><br>
                           <select id="newHide" class="form-select" aria-label="Default select example">
@@ -226,7 +227,16 @@ input:checked + .slider:before {
                           </select>
                         </div>
                       </div>
-                      <div class="col-6">
+                      <div class="col-4">
+                        <div class="mb-2">
+                          <label for="exampleFormControlInput1" class="form-label">User Type</label><br>
+                          <select id="newPhysical" class="form-select" aria-label="Default select example">
+                            <option value="0">Physical</option>
+                            <option value="1">Remote</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-4">
                         <div class="mb-2">
                           <label for="exampleFormControlInput1" class="form-label">Sex</label>
                           <select id="newSex" class="form-select" aria-label="Default select example">
@@ -295,7 +305,7 @@ input:checked + .slider:before {
                     </div>
                     <div class="col-6">
                       <div class="mb-2">
-                          <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                          <label for="exampleFormControlInput1" class="form-label">Status</label>
                           <select id="newStatus" class="form-select" aria-label="Default select example">
                             <option value="active">Active</option>
                             <option value="pending">Pending</option>
