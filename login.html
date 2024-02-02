@@ -16,7 +16,10 @@
       integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
   </head>
 
   <body>
@@ -80,10 +83,18 @@
                       Invalid Credentials
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" onchange="changeRole()" name="remember" id="administrator" class="form-check-input">
-                      <label for="administrator" class="form-check-label">Administrator</label>
+                      <input
+                        type="checkbox"
+                        onchange="changeRole()"
+                        name="remember"
+                        id="administrator"
+                        class="form-check-input"
+                      />
+                      <label for="administrator" class="form-check-label"
+                        >Administrator</label
+                      >
                     </div>
-                    <button type="submit" class="btn btn-primary ms-auto">
+                    <button type="submit" class="btn btn-primary ms-auto" id="login_button">
                       Login
                     </button>
                     <!-- <button type="submit" class="btn btn-primary ms-auto">
@@ -114,52 +125,113 @@
 
       $("#loginForm").on("submit", async function (e) {
         e.preventDefault();
-        var data = {
-          email: $("#email").val(),
-          password: $("#password").val(),
-        };
-        await $.ajax({
-          url: `${API_URL}login`, // Replace with your backend endpoint
-          type: "POST",
-          data: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          processData: false,
-          contentType: false,
-          success: async function (response) {
-            await $.cookie("token", response.token);
-            window.location.href = "admin.html";
-          },
-          error: function (xhr, status, error) {
-            if(xhr.status == 401) {
+        // check if the user is an administrator
+        const isAdmin = $("#administrator").prop("checked");
+        var data = {};
+        if (!isAdmin) {
+          data = {
+            email: $("#email").val(),
+          };
+          // set button to loadin...
+          $("#login_button").html(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...')
+          
+          await $.ajax({
+            url: `${API_URL}login_practitioner`, // Replace with your backend endpoint
+            type: "POST",
+            data: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            processData: false,
+            contentType: false,
+            success: async function (response) {
+              await $.cookie("token", response.token);
+              // toast that email is sent
               Toastify({
-                text: "Invalid Credentials!",
+                text: "Check your email for login info!",
                 duration: 3000,
                 gravity: "top",
-                position: "right",
-                backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                position: "center",
+                backgroundColor: "linear-gradient(to right, #32a852, #32a852)",
                 stopOnFocus: true,
               }).showToast();
-            } else {
-              Toastify({
-                text: "Login Failed",
-                duration: 3000,
-                gravity: "top",
-                position: "right",
-                backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
-                stopOnFocus: true,
-              }).showToast();
-            }
-          },
-        });
+            },
+            error: function (xhr, status, error) {
+              if (xhr.status == 401) {
+                Toastify({
+                  text: "Invalid Credentials!",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor:
+                    "linear-gradient(to right, #FF0026, #FF0026)",
+                  stopOnFocus: true,
+                }).showToast();
+              } else {
+                Toastify({
+                  text: "Login Failed, maybe email doesn't exist!",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor:
+                    "linear-gradient(to right, #FF0026, #FF0026)",
+                  stopOnFocus: true,
+                }).showToast();
+              }
+            },
+          });
+          $("#login_button").html("Login")
+        } else {
+          data = {
+            email: $("#email").val(),
+            password: $("#password").val(),
+          };
+          await $.ajax({
+            url: `${API_URL}login`, // Replace with your backend endpoint
+            type: "POST",
+            data: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            processData: false,
+            contentType: false,
+            success: async function (response) {
+              await $.cookie("token", response.token);
+              window.location.href = "admin.html";
+            },
+            error: function (xhr, status, error) {
+              if (xhr.status == 401) {
+                Toastify({
+                  text: "Invalid Credentials!",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor:
+                    "linear-gradient(to right, #FF0026, #FF0026)",
+                  stopOnFocus: true,
+                }).showToast();
+              } else {
+                Toastify({
+                  text: "Login Failed",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor:
+                    "linear-gradient(to right, #FF0026, #FF0026)",
+                  stopOnFocus: true,
+                }).showToast();
+              }
+            },
+          });
+        }
       });
 
       function changeRole(e) {
-        if($("#administrator").prop('checked') == true) {
-          $("#passwordForm").removeClass('d-none');
+        if ($("#administrator").prop("checked") == true) {
+          $("#passwordForm").removeClass("d-none");
         } else {
-          $("#passwordForm").addClass('d-none');
+          $("#passwordForm").addClass("d-none");
         }
       }
     </script>

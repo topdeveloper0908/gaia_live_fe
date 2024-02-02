@@ -453,7 +453,7 @@ input:checked + .slider:before {
                   </td>`;
           tmp += `<td>
                     <div class="tag-wrapper">`;
-                      element.tags.split(',').forEach(subElement => {
+                      element?.tags?.split(',').forEach(subElement => {
                         tmp += `<span class="tag-item">${subElement}</span>`;
                       });
                     tmp += `</div>
