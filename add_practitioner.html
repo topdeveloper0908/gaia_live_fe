@@ -584,519 +584,519 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script>
-      var API_URL = "https://d32oo4yrlotqei.cloudfront.net/api/";
-      var apiSpecs = [];
-      var apiTags = [];
+            var API_URL = "https://d32oo4yrlotqei.cloudfront.net/api/";
+            var apiSpecs = [];
+            var apiTags = [];
 
-      var selectedSpecialty = [];
-      var selectedTag = [];
-      var customSpecialty = [];
-      var customTag = [];
-      var uniqueSpecialty = [];
-      var uniqueTag = [];
-      var practitioner_list;
+            var selectedSpecialty = [];
+            var selectedTag = [];
+            var customSpecialty = [];
+            var customTag = [];
+            var uniqueSpecialty = [];
+            var uniqueTag = [];
+            var practitioner_list;
 
-      async function getData() {
-        var token = $.cookie("token");
-        if (token == undefined || token == null) {
-          window.location.href = "login.html";
-        } else {
-          await $.ajax({
-            url: `${API_URL}all`, // Replace with your backend endpoint
-            type: "GET",
-            headers: {
-              Authorization: token,
-            },
-            success: function (response) {
-              practitioner_list = response;
-            },
-            error: function (xhr, status, error) {
-              console.log("Error : " + error);
-              window.location.href = "login.html";
-            },
-          });
-        }
-      }
+            async function getData() {
+              var token = $.cookie("token");
+              if (token == undefined || token == null) {
+                window.location.href = "login.html";
+              } else {
+                await $.ajax({
+                  url: `${API_URL}all`, // Replace with your backend endpoint
+                  type: "GET",
+                  headers: {
+                    Authorization: token,
+                  },
+                  success: function (response) {
+                    practitioner_list = response;
+                  },
+                  error: function (xhr, status, error) {
+                    console.log("Error : " + error);
+                    window.location.href = "login.html";
+                  },
+                });
+              }
+            }
 
-<<<<<<< HEAD
-        async function getCountries() {
-            await fetch(`https://trial.mobiscroll.com/content/countries.json`)
+      <<<<<<< HEAD
+              async function getCountries() {
+                  await fetch(`https://trial.mobiscroll.com/content/countries.json`)
+                      .then((response) => response.json())
+                      .then((data) => {
+                          var tmp = "";
+                          data.forEach((element) => {
+                          if (element.value == "US") {
+                              tmp += `<option value='${element.value}' selected>${element.text}</option>`;
+                          } else {
+                              tmp += `<option value='${element.value}'>${element.text}</option>`;
+                          }
+                          });
+                          $("#country").html(tmp);
+                      });
+              }
+
+              async function getMetaData() {
+                  await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
+                  .then((response) => {
+                      if (!response.ok) {
+                          throw new Error("Network response was not ok");
+                      }
+                      return response.json(); // Assuming the response is in JSON format
+                  })
+                  .then((data) => {
+                      apiSpecs = data.specs;
+                      apiTags = data.tags;
+
+                      var tmp = "";
+                      apiSpecs.forEach((element) => {
+                          tmp += `<option value='${element}'>${element}</option>`;
+                      });
+                      $("#specialitySelect").html(tmp);
+                      $("#specialitySelect").selectpicker("refresh");
+
+                      tmp = "";
+                      apiTags.forEach((element) => {
+                          tmp += `<option value='${element}'>${element}</option>`;
+                      });
+                      $("#tagSelect").html(tmp);
+                      $("#tagSelect").selectpicker("refresh");
+                  })
+                  .catch((error) => {
+                      console.error( "There was a problem with the fetch operation:", error);
+                  });
+              }
+
+              function setImageLink(e) {
+                  if ($("#flexRadioDefault1").prop("checked") == true) {
+                      $("#avatarURL").removeClass("d-none");
+                      $("#avatarUpload").addClass("d-none");
+                      $("#avatarUpload").val("");
+                  } else {
+                      $("#avatarURL").addClass("d-none");
+                      $("#avatarURL").val("");
+                      $("#avatarUpload").removeClass("d-none");
+                  }
+              }
+
+              function setImageUpload(e) {
+                  if ($("#flexRadioDefault2").prop("checked") == true) {
+                      $("#avatarURL").addClass("d-none");
+                      $("#avatarURL").val("");
+                      $("#avatarUpload").removeClass("d-none");
+                  } else {
+                      $("#avatarURL").removeClass("d-none");
+                      $("#avatarUpload").addClass("d-none");
+                      $("#avatarUpload").val("");
+                  }
+              }
+
+              function openSpecModal() {
+                  writeSelectedSpecialty();
+                  $("#specialityModal").modal();
+              }
+
+              function openTagModal() {
+                  writeSelectedTag();
+                  $("#tagModal").modal();
+              }
+
+              function writeSelectedSpecialty() {
+      =======
+            async function getCountries() {
+              await fetch(`https://trial.mobiscroll.com/content/countries.json`)
                 .then((response) => response.json())
                 .then((data) => {
-                    var tmp = "";
-                    data.forEach((element) => {
+      >>>>>>> e39cf36ca9cd2920bdff3de45bca62aef7db23ac
+                  var tmp = "";
+                  data.forEach((element) => {
                     if (element.value == "US") {
-                        tmp += `<option value='${element.value}' selected>${element.text}</option>`;
+                      tmp += `<option value='${element.value}' selected>${element.text}</option>`;
                     } else {
-                        tmp += `<option value='${element.value}'>${element.text}</option>`;
+                      tmp += `<option value='${element.value}'>${element.text}</option>`;
                     }
-                    });
-                    $("#country").html(tmp);
+                  });
+                  $("#country").html(tmp);
                 });
-        }
+            }
 
-        async function getMetaData() {
-            await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
-            .then((response) => {
-                if (!response.ok) {
+            async function getData() {
+              await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
+                .then((response) => {
+                  if (!response.ok) {
                     throw new Error("Network response was not ok");
-                }
-                return response.json(); // Assuming the response is in JSON format
-            })
-            .then((data) => {
-                apiSpecs = data.specs;
-                apiTags = data.tags;
+                  }
+                  return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                  apiSpecs = data.specs;
+                  apiTags = data.tags;
 
-                var tmp = "";
-                apiSpecs.forEach((element) => {
+                  var tmp = "";
+                  apiSpecs.forEach((element) => {
                     tmp += `<option value='${element}'>${element}</option>`;
-                });
-                $("#specialitySelect").html(tmp);
-                $("#specialitySelect").selectpicker("refresh");
+                  });
+                  $("#specialitySelect").html(tmp);
+                  $("#specialitySelect").selectpicker("refresh");
 
-                tmp = "";
-                apiTags.forEach((element) => {
+                  tmp = "";
+                  apiTags.forEach((element) => {
                     tmp += `<option value='${element}'>${element}</option>`;
+                  });
+                  $("#tagSelect").html(tmp);
+                  $("#tagSelect").selectpicker("refresh");
+                })
+                .catch((error) => {
+                  console.error(
+                    "There was a problem with the fetch operation:",
+                    error
+                  );
                 });
-                $("#tagSelect").html(tmp);
-                $("#tagSelect").selectpicker("refresh");
-            })
-            .catch((error) => {
-                console.error( "There was a problem with the fetch operation:", error);
-            });
-        }
+            }
 
-        function setImageLink(e) {
-            if ($("#flexRadioDefault1").prop("checked") == true) {
+            async function getMetaData() {
+              await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                  apiSpecs = data.specs;
+                  apiTags = data.tags;
+
+                  var tmp = "";
+                  apiSpecs.forEach((element) => {
+                    tmp += `<option value='${element}'>${element}</option>`;
+                  });
+                  $("#specialitySelect").html(tmp);
+                  $("#specialitySelect").selectpicker("refresh");
+
+                  tmp = "";
+                  apiTags.forEach((element) => {
+                    tmp += `<option value='${element}'>${element}</option>`;
+                  });
+                  $("#tagSelect").html(tmp);
+                  $("#tagSelect").selectpicker("refresh");
+                })
+                .catch((error) => {
+                  console.error(
+                    "There was a problem with the fetch operation:",
+                    error
+                  );
+                });
+            }
+
+            function setImageLink(e) {
+              if ($("#flexRadioDefault1").prop("checked") == true) {
                 $("#avatarURL").removeClass("d-none");
                 $("#avatarUpload").addClass("d-none");
                 $("#avatarUpload").val("");
-            } else {
-                $("#avatarURL").addClass("d-none");
-                $("#avatarURL").val("");
-                $("#avatarUpload").removeClass("d-none");
-            }
-        }
-
-        function setImageUpload(e) {
-            if ($("#flexRadioDefault2").prop("checked") == true) {
-                $("#avatarURL").addClass("d-none");
-                $("#avatarURL").val("");
-                $("#avatarUpload").removeClass("d-none");
-            } else {
-                $("#avatarURL").removeClass("d-none");
-                $("#avatarUpload").addClass("d-none");
-                $("#avatarUpload").val("");
-            }
-        }
-
-        function openSpecModal() {
-            writeSelectedSpecialty();
-            $("#specialityModal").modal();
-        }
-
-        function openTagModal() {
-            writeSelectedTag();
-            $("#tagModal").modal();
-        }
-
-        function writeSelectedSpecialty() {
-=======
-      async function getCountries() {
-        await fetch(`https://trial.mobiscroll.com/content/countries.json`)
-          .then((response) => response.json())
-          .then((data) => {
->>>>>>> e39cf36ca9cd2920bdff3de45bca62aef7db23ac
-            var tmp = "";
-            data.forEach((element) => {
-              if (element.value == "US") {
-                tmp += `<option value='${element.value}' selected>${element.text}</option>`;
               } else {
-                tmp += `<option value='${element.value}'>${element.text}</option>`;
+                $("#avatarURL").addClass("d-none");
+                $("#avatarURL").val("");
+                $("#avatarUpload").removeClass("d-none");
               }
-            });
-            $("#country").html(tmp);
-          });
-      }
-
-      async function getData() {
-        await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
             }
-            return response.json(); // Assuming the response is in JSON format
-          })
-          .then((data) => {
-            apiSpecs = data.specs;
-            apiTags = data.tags;
 
-            var tmp = "";
-            apiSpecs.forEach((element) => {
-              tmp += `<option value='${element}'>${element}</option>`;
-            });
-            $("#specialitySelect").html(tmp);
-            $("#specialitySelect").selectpicker("refresh");
-
-            tmp = "";
-            apiTags.forEach((element) => {
-              tmp += `<option value='${element}'>${element}</option>`;
-            });
-            $("#tagSelect").html(tmp);
-            $("#tagSelect").selectpicker("refresh");
-          })
-          .catch((error) => {
-            console.error(
-              "There was a problem with the fetch operation:",
-              error
-            );
-          });
-      }
-
-      async function getMetaData() {
-        await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
+            function setImageUpload(e) {
+              if ($("#flexRadioDefault2").prop("checked") == true) {
+                $("#avatarURL").addClass("d-none");
+                $("#avatarURL").val("");
+                $("#avatarUpload").removeClass("d-none");
+              } else {
+                $("#avatarURL").removeClass("d-none");
+                $("#avatarUpload").addClass("d-none");
+                $("#avatarUpload").val("");
+              }
             }
-            return response.json(); // Assuming the response is in JSON format
-          })
-          .then((data) => {
-            apiSpecs = data.specs;
-            apiTags = data.tags;
 
-            var tmp = "";
-            apiSpecs.forEach((element) => {
-              tmp += `<option value='${element}'>${element}</option>`;
+            function openSpecModal() {
+              writeSelectedSpecialty();
+              $("#specialityModal").modal();
+            }
+
+            function openTagModal() {
+              writeSelectedTag();
+              $("#tagModal").modal();
+            }
+
+            function writeSelectedSpecialty() {
+              var tmp = "";
+              var combinedArray = [];
+              selectedSpecialty.forEach((element) => {
+                combinedArray.push(element);
+              });
+              customSpecialty.forEach((element) => {
+                combinedArray.push(element);
+              });
+              combinedArray.forEach((element, index) => {
+                tmp += `<div class="selectedItem">
+                                      <span class="mr-2">${element}</span>
+                                      <span class="itemIcon" onclick="removeSpecItem('${element}')"><i class="fa fa-minus"></i></span>
+                                  </div>`;
+              });
+              $(".selectedSpecWrapper").html(tmp);
+            }
+
+            function writeSelectedTag() {
+              var tmp = "";
+              var combinedArray = [];
+              selectedTag.forEach((element) => {
+                combinedArray.push(element);
+              });
+              customTag.forEach((element) => {
+                combinedArray.push(element);
+              });
+              combinedArray.forEach((element, index) => {
+                tmp += `<div class="selectedItem">
+                                      <span class="mr-2">${element}</span>
+                                      <span class="itemIcon" onclick="removeTagItem('${element}')"><i class="fa fa-minus"></i></span>
+                                  </div>`;
+              });
+              $(".selectedTagWrapper").html(tmp);
+            }
+
+            function removeSpecItem(value) {
+              customSpecialty.forEach((element, index) => {
+                if (element == value) {
+                  customSpecialty.splice(index, 1);
+                }
+              });
+              selectedSpecialty.forEach((element, index) => {
+                if (element == value) {
+                  selectedSpecialty.splice(index, 1);
+                }
+              });
+              writeSelectedSpecialty();
+            }
+
+            function removeTagItem(value) {
+              customTag.forEach((element, index) => {
+                if (element == value) {
+                  customTag.splice(index, 1);
+                }
+              });
+              selectedTag.forEach((element, index) => {
+                if (element == value) {
+                  selectedTag.splice(index, 1);
+                }
+              });
+              writeSelectedTag();
+            }
+
+            function addSpecialty(e) {
+              var value = $("#customSpecialty").val();
+              if (value == "") {
+                Toastify({
+                  text: "You should input the Specialty",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                  stopOnFocus: true,
+                }).showToast();
+                return;
+              } else {
+                if (
+                  selectedSpecialty.indexOf(value) > -1 ||
+                  customSpecialty.indexOf(value) > -1
+                ) {
+                  Toastify({
+                    text: "Duplicated Specialty",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                    stopOnFocus: true,
+                  }).showToast();
+                } else {
+                  customSpecialty.push(value);
+                  writeSelectedSpecialty();
+                  $("#customSpecialty").val("");
+                }
+              }
+            }
+
+            function addTag(e) {
+              var value = $("#customTag").val();
+              if (value == "") {
+                Toastify({
+                  text: "You should input the Tag",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                  stopOnFocus: true,
+                }).showToast();
+                return;
+              } else {
+                if (
+                  selectedTag.indexOf(value) > -1 ||
+                  customTag.indexOf(value) > -1
+                ) {
+                  Toastify({
+                    text: "Duplicated Tag",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
+                    stopOnFocus: true,
+                  }).showToast();
+                } else {
+                  customTag.push(value);
+                  writeSelectedTag();
+                  $("#customTag").val("");
+                }
+              }
+            }
+
+            function changeSpecialty() {
+              selectedSpecialty = $("#specialitySelect").val();
+              writeSelectedSpecialty();
+            }
+
+            function changeTag() {
+              selectedTag = $("#tagSelect").val();
+              writeSelectedTag();
+            }
+
+            function cancelSelectSpecialty() {
+              customSpecialty = [];
+              selectedSpecialty = [];
+              $("#customSpecialty").val("");
+              $("#specialitySelect").val([]);
+              $("#specialitySelect").selectpicker("refresh");
+              writeSelectedSpecialty();
+              $("#specialityModal").modal("hide");
+            }
+
+            function cancelSelectTag() {
+              customTag = [];
+              selectedTag = [];
+              $("#customTag").val("");
+              $("#tagSelect").val([]);
+              $("#tagSelect").selectpicker("refresh");
+              writeSelectedTag();
+              $("#tagModal").modal("hide");
+            }
+
+            function saveSelectSpecialty() {
+              var combinedArray = [];
+              selectedSpecialty.forEach((element) => {
+                combinedArray.push(element);
+              });
+              customSpecialty.forEach((element) => {
+                combinedArray.push(element);
+              });
+
+              uniqueSpecialty = $.unique(combinedArray);
+              $("#speciality").val(uniqueSpecialty.join(","));
+              $("#specialityModal").modal("hide");
+            }
+
+            function saveSelectTag() {
+              var combinedArray = [];
+              selectedTag.forEach((element) => {
+                combinedArray.push(element);
+              });
+              customTag.forEach((element) => {
+                combinedArray.push(element);
+              });
+
+              uniqueTag = $.unique(combinedArray);
+              $("#tags").val(uniqueTag.join(","));
+              $("#tagModal").modal("hide");
+            }
+
+            $("#specialityModal").on("hidden.bs.modal", function () {
+              saveSelectSpecialty();
             });
-            $("#specialitySelect").html(tmp);
-            $("#specialitySelect").selectpicker("refresh");
 
-            tmp = "";
-            apiTags.forEach((element) => {
-              tmp += `<option value='${element}'>${element}</option>`;
+            $("#tagModal").on("hidden.bs.modal", function () {
+              saveSelectTag();
             });
-            $("#tagSelect").html(tmp);
-            $("#tagSelect").selectpicker("refresh");
-          })
-          .catch((error) => {
-            console.error(
-              "There was a problem with the fetch operation:",
-              error
-            );
-          });
-      }
 
-      function setImageLink(e) {
-        if ($("#flexRadioDefault1").prop("checked") == true) {
-          $("#avatarURL").removeClass("d-none");
-          $("#avatarUpload").addClass("d-none");
-          $("#avatarUpload").val("");
-        } else {
-          $("#avatarURL").addClass("d-none");
-          $("#avatarURL").val("");
-          $("#avatarUpload").removeClass("d-none");
-        }
-      }
+            $("#registerForm").on("submit", async function (event) {
+              event.preventDefault();
+              const newSheetData = {
+                firstname: $("#firstName").val(),
+                lastname: $("#lastName").val(),
+                specialty: $("#speciality").val(),
+                imageURL: $("#avatarURL").val(),
+                uploaded: 0,
+                tags: $("#tags").val(),
+                meetingLink: $("#meetingLink").val(),
+                profileLink: $("#profileLink").val(),
+                address: $("#address").val(),
+                city: $("#city").val(),
+                state: $("#state").val(),
+                zipcode: $("#zipcode").val(),
+                country: $("#country").val(),
+                email: $("#email").val(),
+                phone: $("#phone").val(),
+                sex: $("#sex").val(),
+                review: $("#newReviewStar").val(),
+                rank: $("#newRank").val(),
+                status: "active",
+              };
+              if ($("#avatarURL").hasClass("d-none")) {
+                var formData = new FormData();
+                formData.append("image", $("#avatarUpload")[0].files[0]);
+                await $.ajax({
+                  url: `${API_URL}media`, // Replace with your backend endpoint
+                  type: "POST",
+                  data: formData,
+                  processData: false,
+                  contentType: false,
+                  success: function (response) {
+                    fielName = response;
+                    newSheetData.imageURL = response;
+                    newSheetData.uploaded = 1;
+                  },
+                  error: function (xhr, status, error) {
+                    console.log("Error uploading file: " + error);
+                  },
+                });
+              }
 
-      function setImageUpload(e) {
-        if ($("#flexRadioDefault2").prop("checked") == true) {
-          $("#avatarURL").addClass("d-none");
-          $("#avatarURL").val("");
-          $("#avatarUpload").removeClass("d-none");
-        } else {
-          $("#avatarURL").removeClass("d-none");
-          $("#avatarUpload").addClass("d-none");
-          $("#avatarUpload").val("");
-        }
-      }
+              sendDataToBackend(newSheetData);
+            });
 
-      function openSpecModal() {
-        writeSelectedSpecialty();
-        $("#specialityModal").modal();
-      }
-
-      function openTagModal() {
-        writeSelectedTag();
-        $("#tagModal").modal();
-      }
-
-      function writeSelectedSpecialty() {
-        var tmp = "";
-        var combinedArray = [];
-        selectedSpecialty.forEach((element) => {
-          combinedArray.push(element);
-        });
-        customSpecialty.forEach((element) => {
-          combinedArray.push(element);
-        });
-        combinedArray.forEach((element, index) => {
-          tmp += `<div class="selectedItem">
-                                <span class="mr-2">${element}</span>
-                                <span class="itemIcon" onclick="removeSpecItem('${element}')"><i class="fa fa-minus"></i></span>
-                            </div>`;
-        });
-        $(".selectedSpecWrapper").html(tmp);
-      }
-
-      function writeSelectedTag() {
-        var tmp = "";
-        var combinedArray = [];
-        selectedTag.forEach((element) => {
-          combinedArray.push(element);
-        });
-        customTag.forEach((element) => {
-          combinedArray.push(element);
-        });
-        combinedArray.forEach((element, index) => {
-          tmp += `<div class="selectedItem">
-                                <span class="mr-2">${element}</span>
-                                <span class="itemIcon" onclick="removeTagItem('${element}')"><i class="fa fa-minus"></i></span>
-                            </div>`;
-        });
-        $(".selectedTagWrapper").html(tmp);
-      }
-
-      function removeSpecItem(value) {
-        customSpecialty.forEach((element, index) => {
-          if (element == value) {
-            customSpecialty.splice(index, 1);
-          }
-        });
-        selectedSpecialty.forEach((element, index) => {
-          if (element == value) {
-            selectedSpecialty.splice(index, 1);
-          }
-        });
-        writeSelectedSpecialty();
-      }
-
-      function removeTagItem(value) {
-        customTag.forEach((element, index) => {
-          if (element == value) {
-            customTag.splice(index, 1);
-          }
-        });
-        selectedTag.forEach((element, index) => {
-          if (element == value) {
-            selectedTag.splice(index, 1);
-          }
-        });
-        writeSelectedTag();
-      }
-
-      function addSpecialty(e) {
-        var value = $("#customSpecialty").val();
-        if (value == "") {
-          Toastify({
-            text: "You should input the Specialty",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
-            stopOnFocus: true,
-          }).showToast();
-          return;
-        } else {
-          if (
-            selectedSpecialty.indexOf(value) > -1 ||
-            customSpecialty.indexOf(value) > -1
-          ) {
-            Toastify({
-              text: "Duplicated Specialty",
-              duration: 3000,
-              gravity: "top",
-              position: "right",
-              backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
-              stopOnFocus: true,
-            }).showToast();
-          } else {
-            customSpecialty.push(value);
-            writeSelectedSpecialty();
-            $("#customSpecialty").val("");
-          }
-        }
-      }
-
-      function addTag(e) {
-        var value = $("#customTag").val();
-        if (value == "") {
-          Toastify({
-            text: "You should input the Tag",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
-            stopOnFocus: true,
-          }).showToast();
-          return;
-        } else {
-          if (
-            selectedTag.indexOf(value) > -1 ||
-            customTag.indexOf(value) > -1
-          ) {
-            Toastify({
-              text: "Duplicated Tag",
-              duration: 3000,
-              gravity: "top",
-              position: "right",
-              backgroundColor: "linear-gradient(to right, #FF0026, #FF0026)",
-              stopOnFocus: true,
-            }).showToast();
-          } else {
-            customTag.push(value);
-            writeSelectedTag();
-            $("#customTag").val("");
-          }
-        }
-      }
-
-      function changeSpecialty() {
-        selectedSpecialty = $("#specialitySelect").val();
-        writeSelectedSpecialty();
-      }
-
-      function changeTag() {
-        selectedTag = $("#tagSelect").val();
-        writeSelectedTag();
-      }
-
-      function cancelSelectSpecialty() {
-        customSpecialty = [];
-        selectedSpecialty = [];
-        $("#customSpecialty").val("");
-        $("#specialitySelect").val([]);
-        $("#specialitySelect").selectpicker("refresh");
-        writeSelectedSpecialty();
-        $("#specialityModal").modal("hide");
-      }
-
-      function cancelSelectTag() {
-        customTag = [];
-        selectedTag = [];
-        $("#customTag").val("");
-        $("#tagSelect").val([]);
-        $("#tagSelect").selectpicker("refresh");
-        writeSelectedTag();
-        $("#tagModal").modal("hide");
-      }
-
-      function saveSelectSpecialty() {
-        var combinedArray = [];
-        selectedSpecialty.forEach((element) => {
-          combinedArray.push(element);
-        });
-        customSpecialty.forEach((element) => {
-          combinedArray.push(element);
-        });
-
-        uniqueSpecialty = $.unique(combinedArray);
-        $("#speciality").val(uniqueSpecialty.join(","));
-        $("#specialityModal").modal("hide");
-      }
-
-      function saveSelectTag() {
-        var combinedArray = [];
-        selectedTag.forEach((element) => {
-          combinedArray.push(element);
-        });
-        customTag.forEach((element) => {
-          combinedArray.push(element);
-        });
-
-        uniqueTag = $.unique(combinedArray);
-        $("#tags").val(uniqueTag.join(","));
-        $("#tagModal").modal("hide");
-      }
-
-      $("#specialityModal").on("hidden.bs.modal", function () {
-        saveSelectSpecialty();
-      });
-
-      $("#tagModal").on("hidden.bs.modal", function () {
-        saveSelectTag();
-      });
-
-      $("#registerForm").on("submit", async function (event) {
-        event.preventDefault();
-        const newSheetData = {
-          firstname: $("#firstName").val(),
-          lastname: $("#lastName").val(),
-          specialty: $("#speciality").val(),
-          imageURL: $("#avatarURL").val(),
-          uploaded: 0,
-          tags: $("#tags").val(),
-          meetingLink: $("#meetingLink").val(),
-          profileLink: $("#profileLink").val(),
-          address: $("#address").val(),
-          city: $("#city").val(),
-          state: $("#state").val(),
-          zipcode: $("#zipcode").val(),
-          country: $("#country").val(),
-          email: $("#email").val(),
-          phone: $("#phone").val(),
-          sex: $("#sex").val(),
-          review: $("#newReviewStar").val(),
-          rank: $("#newRank").val(),
-          status: "active",
-        };
-        if ($("#avatarURL").hasClass("d-none")) {
-          var formData = new FormData();
-          formData.append("image", $("#avatarUpload")[0].files[0]);
-          await $.ajax({
-            url: `${API_URL}media`, // Replace with your backend endpoint
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              fielName = response;
-              newSheetData.imageURL = response;
-              newSheetData.uploaded = 1;
-            },
-            error: function (xhr, status, error) {
-              console.log("Error uploading file: " + error);
-            },
-          });
-        }
-
-        sendDataToBackend(newSheetData);
-      });
-
-      async function sendDataToBackend(data) {
-        const response = await fetch(`${API_URL}admin_new`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        const result = await response.json();
-        if (result == "success") {
-          Toastify({
-            text: "Success",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "linear-gradient(to right, #67bc46, #67bc46)",
-            stopOnFocus: true,
-          }).showToast();
-        } else if (result == "duplicated") {
-          Toastify({
-            text: "Practitioner is duplicated",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "linear-gradient(to right, #67bc46, #67bc46)",
-            stopOnFocus: true,
-          }).showToast();
-        }
-      }
-      $(document).ready(function () {
-        getData();
-        getCountries();
-        getMetaData();
-      });
+            async function sendDataToBackend(data) {
+              const response = await fetch(`${API_URL}admin_new`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              });
+              const result = await response.json();
+              if (result == "success") {
+                Toastify({
+                  text: "Success",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "linear-gradient(to right, #67bc46, #67bc46)",
+                  stopOnFocus: true,
+                }).showToast();
+              } else if (result == "duplicated") {
+                Toastify({
+                  text: "Practitioner is duplicated",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "linear-gradient(to right, #67bc46, #67bc46)",
+                  stopOnFocus: true,
+                }).showToast();
+              }
+            }
+            $(document).ready(function () {
+              getData();
+              getCountries();
+              getMetaData();
+            });
     </script>
   </body>
 </html>

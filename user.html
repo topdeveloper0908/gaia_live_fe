@@ -544,7 +544,7 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-      var API_URL = "https://d32oo4yrlotqei.cloudfront.net/";
+      var API_URL = "https://d32oo4yrlotqei.cloudfront.net/api/";
       var apiSpecs = [];
       var apiTags = [];
 
@@ -575,56 +575,25 @@
       }
 
       async function getData() {
-        const urlParams = new URLSearchParams(window.location.search);
-        var formData = {
-          id: urlParams.get("user_id"),
-        };
-        const response = await fetch(`${API_URL}user`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-        data = await response.json();
-        data = data[0];
-        console.log(data);
-        writeData();
-        disableLoader();
-      }
-
-      async function getMetaData() {
-        await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json(); // Assuming the response is in JSON format
-          })
-          .then((data) => {
-            apiSpecs = data.specs;
-            apiTags = data.tags;
-
-            var tmp = "";
-            apiSpecs.forEach((element) => {
-              tmp += `<option value='${element}'>${element}</option>`;
-            });
-            $("#specialitySelect").html(tmp);
-            $("#specialitySelect").selectpicker("refresh");
-
-            tmp = "";
-            apiTags.forEach((element) => {
-              tmp += `<option value='${element}'>${element}</option>`;
-            });
-            $("#tagSelect").html(tmp);
-            $("#tagSelect").selectpicker("refresh");
-          })
-          .catch((error) => {
-            console.error(
-              "There was a problem with the fetch operation:",
-              error
-            );
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          const response = await fetch(`${API_URL}user`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
           });
+          data = await response.json();
+          console.log(data);
+          // await $.cookie("token", response.token);
+          data = data[0];
+          console.log(data);
+          writeData();
+          disableLoader();
+        } catch {
+          // window.location.href = "login.html";
+        }
       }
 
       function setImageLink(e) {
@@ -982,7 +951,7 @@
       }
       $(document).ready(async function () {
         await getCountries();
-        await getMetaData();
+        // await getMetaData();
         await getData();
       });
     </script>
