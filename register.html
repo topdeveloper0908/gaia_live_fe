@@ -726,6 +726,7 @@
           sex: $("#sex").val(),
           tags: $("#tags").val(),
         };
+        console.log(newSheetData);
         if ($("#avatarURL").hasClass("d-none")) {
           var formData = new FormData();
           formData.append("image", $("#avatarUpload")[0].files[0]);

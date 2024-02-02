@@ -577,8 +577,9 @@
       async function getData() {
         try {
           const urlParams = new URLSearchParams(window.location.search);
+          const token = urlParams.get("token");
           const response = await fetch(`${API_URL}user`, {
-            method: "POST",
+            method: "GET",
             headers: {
               "Content-Type": "application/json",
               Authorization: token,
@@ -586,14 +587,47 @@
           });
           data = await response.json();
           console.log(data);
-          // await $.cookie("token", response.token);
+
           data = data[0];
-          console.log(data);
           writeData();
           disableLoader();
         } catch {
           // window.location.href = "login.html";
         }
+      }
+
+      async function getMetaData() {
+        await fetch(`${API_URL}metaData`) // Replace with the actual backend URL
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+          })
+          .then((data) => {
+            apiSpecs = data.specs;
+            apiTags = data.tags;
+
+            var tmp = "";
+            apiSpecs.forEach((element) => {
+              tmp += `<option value='${element}'>${element}</option>`;
+            });
+            $("#specialitySelect").html(tmp);
+            $("#specialitySelect").selectpicker("refresh");
+
+            tmp = "";
+            apiTags.forEach((element) => {
+              tmp += `<option value='${element}'>${element}</option>`;
+            });
+            $("#tagSelect").html(tmp);
+            $("#tagSelect").selectpicker("refresh");
+          })
+          .catch((error) => {
+            console.error(
+              "There was a problem with the fetch operation:",
+              error
+            );
+          });
       }
 
       function setImageLink(e) {
