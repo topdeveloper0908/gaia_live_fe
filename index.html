@@ -136,6 +136,7 @@
             border-right-width: 0;
             border-left-width: 0;
             padding: 15px;
+            cursor: pointer;
         }
         .active-profile {
             background-color: #04aa6d19;
@@ -242,6 +243,21 @@
             color: white;
             background: #67bc46;
         }
+        #map {
+            min-height: 30rem;
+        }
+        .filterWrapperGroup {
+            overflow-y: scroll;
+        }
+         /* ============ mobile view ============ */
+         @media(max-width: 479px){
+            #map {
+                min-height: 20rem;
+            }
+            .filterWrapperGroup {
+                overflow-y: visible;
+            }
+        }
     </style>
     <title>Practitioner</title>
 </head>
@@ -297,9 +313,9 @@
             <div class="m-2" style="height: calc(100vh - 6rem);">
                 <div class="row g-0 h-100">
                     <div class="col-lg-6 px-0">
-                        <div id='map' style="min-height: 30rem;"></div>
+                        <div id='map'></div>
                     </div>
-                    <div class="col-lg-6 scrollBar-hidden" style="height: calc(100vh - 6rem); overflow-y: scroll;">
+                    <div class="col-lg-6 filterWrapperGroup scrollBar-hidden" style="height: calc(100vh - 6rem);">
                         <div class="py-4 px-md-4 px-2" id="filterWrapper">
                         </div>
                     </div>
@@ -577,9 +593,9 @@
                 var specs = mainData[element].specialty.split(",");
                 var subTags = mainData[element].tags.split(",");
                 tmp += `
-                <div class="profile-wrapper" id="profile-${mainData[element].id}">
+                <div class="profile-wrapper" onclick="moveMap(event, ${mainData[element].id})" id="profile-${mainData[element].id}">
                     <div class="d-flex flex-sm-row flex-column">
-                        <div class='badge-wrapper' onclick="moveMap(${mainData[element].id})">`
+                        <div class='badge-wrapper'>`
                             if(mainData[element].upload == 0) {
                                 if (mainData[element].imageURL == null || mainData[element].imageURL == ""){
                                         if(mainData[element].sex == "Male"){
@@ -857,7 +873,11 @@
             });
         }
 
-        async function moveMap(value) {
+        async function moveMap(e, value) {
+            console.log(e.target.className);
+            if(e.target.className.indexOf('btn-custom') > -1) {
+                return;
+            }
             // add active-profile class to div with profile-value
             $(".profile-wrapper").removeClass('active-profile');
             $("#profile-" + value).addClass('active-profile');

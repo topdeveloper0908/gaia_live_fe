@@ -347,23 +347,6 @@
                                 <option value="5">5</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Rank</label>
-                            <select id="newRank" class="form-select" aria-label="Default select example">
-                                <option value="" disabled selected>Select Rank</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Meeting Link</label>
-                            <input type="text" class="form-control" id="newMeeting" placeholder="">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Profile Link</label>
-                            <input type="text" class="form-control" id="newProfile" placeholder="">
-                        </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center align-content-center">
@@ -862,12 +845,6 @@
                 }
             });
 
-            $("#newReviewStart").val(data.review);
-            $("#newRank").val(data.rank);
-
-            $("#newMeeting").val(data.meetinglink);
-            $("#newProfile").val(data.profileLink);
-
             $("#speciality").val(data.specialty);
             data.specialty.split(',').forEach(element => {
                 if(element.charAt(0) == ' ') {
@@ -909,8 +886,6 @@
                 imageURL: $("#avatarURL").val(),
                 uploaded: 0,
                 tags: $("#tags").val(),
-                meetingLink: $("#meetingLink").val(),
-                profileLink: $("#profileLink").val(),
                 address: $("#address").val(),
                 city: $("#city").val(),
                 state: $("#state").val(),
@@ -919,8 +894,6 @@
                 email: $("#email").val(),
                 phone: $("#phone").val(),
                 sex: $("#sex").val(),
-                review: $("#newReviewStar").val(),
-                rank: $("#newRank").val(),
                 status: 'active'
             };
             if ($("#avatarURL").hasClass("d-none")) {
