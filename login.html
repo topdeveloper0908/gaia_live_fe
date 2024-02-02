@@ -94,7 +94,7 @@
                         >Administrator</label
                       >
                     </div>
-                    <button type="submit" class="btn btn-primary ms-auto">
+                    <button type="submit" class="btn btn-primary ms-auto" id="login_button">
                       Login
                     </button>
                     <!-- <button type="submit" class="btn btn-primary ms-auto">
@@ -132,6 +132,10 @@
           data = {
             email: $("#email").val(),
           };
+          // set button to loadin...
+          $("#login_button").html(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...')
+          
           await $.ajax({
             url: `${API_URL}login_practitioner`, // Replace with your backend endpoint
             type: "POST",
@@ -177,6 +181,7 @@
               }
             },
           });
+          $("#login_button").html("Login")
         } else {
           data = {
             email: $("#email").val(),
