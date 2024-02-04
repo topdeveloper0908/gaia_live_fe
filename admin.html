@@ -230,9 +230,9 @@ input:checked + .slider:before {
                       <div class="col-4">
                         <div class="mb-2">
                           <label for="exampleFormControlInput1" class="form-label">Practitioner Type</label><br>
-                          <select id="newType" class="form-select" aria-label="Default select example">
-                            <option value="0">Physical</option>
-                            <option value="1">Remote</option>
+                          <select id="availability" class="form-select" aria-label="Default select example">
+                            <option value="In-person">In-person</option>
+                            <option value="Remote">Remote</option>
                           </select>
                         </div>
                       </div>
@@ -532,6 +532,7 @@ input:checked + .slider:before {
             $("#newStatus").val(element.status);
             $("#newSex").val(element.sex)
             $("#newHide").val(element.hide).toString();
+            $("#availability").val(element.availability);
           }
         });
       }
@@ -558,7 +559,8 @@ input:checked + .slider:before {
           review: $("#newReviewStar").val(),
           status: $("#newStatus").val(),
           sex: $("#newSex").val(),
-          hide: Number($("#newHide").val())
+          hide: Number($("#newHide").val()),
+          availability: $("#availability").val()
         };
         updateData(formData)
       })
@@ -593,6 +595,7 @@ input:checked + .slider:before {
               mainData[index].status = formData.status;
               mainData[index].sex = formData.sex;
               mainData[index].hide = formData.hide;
+              mainData[index].availability = formData.availability;
               writeTable();
               $("#editModal").modal('hide');
             }

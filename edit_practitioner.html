@@ -351,9 +351,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Practitioner Type</label>
-                            <select id="newUserType" class="form-select" aria-label="Default select example">
-                                <option value="0" selected>Physical</option>
-                                <option value="1">Remote</option>
+                            <select id="availability" class="form-select" aria-label="Default select example">
+                                <option value="In-person" selected>In-person</option>
+                                <option value="Remote">Remote</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -1124,6 +1124,7 @@
         $("#email").val(data.email);
         $("#phone").val(data.phone);
         $("#sex").val(data.sex);
+        $("#availability").val(data.availability);
         $("#avatarURL").val(data.imageURL);
 
         $("#address").val(data.address);
@@ -1185,6 +1186,7 @@
           phone: $("#phone").val(),
           sex: $("#sex").val(),
           status: "active",
+          availability: $("#availability").val(),
         };
         if ($("#avatarURL").hasClass("d-none")) {
           var formData = new FormData();
