@@ -288,6 +288,9 @@
         <!-- <div class="bg-block"></div> -->
         <div class="main-content">
             <div class="sidebar shadow scrollBar-hidden">
+                <div class="mb-3 d-flex justify-content-between">
+                    <button onclick="clearFilter()" class="btn btn-danger col-12">Clear Filter</button>
+                </div>
                 <div class="mb-3"> 
                     <label class="mb-2">Zipcode</label>                                   
                     <input onkeyup="filterUser()" type="text" class="form-control" id="filterZipcode" placeholder="Zipcode" aria-describedby="emailHelp" style="padding: .2rem .7rem;">
@@ -305,8 +308,8 @@
                     <label for="practitioner-type" class="mb-2">
                        Practitioner Type
                     </label>
-                    <select name="practitioner_type" id="practitioner_type" class="form-select form-select-sm" placeholder="Filter by type" onchange="chageTypeSelect()">
-                        <option value="" disabled selected>Filter by Type</option>
+                    <select name="practitioner_type" id="practitioner_type" class="form-select form-select-sm" placeholder="Filter by type" onchange="filterUser()">
+                        <option value="all" selected>All</option>
                         <option value="In-person">In-person</option>
                         <option value="Remote">Remote</option>
                     </select>
@@ -318,9 +321,6 @@
                 <div class="mb-3">
                     <label class="mb-2">Tag</label>                                   
                     <div class="d-flex flex-wrap items-wrapper" id="tag-wrapper"></div>
-                </div>
-                <div class="mb-3 d-flex justify-content-between">
-                    <button onclick="clearFilter()" class="btn btn-danger col-12">Clear Filter</button>
                 </div>
             </div>
             <div class="sidebar-overlay d-none" onclick="hideSidebar()"></div>
@@ -349,8 +349,12 @@
                         <div id='map'></div>
                     </div>
                     <div class="col-lg-6 filterWrapperGroup scrollBar-hidden" style="height: calc(100vh - 6rem);">
+                        <div id="page-top"></div>
                         <div class="py-4 px-md-4 px-2" id="filterWrapper">
                         </div>
+                        <a class="scroll-to-top btn-custom rounded" href="#page-top">
+                            <i class="fas fa-angle-up"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -615,6 +619,19 @@
                     }
                 }
             });
+
+            var value = $("#practitioner_type").val();
+            var tmp = [];
+            if(value != 'all') {
+                filterResult.forEach((element, index) => {
+                    if(mainData[element].availability == value){
+                        tmp.push(index);
+                    }
+                });
+                filterResult = tmp;
+            }
+            
+            
 
             sorter();
             writeData();
@@ -1015,22 +1032,7 @@
                 }
         }
         async function chageTypeSelect(){
-            var value = $("#practitioner_type").val();
-            filterResult = [];
-            if(value == "In-person"){
-                mainData.forEach((element, index) => {
-                    if(element.availability == "In-person"){
-                        filterResult.push(index);
-                    }
-                });
-            }
-            else if(value == "Remote"){
-                mainData.forEach((element, index) => {
-                    if(element.availability == "Remote"){
-                        filterResult.push(index);
-                    }
-                });
-            }
+            
             writeData();
         }
         async function getDistance(zipCode1, zipCode2) {
@@ -1083,8 +1085,8 @@
             filterTag = [];
             filterResult = [];
             $("#filterZipcode").val('');
-            $("#rangeSelect").val('');
-            $("#practitioner_type").val('');
+            $("#rangeSelect").val('0');
+            $("#practitioner_type").val('all');
             $(".tag-item").removeClass('selected');
             $(".specialty-item").removeClass('selected');
             getData();

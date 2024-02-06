@@ -126,3 +126,25 @@ body {
     background: white;
     z-index: 999;
   }
+  .scroll-to-top {
+    position: fixed;
+    right: 3rem;
+    bottom: 3rem;
+    display: inline;
+    width: 2.75rem;
+    height: 2.75rem;
+    text-align: center;
+    line-height: 27px;
+    font-size: 1.3rem;
+}
+
+.scroll-to-top:hover {
+    color: white;
+    background-color: #67bc46;
+}
+@media(max-width: 479px){
+    .scroll-to-top {
+        right: 2rem;
+        bottom: 2rem;
+    }
+}
