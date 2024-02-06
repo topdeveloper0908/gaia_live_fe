@@ -302,12 +302,25 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="practitioner-type" class="mb-2">
+                       Practitioner Type
+                    </label>
+                    <select name="practitioner_type" id="practitioner_type" class="form-select form-select-sm" placeholder="Filter by type" onchange="chageTypeSelect()">
+                        <option value="" disabled selected>Filter by Type</option>
+                        <option value="In-person">In-person</option>
+                        <option value="Remote">Remote</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label class="mb-2">Speciality</label>                                   
                     <div class="d-flex flex-wrap items-wrapper" id="specialty-wrapper"></div>
                 </div>
                 <div class="mb-3">
                     <label class="mb-2">Tag</label>                                   
                     <div class="d-flex flex-wrap items-wrapper" id="tag-wrapper"></div>
+                </div>
+                <div class="mb-3 d-flex justify-content-between">
+                    <button onclick="clearFilter()" class="btn btn-danger col-12">Clear Filter</button>
                 </div>
             </div>
             <div class="sidebar-overlay d-none" onclick="hideSidebar()"></div>
@@ -1001,7 +1014,25 @@
                     writeData();
                 }
         }
-
+        async function chageTypeSelect(){
+            var value = $("#practitioner_type").val();
+            filterResult = [];
+            if(value == "In-person"){
+                mainData.forEach((element, index) => {
+                    if(element.availability == "In-person"){
+                        filterResult.push(index);
+                    }
+                });
+            }
+            else if(value == "Remote"){
+                mainData.forEach((element, index) => {
+                    if(element.availability == "Remote"){
+                        filterResult.push(index);
+                    }
+                });
+            }
+            writeData();
+        }
         async function getDistance(zipCode1, zipCode2) {
             var tmp = 100000000;
             // Call Mapbox Geocoding API to obtain coordinates for the zip codes
@@ -1047,6 +1078,17 @@
             return distance;
         }
 
+        function clearFilter() {
+            filterSpecialty = [];
+            filterTag = [];
+            filterResult = [];
+            $("#filterZipcode").val('');
+            $("#rangeSelect").val('');
+            $("#practitioner_type").val('');
+            $(".tag-item").removeClass('selected');
+            $(".specialty-item").removeClass('selected');
+            getData();
+        }
         function toggleSidebar() {
             if($(".sidebar").hasClass('active')) {
                 $(".sidebar").removeClass('active')
