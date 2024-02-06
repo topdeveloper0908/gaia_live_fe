@@ -635,6 +635,8 @@
           .then((response) => response.json())
           .then((data) => {
             var tmp = "";
+            data = [...data, { value: "CA", text: "Canada", group: "C" }];
+            data.sort((a, b) => a.text.localeCompare(b.text));
             data.forEach((element) => {
               if (element.value == "US") {
                 tmp += `<option value='${element.value}' selected>${element.text}</option>`;
