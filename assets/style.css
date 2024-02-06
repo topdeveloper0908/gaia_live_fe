@@ -4,6 +4,10 @@ body {
 .badge-wrapper {
     position: relative;
 }
+.badge-wrapper img {
+    object-fit: cover;
+    object-position: top;
+}
 .recommendBadge {
     position: absolute;
     top: -0.7rem;
