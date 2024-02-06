@@ -675,7 +675,7 @@
                                 <h3 class="mb-2 mt-4 mt-sm-0">${mainData[element].firstname} ${mainData[element].lastname}</h3>
                                 <h5 class="mb-2">`;
                                     if(mainData[element].hide == 0) {
-                                        tmp += `${mainData[element].address} `;
+                                        tmp += `${mainData[element].availability !== "Remote" ? mainData[element].address : ""} `;
                                     }
                                     tmp += `${mainData[element].city} ${mainData[element].state} ${mainData[element].zipcode} ${mainData[element].country}</h5>
                                 <div class="mb-2">`
