@@ -832,6 +832,10 @@
           .then((response) => response.json())
           .then((data) => {
             var tmp = "";
+            // add canada to the list
+            data = [...data, { value: "CA", text: "Canada", group: "C" }];
+            // sor according to the text
+            data.sort((a, b) => a.text.localeCompare(b.text));
             data.forEach((element) => {
               if (element.value == "US") {
                 tmp += `<option value='${element.value}' selected>${element.text}</option>`;
@@ -839,7 +843,6 @@
                 tmp += `<option value='${element.value}'>${element.text}</option>`;
               }
             });
-            tmp += `<option value='Canada'>Canada</option>`;
             $("#country").html(tmp);
           });
 
