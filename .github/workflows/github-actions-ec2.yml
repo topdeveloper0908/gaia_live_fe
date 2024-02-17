@@ -22,10 +22,23 @@ jobs:
           node-version: 20
           cache: "yarn"
       - name: Install dependencies
-        run: yarn install
+        run: yarn
       - name: Build
         run: yarn build
 
+      - name: invalidate
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          PATHS: /*
+          AWS_REGION: "us-east-1"
+          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  deploy:
+    name: Deploy to EC2 on master branch push
+    runs-on: ubuntu-latest
+
+    steps:
       - name: invalidate
         uses: chetan/invalidate-cloudfront-action@v2
         env:
