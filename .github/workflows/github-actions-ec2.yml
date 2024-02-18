@@ -29,20 +29,12 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}-
 
       - uses: actions/checkout@v3
-      - name: Use Node.js 20
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: "yarn"
-      - name: Install dependencies
-        run: yarn
+      # - name: Install dependencies
+      #   run: yarn
       - name: Build
         run: yarn build
       - name: restart pm2
         run: pm2 restart all
-
-      - name: Delete cache
-        run: rm -rf ~/.cache/yarn
 
   deploy:
     name: Deploy to EC2 on master branch push

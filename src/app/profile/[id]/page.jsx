@@ -92,13 +92,231 @@ export default function Profile({ params }) {
       {loading == false ? (
         <Box>
           <Container className="container">
-            <Stack alignItems="center" justifyContent="center" mt={4}>
+            <Stack alignItems="center" justifyContent="center" mt={4} gap={4}>
               <img
                 style={{ display: "block" }}
                 src="../img/logo-1.png"
                 alt="logo"
                 width="250"
               />
+              <Grid container spacing={1}>
+                <Grid item md={6}>
+                  <Stack justifyContent="center" alignItems="center">
+                    {data.upload == 0 ? (
+                      !data.imageURL || data.imageURL == "" ? (
+                        data.sex == "Male" ? (
+                          <img
+                            src={
+                              "https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34a0dbca137ef4f425e.png"
+                            }
+                            width={300}
+                            height={300}
+                            style={{ display: "block", borderRadius: ".3rem" }}
+                          />
+                        ) : (
+                          <img
+                            src={
+                              "https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34ab7ea181193716085.png"
+                            }
+                            width={300}
+                            height={300}
+                            style={{ display: "block", borderRadius: ".3rem" }}
+                          />
+                        )
+                      ) : (
+                        <img
+                          src={data.imageURL}
+                          alt={data.firstname[0]}
+                          width={300}
+                          height={300}
+                          style={{ display: "block", borderRadius: ".3rem" }}
+                        />
+                      )
+                    ) : (
+                      <img
+                        src={API_URL + "src/" + data.imageURL}
+                        alt={data.firstname[0]}
+                        width={300}
+                        height={300}
+                        style={{ display: "block", borderRadius: ".3rem" }}
+                      />
+                    )}
+                    <Typography variant="h4" mt={2} mb={1}>
+                      {data?.firstname + " " + data?.lastname}
+                    </Typography>
+                    <StyledRating
+                      co="correctValue"
+                      color="primary.main"
+                      name="size-medium"
+                      defaultValue={data?.review}
+                      readOnly
+                      emptyIcon={
+                        <StarIcon
+                          style={{ opacity: 0.55 }}
+                          fontSize="inherit"
+                        />
+                      }
+                    />
+                    <Button
+                      href={data.meetinglink}
+                      sx={{ mt: 2 }}
+                      variant="contained"
+                      co="correctValue"
+                    >
+                      <Typography fontSize={"30px"}>
+                        Reserve Your Biofield Scan
+                      </Typography>
+                    </Button>
+                  </Stack>
+                </Grid>
+                <Grid item md={6}>
+                  <Box p={6} border={1} borderColor="#ddd" borderRadius=".3rem">
+                    <Typography variant="h4" textAlign="center" mb={3}>
+                      Practitioner Information
+                    </Typography>
+                    <Stack direction="row" alignItems="center" mb={1}>
+                      <Typography variant="h6" width="10rem">
+                        Name
+                      </Typography>
+                      <Typography variant="h6">
+                        {data?.firstname + " " + data?.lastname}
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" mb={1}>
+                      <Typography variant="h6" width="10rem">
+                        Address
+                      </Typography>
+                      <Typography flex={1} variant="h6">
+                        {(data?.hide == 1 || data?.availability == "Remote"
+                          ? ""
+                          : data?.address) +
+                          " " +
+                          data?.city +
+                          " " +
+                          data?.state +
+                          " " +
+                          data?.zipcode +
+                          " " +
+                          data?.country}
+                      </Typography>
+                    </Stack>
+                    {data?.hide == 1 || data?.availability == "Remote" ? (
+                      <></>
+                    ) : (
+                      <Stack direction="row" alignItems="center" mb={1}>
+                        <Typography variant="h6" width="10rem">
+                          Email
+                        </Typography>
+                        <Typography variant="h6">{data?.email}</Typography>
+                      </Stack>
+                    )}
+                    {data?.hide == 1 || data?.availability == "Remote" ? (
+                      <></>
+                    ) : (
+                      <Stack direction="row" alignItems="center" mb={1}>
+                        <Typography variant="h6" width="10rem">
+                          Phone
+                        </Typography>
+                        <Typography variant="h6">{data?.phone}</Typography>
+                      </Stack>
+                    )}
+                    <Stack direction="row" mb={1}>
+                      <Typography variant="h6" width="10rem">
+                        Speciality
+                      </Typography>
+                      <Stack
+                        flex={1}
+                        flexWrap="wrap"
+                        alignItems={"center"}
+                        co="correctValue"
+                        direction={"row"}
+                      >
+                        {data?.specialty.map((item, index) => {
+                          return (
+                            <Box
+                              className="cursor-pointer"
+                              key={index}
+                              color="primary.main"
+                              border={1}
+                              co="correctValue"
+                              borderColor="primary.main"
+                              borderRadius={1}
+                              px={0.7}
+                              py={0.3}
+                              m={0.2}
+                            >
+                              <Typography fontSize=".9rem" co="correctValue">
+                                {item}
+                              </Typography>
+                            </Box>
+                          );
+                        })}
+                      </Stack>
+                    </Stack>
+                    <Stack direction="row" mb={1}>
+                      <Typography variant="h6" width="10rem">
+                        Tags
+                      </Typography>
+                      <Stack
+                        flex={1}
+                        flexWrap="wrap"
+                        alignItems={"center"}
+                        co="correctValue"
+                        direction={"row"}
+                      >
+                        {data?.tags.map((item, index) => {
+                          return (
+                            <Box
+                              key={index}
+                              className="cursor-pointer"
+                              color="primary.main"
+                              border={1}
+                              co="correctValue"
+                              borderColor="primary.main"
+                              borderRadius={1}
+                              px={0.7}
+                              py={0.3}
+                              m={0.2}
+                            >
+                              <Typography fontSize=".9rem" co="correctValue">
+                                {item}
+                              </Typography>
+                            </Box>
+                          );
+                        })}
+                      </Stack>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" mb={1}>
+                      <Typography variant="h6" width="10rem">
+                        Reviews
+                      </Typography>
+                      <StyledRating
+                        co="correctValue"
+                        color="primary.main"
+                        name="size-medium"
+                        defaultValue={data?.review}
+                        readOnly
+                        emptyIcon={
+                          <StarIcon
+                            style={{ opacity: 0.55 }}
+                            fontSize="inherit"
+                          />
+                        }
+                      />
+                    </Stack>
+                    <Stack direction="row" alignItems="center" mb={1}>
+                      <Typography variant="h6" width="10rem">
+                        Type
+                      </Typography>
+                      <Typography variant="h6">
+                        {data?.availability == "Remote"
+                          ? "Remote"
+                          : "In-Person"}
+                      </Typography>
+                    </Stack>
+                  </Box>
+                </Grid>
+              </Grid>
               <Typography my={3} fontSize="64px" align="center">
                 Check Your Chakra Balance!
               </Typography>
@@ -944,219 +1162,7 @@ export default function Profile({ params }) {
                 BOOK A SESSION NOW
               </Typography>
             </div>
-            <Grid container spacing={1} mb={8}>
-              <Grid item md={6}>
-                <Stack justifyContent="center" alignItems="center">
-                  {data.upload == 0 ? (
-                    !data.imageURL || data.imageURL == "" ? (
-                      data.sex == "Male" ? (
-                        <img
-                          src={
-                            "https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34a0dbca137ef4f425e.png"
-                          }
-                          width={300}
-                          height={300}
-                          style={{ display: "block", borderRadius: ".3rem" }}
-                        />
-                      ) : (
-                        <img
-                          src={
-                            "https://storage.googleapis.com/msgsndr/WkKl1K5RuZNQ60xR48k6/media/65b5b34ab7ea181193716085.png"
-                          }
-                          width={300}
-                          height={300}
-                          style={{ display: "block", borderRadius: ".3rem" }}
-                        />
-                      )
-                    ) : (
-                      <img
-                        src={data.imageURL}
-                        alt={data.firstname[0]}
-                        width={300}
-                        height={300}
-                        style={{ display: "block", borderRadius: ".3rem" }}
-                      />
-                    )
-                  ) : (
-                    <img
-                      src={API_URL + "src/" + data.imageURL}
-                      alt={data.firstname[0]}
-                      width={300}
-                      height={300}
-                      style={{ display: "block", borderRadius: ".3rem" }}
-                    />
-                  )}
-                  <Typography variant="h4" mt={2} mb={1}>
-                    {data?.firstname + " " + data?.lastname}
-                  </Typography>
-                  <StyledRating
-                    co="correctValue"
-                    color="primary.main"
-                    name="size-medium"
-                    defaultValue={data?.review}
-                    readOnly
-                    emptyIcon={
-                      <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                    }
-                  />
-                  <Button
-                    href={data.meetinglink}
-                    sx={{ mt: 2 }}
-                    variant="contained"
-                    co="correctValue"
-                  >
-                    <Typography fontSize={"30px"}>
-                      Reserve Your Biofield Scan
-                    </Typography>
-                  </Button>
-                </Stack>
-              </Grid>
-              <Grid item md={6}>
-                <Box p={6} border={1} borderColor="#ddd" borderRadius=".3rem">
-                  <Typography variant="h4" textAlign="center" mb={3}>
-                    Practitioner Information
-                  </Typography>
-                  <Stack direction="row" alignItems="center" mb={1}>
-                    <Typography variant="h6" width="10rem">
-                      Name
-                    </Typography>
-                    <Typography variant="h6">
-                      {data?.firstname + " " + data?.lastname}
-                    </Typography>
-                  </Stack>
-                  <Stack direction="row" alignItems="center" mb={1}>
-                    <Typography variant="h6" width="10rem">
-                      Address
-                    </Typography>
-                    <Typography flex={1} variant="h6">
-                      {(data?.hide == 1 || data?.availability == "Remote"
-                        ? ""
-                        : data?.address) +
-                        " " +
-                        data?.city +
-                        " " +
-                        data?.state +
-                        " " +
-                        data?.zipcode +
-                        " " +
-                        data?.country}
-                    </Typography>
-                  </Stack>
-                  {data?.hide == 1 || data?.availability == "Remote" ? (
-                    <></>
-                  ) : (
-                    <Stack direction="row" alignItems="center" mb={1}>
-                      <Typography variant="h6" width="10rem">
-                        Email
-                      </Typography>
-                      <Typography variant="h6">{data?.email}</Typography>
-                    </Stack>
-                  )}
-                  {data?.hide == 1 || data?.availability == "Remote" ? (
-                    <></>
-                  ) : (
-                    <Stack direction="row" alignItems="center" mb={1}>
-                      <Typography variant="h6" width="10rem">
-                        Phone
-                      </Typography>
-                      <Typography variant="h6">{data?.phone}</Typography>
-                    </Stack>
-                  )}
-                  <Stack direction="row" mb={1}>
-                    <Typography variant="h6" width="10rem">
-                      Speciality
-                    </Typography>
-                    <Stack
-                      flex={1}
-                      flexWrap="wrap"
-                      alignItems={"center"}
-                      co="correctValue"
-                      direction={"row"}
-                    >
-                      {data?.specialty.map((item, index) => {
-                        return (
-                          <Box
-                            className="cursor-pointer"
-                            key={index}
-                            color="primary.main"
-                            border={1}
-                            co="correctValue"
-                            borderColor="primary.main"
-                            borderRadius={1}
-                            px={0.7}
-                            py={0.3}
-                            m={0.2}
-                          >
-                            <Typography fontSize=".9rem" co="correctValue">
-                              {item}
-                            </Typography>
-                          </Box>
-                        );
-                      })}
-                    </Stack>
-                  </Stack>
-                  <Stack direction="row" mb={1}>
-                    <Typography variant="h6" width="10rem">
-                      Tags
-                    </Typography>
-                    <Stack
-                      flex={1}
-                      flexWrap="wrap"
-                      alignItems={"center"}
-                      co="correctValue"
-                      direction={"row"}
-                    >
-                      {data?.tags.map((item, index) => {
-                        return (
-                          <Box
-                            key={index}
-                            className="cursor-pointer"
-                            color="primary.main"
-                            border={1}
-                            co="correctValue"
-                            borderColor="primary.main"
-                            borderRadius={1}
-                            px={0.7}
-                            py={0.3}
-                            m={0.2}
-                          >
-                            <Typography fontSize=".9rem" co="correctValue">
-                              {item}
-                            </Typography>
-                          </Box>
-                        );
-                      })}
-                    </Stack>
-                  </Stack>
-                  <Stack direction="row" alignItems="center" mb={1}>
-                    <Typography variant="h6" width="10rem">
-                      Reviews
-                    </Typography>
-                    <StyledRating
-                      co="correctValue"
-                      color="primary.main"
-                      name="size-medium"
-                      defaultValue={data?.review}
-                      readOnly
-                      emptyIcon={
-                        <StarIcon
-                          style={{ opacity: 0.55 }}
-                          fontSize="inherit"
-                        />
-                      }
-                    />
-                  </Stack>
-                  <Stack direction="row" alignItems="center" mb={1}>
-                    <Typography variant="h6" width="10rem">
-                      Type
-                    </Typography>
-                    <Typography variant="h6">
-                      {data?.availability == "Remote" ? "Remote" : "In-Person"}
-                    </Typography>
-                  </Stack>
-                </Box>
-              </Grid>
-            </Grid>
+
             <img
               className="w-100"
               style={{ display: "block" }}

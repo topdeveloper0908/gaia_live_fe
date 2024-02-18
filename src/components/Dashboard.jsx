@@ -142,7 +142,7 @@ export default function Dashboard({ isUser }) {
         toast.success(
           `${isUser ? "Profile" : "Practitioner"} updated successfully`
         );
-        if (isUser) {
+        if (!isUser) {
           setOpenEditModal(false);
           // set new data
           let newData = data.map((user) => {
