@@ -25,6 +25,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import Loading from "@/components/Loading";
 import countries from "../../countries.json";
 import { Avatar } from "@mui/material";
+import UserInfoModal from "@/components/UserInfoModal";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -91,6 +92,8 @@ export default function Home() {
   // State
   const [loading, setLoading] = useState(true);
   const [sidebarActive, setSidebarActive] = useState(false);
+  const [userModalOpen, setUserModalOpen] = useState(false);
+  const [userInModal, setUserInModal] = useState({});
 
   const mapRef = useRef();
 
@@ -98,13 +101,6 @@ export default function Home() {
     fetchData();
     setLoading(false);
   }, []);
-
-  const handleScrollTo = () => {
-    // window.scrollBy({
-    //   behavior: "smooth",
-    //   top: 0
-    // })
-  };
 
   const fetchData = async () => {
     try {
@@ -116,6 +112,9 @@ export default function Home() {
 
       // Get Data
       tmp = response.data;
+      tmp.sort(function (a, b) {
+        return Number(b.rank) - Number(a.rank);
+      });
       tmp.forEach(async (element, index) => {
         // Get all specalities
         var specialty = element.specialty.split(",");
@@ -152,7 +151,7 @@ export default function Home() {
           }
         });
         // Get lang and long
-        var geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${element.zipcode}.json?country=${tmp[index].country}&access_token=${MAPBOX_TOKEN}`;
+        var geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${element.zipcode}.json?country=${element.country}&access_token=${MAPBOX_TOKEN}`;
         // Make a GET request to the Mapbox Geocoding API
         await fetch(geocodingUrl)
           .then((response) => response.json())
@@ -175,10 +174,6 @@ export default function Home() {
               error
             );
           });
-      });
-
-      tmp.sort(function (a, b) {
-        return b.rank - a.rank;
       });
 
       console.log("data", tmp);
@@ -236,7 +231,10 @@ export default function Home() {
     if (zipcode != "" && mile == 0) {
       var tmp1 = [];
       tmp.forEach((element, index) => {
-        if (element.zipcode.indexOf(zipcode) > -1) {
+        if (
+          element.zipcode.indexOf(zipcode) > -1 ||
+          element.availability == "Remote"
+        ) {
           tmp1.push(element);
         }
       });
@@ -399,11 +397,11 @@ export default function Home() {
         behavior: "smooth",
       });
     }
+    console.log({ filter, index });
     setSelectedPractitioner(filter[index]);
   };
 
   const handleMarkerClick = (markerLatitude, markerLongitude) => {
-    console.log({ markerLatitude, markerLongitude });
     mapRef.current?.flyTo({
       center: [markerLongitude, markerLatitude],
       duration: 5000,
@@ -642,6 +640,10 @@ export default function Home() {
                         practitioners={filter}
                         mapRef={mapRef}
                         practitionerClicked={practitionerClicked}
+                        setUserInModal={(user) => {
+                          setUserInModal(user);
+                          setUserModalOpen(true);
+                        }}
                       />
                     )}
                   </Box>
@@ -941,6 +943,11 @@ export default function Home() {
               </Grid>
             </Paper>
           </Box>
+          <UserInfoModal
+            open={userModalOpen}
+            handleClose={() => setUserModalOpen(false)}
+            user={userInModal}
+          />
         </>
       ) : (
         <Loading />
@@ -955,6 +962,7 @@ const CustomMap = ({
   practitioners,
   mapRef,
   practitionerClicked,
+  setUserInModal,
 }) => {
   const [viewport, setViewport] = useState(initViewport);
   const [mapFinishedLoading, setMapFinishedLoading] = useState(false);
@@ -983,6 +991,7 @@ const CustomMap = ({
               <img
                 onClick={() => {
                   practitionerClicked(index);
+                  setUserInModal(element);
                 }}
                 src="./img/pin.png"
                 alt="Marker"
