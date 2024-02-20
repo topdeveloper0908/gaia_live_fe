@@ -82,6 +82,11 @@ export default function Dashboard({ isUser }) {
     var file = e.target.files[0];
     var reader = new FileReader();
     var excelCheck = true;
+    var excelTypes = {
+      TYPE1: "1",
+      TYPE2: "2",
+    };
+    var excelType = "";
     var excelTemplate = [
       "First Name",
       "Last Name",
@@ -98,17 +103,56 @@ export default function Dashboard({ isUser }) {
       "MeetingLink",
       "Sex",
     ];
+    var excelTemplate2 = [
+      // Customer ID,First Name,Last Name,Email,Accepts Email Marketing,Company,Address1,Address2,City,Province,Province Code,Country,Country Code,Zip,Phone,Accepts SMS Marketing,Total Spent,Total Orders,Tags,Note,Tax Exempt
+      "Customer ID",
+      "First Name",
+      "Last Name",
+      "Email",
+      "Accepts Email Marketing",
+      "Company",
+      "Address1",
+      "Address2",
+      "City",
+      "Province",
+      "Province Code",
+      "Country",
+      "Country Code",
+      "Zip",
+      "Phone",
+      "Accepts SMS Marketing",
+      "Total Spent",
+      "Total Orders",
+      "Tags",
+      "Note",
+      "Tax Exempt",
+    ];
     reader.onload = async function (e) {
       var data = new Uint8Array(e.target.result);
       var workbook = XLSX.read(data, { type: "array" });
       var sheetName = workbook.SheetNames[0];
       var sheet = workbook.Sheets[sheetName];
       var jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-      excelTemplate.forEach((element, index) => {
-        if (element != jsonData[0][index]) {
-          excelCheck = false;
-        }
-      });
+      // excelTemplate.forEach((element, index) => {
+      //   if (element != jsonData[0][index]) {
+      //     excelCheck = false;
+      //   }
+      // });
+      if (
+        jsonData[0].length == 21 &&
+        jsonData[0].every((value, index) => value === excelTemplate2[index])
+      ) {
+        excelCheck = true;
+        excelType = excelTypes.TYPE2;
+      } else if (
+        jsonData[0].length == 14 &&
+        jsonData[0].every((value, index) => value === excelTemplate[index])
+      ) {
+        excelCheck = true;
+        excelType = excelTypes.TYPE1;
+      } else {
+        excelCheck = false;
+      }
       if (excelCheck == false) {
         toast.error("Invalid Excel Template");
         return;
@@ -118,7 +162,25 @@ export default function Dashboard({ isUser }) {
           jsonData[0].forEach((key, i) => (obj[key] = row[i]));
           return obj;
         });
-
+        if (excelType == excelTypes.TYPE2) {
+          objectData = objectData.map((row) => {
+            return {
+              "First Name": row["First Name"],
+              "Last Name": row["Last Name"],
+              Email: row["Email"],
+              Phone: row["Phone"],
+              Address: row["Address1"],
+              City: row["City"],
+              State: row["Province"],
+              Zipcode: row["Zip"],
+              Country: row["Country"],
+              ImageURL: "",
+              Specialty: "",
+              Tags: row["Tags"],
+              MeetingLink: "",
+            };
+          });
+        }
         const response = await axios.post(`${API_URL}updateDB`, objectData);
         const result = response.data;
         if (result == "success") {
