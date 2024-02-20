@@ -231,10 +231,7 @@ export default function Home() {
     if (zipcode != "" && mile == 0) {
       var tmp1 = [];
       tmp.forEach((element, index) => {
-        if (
-          element.zipcode.indexOf(zipcode) > -1 ||
-          element.availability == "Remote"
-        ) {
+        if (element.zipcode.indexOf(zipcode) > -1) {
           tmp1.push(element);
         }
       });
@@ -307,6 +304,14 @@ export default function Home() {
         });
       });
       tmp = [...tmp1];
+    }
+
+    if (tmp.length == 0) {
+      practitioners.forEach((element) => {
+        if (element.availability == "Remote") {
+          tmp.push(element);
+        }
+      });
     }
 
     setFilter([...tmp]);
