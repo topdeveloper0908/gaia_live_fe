@@ -365,6 +365,7 @@ export default function Dashboard({ isUser, isCustomer }) {
         setPage={setPage}
         page={page}
         isUser={isUser}
+        isCustomer={isCustomer}
         userProfile={userProfile}
       />
       <Main open={open}>
@@ -462,6 +463,7 @@ const Sidebar = ({
   page,
   userProfile,
   isUser,
+  isCustomer
 }) => {
   const buttons = !isUser
     ? ( isCustomer ? [

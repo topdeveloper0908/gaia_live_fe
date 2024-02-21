@@ -4,7 +4,7 @@ import React, { Suspense } from "react";
 import Cookies from "js-cookie";
 import { useSearchParams } from "next/navigation";
 
-export function User() {
+export function Customer() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -17,7 +17,7 @@ export function User() {
 export default function SuspenseUser() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <User />
+      <Customer />
     </Suspense>
   );
 }
