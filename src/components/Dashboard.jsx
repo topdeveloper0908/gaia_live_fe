@@ -31,6 +31,7 @@ import EditModal from "@/components/EditModal";
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
 import * as XLSX from "xlsx";
 import AddPractitioner from "@/components/AddPractitioener";
+import UploadModal from "./UploadModal";
 
 const drawerWidth = 300;
 
@@ -68,6 +69,11 @@ export default function Dashboard({ isUser }) {
   const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
   const [page, setPage] = React.useState("home");
 
+  const [openUploadModal, setOpenUploadModal] = React.useState(false);
+  const [isUploading, setIsUploading] = React.useState(false);
+  const [file, setFile] = React.useState(null);
+  const [replace, setReplace] = React.useState(false);
+
   const handleEditModal = (user) => {
     setEditUser(user);
     setOpenEditModal(true);
@@ -78,118 +84,133 @@ export default function Dashboard({ isUser }) {
     setOpenDeleteModal(true);
   };
 
-  function uploadedDB(e) {
-    var file = e.target.files[0];
-    var reader = new FileReader();
-    var excelCheck = true;
-    var excelTypes = {
-      TYPE1: "1",
-      TYPE2: "2",
-    };
-    var excelType = "";
-    var excelTemplate = [
-      "First Name",
-      "Last Name",
-      "Email",
-      "Phone",
-      "Address",
-      "City",
-      "State",
-      "Zipcode",
-      "Country",
-      "ImageURL",
-      "Specialty",
-      "Tags",
-      "MeetingLink",
-      "Sex",
-    ];
-    var excelTemplate2 = [
-      // Customer ID,First Name,Last Name,Email,Accepts Email Marketing,Company,Address1,Address2,City,Province,Province Code,Country,Country Code,Zip,Phone,Accepts SMS Marketing,Total Spent,Total Orders,Tags,Note,Tax Exempt
-      "Customer ID",
-      "First Name",
-      "Last Name",
-      "Email",
-      "Accepts Email Marketing",
-      "Company",
-      "Address1",
-      "Address2",
-      "City",
-      "Province",
-      "Province Code",
-      "Country",
-      "Country Code",
-      "Zip",
-      "Phone",
-      "Accepts SMS Marketing",
-      "Total Spent",
-      "Total Orders",
-      "Tags",
-      "Note",
-      "Tax Exempt",
-    ];
-    reader.onload = async function (e) {
-      var data = new Uint8Array(e.target.result);
-      var workbook = XLSX.read(data, { type: "array" });
-      var sheetName = workbook.SheetNames[0];
-      var sheet = workbook.Sheets[sheetName];
-      var jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-      // excelTemplate.forEach((element, index) => {
-      //   if (element != jsonData[0][index]) {
-      //     excelCheck = false;
-      //   }
-      // });
-      if (
-        jsonData[0].length == 21 &&
-        jsonData[0].every((value, index) => value === excelTemplate2[index])
-      ) {
-        excelCheck = true;
-        excelType = excelTypes.TYPE2;
-      } else if (
-        jsonData[0].length == 14 &&
-        jsonData[0].every((value, index) => value === excelTemplate[index])
-      ) {
-        excelCheck = true;
-        excelType = excelTypes.TYPE1;
-      } else {
-        excelCheck = false;
-      }
-      if (excelCheck == false) {
-        toast.error("Invalid Excel Template");
+  function handleUpload(e) {
+    try {
+      if (!file) {
+        toast.error("Please select a file");
         return;
-      } else {
-        var objectData = jsonData.map((row) => {
-          var obj = {};
-          jsonData[0].forEach((key, i) => (obj[key] = row[i]));
-          return obj;
-        });
-        if (excelType == excelTypes.TYPE2) {
-          objectData = objectData.map((row) => {
-            return {
-              "First Name": row["First Name"],
-              "Last Name": row["Last Name"],
-              Email: row["Email"],
-              Phone: row["Phone"],
-              Address: row["Address1"],
-              City: row["City"],
-              State: row["Province"],
-              Zipcode: row["Zip"],
-              Country: row["Country"],
-              ImageURL: "",
-              Specialty: "",
-              Tags: row["Tags"],
-              MeetingLink: "",
-            };
-          });
-        }
-        const response = await axios.post(`${API_URL}updateDB`, objectData);
-        const result = response.data;
-        if (result == "success") {
-          toast.success("Data uploaded successfully");
-          getData();
-        }
       }
-    };
-    reader.readAsArrayBuffer(file);
+      setIsUploading(true);
+      var reader = new FileReader();
+      var excelCheck = true;
+      var excelTypes = {
+        TYPE1: "1",
+        TYPE2: "2",
+      };
+      var excelType = "";
+      var excelTemplate = [
+        "First Name",
+        "Last Name",
+        "Email",
+        "Phone",
+        "Address",
+        "City",
+        "State",
+        "Zipcode",
+        "Country",
+        "ImageURL",
+        "Specialty",
+        "Tags",
+        "MeetingLink",
+        "Sex",
+      ];
+      var excelTemplate2 = [
+        // Customer ID,First Name,Last Name,Email,Accepts Email Marketing,Company,Address1,Address2,City,Province,Province Code,Country,Country Code,Zip,Phone,Accepts SMS Marketing,Total Spent,Total Orders,Tags,Note,Tax Exempt
+        "Customer ID",
+        "First Name",
+        "Last Name",
+        "Email",
+        "Accepts Email Marketing",
+        "Company",
+        "Address1",
+        "Address2",
+        "City",
+        "Province",
+        "Province Code",
+        "Country",
+        "Country Code",
+        "Zip",
+        "Phone",
+        "Accepts SMS Marketing",
+        "Total Spent",
+        "Total Orders",
+        "Tags",
+        "Note",
+        "Tax Exempt",
+      ];
+      reader.onload = async function (e) {
+        var data = new Uint8Array(e.target.result);
+        var workbook = XLSX.read(data, { type: "array" });
+        var sheetName = workbook.SheetNames[0];
+        var sheet = workbook.Sheets[sheetName];
+        var jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+        // excelTemplate.forEach((element, index) => {
+        //   if (element != jsonData[0][index]) {
+        //     excelCheck = false;
+        //   }
+        // });
+        if (
+          jsonData[0].length == 21 &&
+          jsonData[0].every((value, index) => value === excelTemplate2[index])
+        ) {
+          excelCheck = true;
+          excelType = excelTypes.TYPE2;
+        } else if (
+          jsonData[0].length == 14 &&
+          jsonData[0].every((value, index) => value === excelTemplate[index])
+        ) {
+          excelCheck = true;
+          excelType = excelTypes.TYPE1;
+        } else {
+          excelCheck = false;
+        }
+        if (excelCheck == false) {
+          toast.error("Invalid Excel Template");
+          return;
+        } else {
+          var objectData = jsonData.map((row) => {
+            var obj = {};
+            jsonData[0].forEach((key, i) => (obj[key] = row[i]));
+            return obj;
+          });
+          if (excelType == excelTypes.TYPE2) {
+            objectData = objectData.map((row) => {
+              return {
+                "First Name": row["First Name"],
+                "Last Name": row["Last Name"],
+                Email: row["Email"],
+                Phone: row["Phone"],
+                Address: row["Address1"],
+                City: row["City"],
+                State: row["Province"],
+                Zipcode: row["Zip"],
+                Country: row["Country"],
+                ImageURL: "",
+                Specialty: "",
+                Tags: row["Tags"],
+                MeetingLink: "",
+              };
+            });
+          }
+          const response = await axios.post(`${API_URL}updateDB`, {
+            data: objectData,
+            replace: replace,
+          });
+          const result = response.data;
+          if (result == "success") {
+            toast.success("Data uploaded successfully");
+            setOpenUploadModal(false);
+
+            getData();
+          }
+        }
+        setIsUploading(false);
+      };
+      reader.readAsArrayBuffer(file);
+    } catch (error) {
+      console.log(error);
+      setIsUploading(false);
+    }
   }
 
   const handleSaveUser = async (newuser) => {
@@ -319,6 +340,14 @@ export default function Dashboard({ isUser }) {
             setUser={setEditUser}
             isSubmitting={isSubmitting}
           />
+          <UploadModal
+            open={openUploadModal}
+            handleClose={() => setOpenUploadModal(false)}
+            isUploading={isUploading}
+            handleUpload={handleUpload}
+            setFile={setFile}
+            setReplace={setReplace}
+          />
           <ConfirmDeleteModal
             open={openDeleteModal}
             handleConfirm={handleDeleteUser}
@@ -365,21 +394,12 @@ export default function Dashboard({ isUser }) {
             <>
               <Stack direction="row" justifyContent={"space-between"}>
                 <h3>Practitioner List</h3>
-                <input
-                  style={{
-                    display: "none",
-                  }}
-                  onChange={uploadedDB}
-                  type="file"
-                  id="dbUpload"
-                  accept=".xlsx, .xls, .csv"
-                />
 
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    document.getElementById("dbUpload").click();
+                    setOpenUploadModal(true);
                   }}
                 >
                   Upload Excel
