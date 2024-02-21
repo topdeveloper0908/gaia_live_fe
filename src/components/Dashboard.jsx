@@ -438,13 +438,12 @@ export default function Dashboard({ isUser, isCustomer }) {
               <Box sx={{ my: 2 }}>
                 {
                   page === 'addCustomer' ?
-                    <AddPractitioner
+                  <AddCustomer /> : <AddPractitioner
                       addPractitioner={addPractitioner}
                       userProfile={userProfile}
                       isUser={isUser}
                       handleUpdateProfile={handleSaveUser}
                     />
-                  : <AddCustomer />
                 }
               </Box>
             </>
