@@ -24,12 +24,7 @@ import Divider from "@mui/material/Divider";
 import CustomMultiSelect from "@/components/Multiselect";
 import axios from "axios";
 
-export default function AddPractitioner({
-  addPractitioner,
-  userProfile,
-  isUser,
-  handleUpdateProfile,
-}) {
+export default function AddCustomer() {
 
 const [countries, setCountries] = useState([]);
 useEffect(() => {

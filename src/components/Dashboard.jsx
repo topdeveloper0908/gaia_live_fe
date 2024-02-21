@@ -31,7 +31,7 @@ import EditModal from "@/components/EditModal";
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
 import * as XLSX from "xlsx";
 import AddPractitioner from "@/components/AddPractitioener";
-import AddPractitioner from "@/components/AddCustomer";
+import AddCustomer from "@/components/AddCustomer";
 import UploadModal from "./UploadModal";
 
 const drawerWidth = 300;
@@ -442,7 +442,7 @@ export default function Dashboard({ isUser }) {
                       isUser={isUser}
                       handleUpdateProfile={handleSaveUser}
                     />
-                  : <addCustomer />
+                  : <AddCustomer />
                 }
               </Box>
             </>
