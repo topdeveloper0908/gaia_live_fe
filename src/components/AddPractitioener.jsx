@@ -108,6 +108,7 @@ export default function AddPractitioner({
     meetinglink: "",
     profileLink: "",
     status: "pending",
+    type: "Practitioner",
   };
 
   const handleSubmit = async (values) => {
@@ -389,6 +390,25 @@ export default function AddPractitioner({
             >
               <MenuItem value="In-person">In-Person</MenuItem>
               <MenuItem value="Remote">Remote</MenuItem>
+            </Select>
+          </FormControl>
+        </Stack>
+        <Stack>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label" size="small">
+              Account Type
+            </InputLabel>
+            <Select
+              size="small"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              name="type"
+              label="Account Type"
+              onChange={formik.handleChange}
+              value={formik.values.type}
+            >
+              <MenuItem value="Practitioner">Practitioner</MenuItem>
+              <MenuItem value="Business">Business</MenuItem>
             </Select>
           </FormControl>
         </Stack>

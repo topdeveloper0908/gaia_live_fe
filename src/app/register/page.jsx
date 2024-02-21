@@ -104,6 +104,7 @@ export default function SignUp() {
     imageURL: "",
     specialty: "",
     tags: "",
+    type: "Practitioner",
   };
 
   const handleSubmit = async (values) => {
@@ -519,6 +520,25 @@ export default function SignUp() {
                       />
                     </Stack>
                   )}
+                  <Stack my={2}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Account Type
+                      </InputLabel>
+                      <Select
+                        size="small"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        name="type"
+                        label="Type"
+                        onChange={formik.handleChange}
+                        value={formik.values.type}
+                      >
+                        <MenuItem value="Practitioner">Practitioner</MenuItem>
+                        <MenuItem value="Business">Business</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Stack>
                   <Stack my={2}>
                     <TextField
                       size="small"

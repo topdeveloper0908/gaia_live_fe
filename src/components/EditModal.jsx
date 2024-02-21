@@ -270,6 +270,25 @@ export default function EditModal({
             }}
             value={formik.values.tags}
           />
+          <Stack>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Account Type
+              </InputLabel>
+              <Select
+                size="small"
+                label="Account Type"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="type"
+                onChange={formik.handleChange}
+                value={formik.values.type}
+              >
+                <MenuItem value="Practitioner">Practitioner</MenuItem>
+                <MenuItem value="Business">Business</MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
           <TextField
             size="small"
             id="profileLink"
