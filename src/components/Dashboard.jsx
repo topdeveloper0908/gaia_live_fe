@@ -31,6 +31,7 @@ import EditModal from "@/components/EditModal";
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
 import * as XLSX from "xlsx";
 import AddPractitioner from "@/components/AddPractitioener";
+import AddPractitioner from "@/components/AddCustomer";
 import UploadModal from "./UploadModal";
 
 const drawerWidth = 300;
@@ -416,20 +417,33 @@ export default function Dashboard({ isUser }) {
           ) : (
             <>
               <Stack direction="row" justifyContent={"center"} mb={11}>
-                <Typography
-                  sx={{ fontWeight: "bold", color: "black" }}
-                  variant={"h5"}
-                >
-                  {isUser ? "Edit Profile" : "Add a Practitioner"}
-                </Typography>
+                {
+                  page === 'addCustomer' ? 
+                    <Typography
+                      sx={{ fontWeight: "bold", color: "black" }}
+                      variant={"h5"}
+                    >
+                      {isUser ? "Edit Profile" : "Add a Practitioner"}
+                    </Typography> :
+                    <Typography
+                      sx={{ fontWeight: "bold", color: "black" }}
+                      variant={"h5"}
+                    >
+                      Add a Customer
+                    </Typography>
+                }
               </Stack>
               <Box sx={{ my: 2 }}>
-                <AddPractitioner
-                  addPractitioner={addPractitioner}
-                  userProfile={userProfile}
-                  isUser={isUser}
-                  handleUpdateProfile={handleSaveUser}
-                />
+                {
+                  page === 'addCustomer' ?
+                    <AddPractitioner
+                      addPractitioner={addPractitioner}
+                      userProfile={userProfile}
+                      isUser={isUser}
+                      handleUpdateProfile={handleSaveUser}
+                    />
+                  : <addCustomer />
+                }
               </Box>
             </>
           )}
@@ -477,6 +491,12 @@ const Sidebar = ({
           icon: House,
           onClick: () => setPage("home"),
           active: page === "home",
+        },
+        {
+          name: "Add Customer",
+          icon: User,
+          onClick: () => setPage("addCustomer"),
+          active: page === "addCustomer",
         },
         {
           name: "Sign out",
