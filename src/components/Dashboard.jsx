@@ -423,14 +423,15 @@ export default function Dashboard({ isUser }) {
                       sx={{ fontWeight: "bold", color: "black" }}
                       variant={"h5"}
                     >
-                      {isUser ? "Edit Profile" : "Add a Practitioner"}
-                    </Typography> :
+                      Add a Customer
+                    </Typography> : 
                     <Typography
                       sx={{ fontWeight: "bold", color: "black" }}
                       variant={"h5"}
                     >
-                      Add a Customer
+                      {isUser ? "Edit Profile" : "Add a Practitioner"}
                     </Typography>
+                    
                 }
               </Stack>
               <Box sx={{ my: 2 }}>
