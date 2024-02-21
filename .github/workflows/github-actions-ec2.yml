@@ -23,10 +23,10 @@ jobs:
           cache: "yarn"
       - name: Install dependencies
         run: yarn
-      - name: Build
-        run: yarn build
       - name: Delete yarn cache folder
         run: rm -rf ~/.cache/yarn
+      - name: Build
+        run: yarn build
       - name: restart pm2
         run: pm2 restart all
 
