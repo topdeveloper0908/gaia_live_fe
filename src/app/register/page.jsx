@@ -530,7 +530,7 @@ export default function SignUp() {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         name="type"
-                        label="Type"
+                        label="Account Type"
                         onChange={formik.handleChange}
                         value={formik.values.type}
                       >
