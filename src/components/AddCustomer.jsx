@@ -26,6 +26,8 @@ import axios from "axios";
 
 export default function AddCustomer() {
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const [countries, setCountries] = useState([]);
 useEffect(() => {
     axios
@@ -48,7 +50,6 @@ useEffect(() => {
       spacing={4}
       justifyContent={"center"}
       component={"form"}
-      onSubmit={formik.handleSubmit}
     >
       <Grid item md={6} gap={4} display={"flex"} flexDirection={"column"}>
         <Stack direction="row" spacing={2} justifyContent={"center"}>

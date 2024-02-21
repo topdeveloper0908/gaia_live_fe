@@ -529,7 +529,7 @@ const Sidebar = ({
         },
         {
           name: "Add Customer",
-          icon: User,
+          icon: Add,
           onClick: () => setPage("addCustomer"),
           active: page === "addCustomer",
         },
