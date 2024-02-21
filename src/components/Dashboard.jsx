@@ -20,7 +20,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Avatar, Button, Stack } from "@mui/material";
-import { Add, House, Logout } from "@mui/icons-material";
+import { Add, House, Logout, User } from "@mui/icons-material";
 import CustomTable from "@/components/CustomTable";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -55,7 +55,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
-export default function Dashboard({ isUser }) {
+export default function Dashboard({ isUser, isCustomer }) {
   const theme = useTheme();
   const [loading, setLoading] = React.useState(true);
   const [open, setOpen] = React.useState(true);
@@ -464,7 +464,40 @@ const Sidebar = ({
   isUser,
 }) => {
   const buttons = !isUser
-    ? [
+    ? ( isCustomer ? [
+      {
+        name: "Dashboard",
+        icon: House,
+      },
+      {
+        name: "Recommendations",
+        icon: House,
+      },
+      {
+        name: "Nutrition",
+        icon: House,
+      },
+      {
+        name: "Essential Oils",
+        icon: House,
+      },
+      {
+        name: "Crystals",
+        icon: House,
+      },
+      {
+        name: "LifeStyle",
+        icon: House,
+      },
+      {
+        name: "Psycho Emotional",
+        icon: House,
+      },
+      {
+        name: "Physical",
+        icon: House,
+      },
+    ] : [
         {
           name: "Home",
           icon: House,
@@ -485,7 +518,7 @@ const Sidebar = ({
             window.location.href = "/login";
           },
         },
-      ]
+      ])
     : [
         {
           name: "Home",
@@ -506,7 +539,7 @@ const Sidebar = ({
             Cookies.remove("token");
             window.location.href = "/login";
           },
-        },
+        }
       ];
   console.log(userProfile);
   return (
