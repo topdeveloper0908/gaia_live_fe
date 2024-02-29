@@ -527,12 +527,12 @@ const Sidebar = ({
           onClick: () => setPage("home"),
           active: page === "home",
         },
-        {
-          name: "Add Customer",
-          icon: Add,
-          onClick: () => setPage("addCustomer"),
-          active: page === "addCustomer",
-        },
+        // {
+        //   name: "Add Customer",
+        //   icon: Add,
+        //   onClick: () => setPage("addCustomer"),
+        //   active: page === "addCustomer",
+        // },
         {
           name: "Sign out",
           icon: Logout,
@@ -620,7 +620,7 @@ const Sidebar = ({
             color: "white",
           }}
         >
-          {isUser ? userProfile.firstname : "Administrator"}
+          {isUser ? `${userProfile.firstname} ${userProfile.lastname}` : "Administrator"}
         </Typography>
       </Box>
       <List

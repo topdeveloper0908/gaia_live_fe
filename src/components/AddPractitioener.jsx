@@ -514,6 +514,7 @@ export default function AddPractitioner({
               id="review"
               label="Review"
               name="review"
+              disabled = {isUser ? true : false}
               onChange={formik.handleChange}
               value={formik.values.review}
             >
@@ -537,6 +538,7 @@ export default function AddPractitioner({
               id="rank"
               label="Rank"
               name="rank"
+              disabled = {isUser ? true : false}
               onChange={formik.handleChange}
               value={formik.values.rank}
             >
