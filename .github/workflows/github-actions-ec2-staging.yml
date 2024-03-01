@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Deploy to EC2 on master branch push
+    name: Deploy to EC2 on staging branch push
     runs-on: self-hosted
 
     steps:
