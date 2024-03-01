@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Deploy to EC2 on staging branch push
-    runs-on: self-hosted
+    runs-on: staging-self-hosted
 
     steps:
       - uses: actions/checkout@v3
