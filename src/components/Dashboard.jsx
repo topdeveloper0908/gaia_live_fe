@@ -288,6 +288,7 @@ export default function Dashboard({ isUser, isCustomer }) {
         },
       })
       .then((res) => {
+        console.log('res', res.data);
         setData(res.data);
         setDataTmp(res.data);
       })
