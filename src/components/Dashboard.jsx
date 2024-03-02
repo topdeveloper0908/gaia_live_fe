@@ -6,6 +6,7 @@ import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import TextField from "@mui/material/TextField";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -60,6 +61,8 @@ export default function Dashboard({ isUser, isCustomer }) {
   const [loading, setLoading] = React.useState(true);
   const [open, setOpen] = React.useState(true);
   const [data, setData] = React.useState([]);
+  const [dataTmp, setDataTmp] = React.useState([]);
+  const [search, setSearch] = React.useState('');
   const [userProfile, setuserProfile] = React.useState({});
   const token = Cookies.get("token");
   const [openEditModal, setOpenEditModal] = React.useState(false);
@@ -286,6 +289,7 @@ export default function Dashboard({ isUser, isCustomer }) {
       })
       .then((res) => {
         setData(res.data);
+        setDataTmp(res.data);
       })
       .catch((err) => {
         if (err?.response?.status === 403) {
@@ -325,7 +329,32 @@ export default function Dashboard({ isUser, isCustomer }) {
 
   function addPractitioner(practitioner) {
     setData([...data, practitioner]);
+    setDataTmp([...dataTmp, practitioner]);
   }
+
+  const searchPractitioner = (event) => {
+    setData(dataTmp);
+    setSearch(event.target.value)
+  }
+
+  React.useEffect(() => {
+    if(search === '') {
+      return;
+    } else {
+      var tmp = [];
+      data.forEach(element => {
+        if( element.firstname.toLowerCase().indexOf(search) > -1 || 
+            element.lastname.toLowerCase().indexOf(search) > -1 ||
+            element.specialty.toLowerCase().indexOf(search) > -1 || 
+            element.tags.toLowerCase().indexOf(search) > -1 ||
+            element.city.toLowerCase().indexOf(search) > -1 || 
+            element.address.toLowerCase().indexOf(search) > -1) {
+          tmp.push(element);
+        }
+      });
+      setData(tmp);
+    }
+  }, [search]);
 
   return loading ? (
     <Loading />
@@ -397,15 +426,31 @@ export default function Dashboard({ isUser, isCustomer }) {
               <Stack direction="row" justifyContent={"space-between"}>
                 <h3>Practitioner List</h3>
 
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    setOpenUploadModal(true);
-                  }}
-                >
-                  Upload Excel
-                </Button>
+                <Stack alignItems={'center'} direction="row">
+                  <TextField
+                    size="small"
+                    fullWidth
+                    id="searchWord"
+                    label="Search...."
+                    name="searchWord"
+                    autoComplete="searchWord"
+                    autoFocus
+                    type="text"
+                    onChange={searchPractitioner}
+                    value={search}
+                  />
+                  <Box mr={1}></Box>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      setOpenUploadModal(true);
+                    }}
+                    style={{whiteSpace: 'nowrap', width: '10rem'}}
+                  >
+                    Upload Excel
+                  </Button>
+                </Stack>
               </Stack>
               <Box sx={{ my: 2 }}>
                 <CustomTable
