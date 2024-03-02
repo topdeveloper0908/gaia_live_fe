@@ -587,7 +587,6 @@ const Sidebar = ({
           },
         }
       ];
-  console.log(userProfile);
   return (
     <Drawer
       sx={{
