@@ -104,7 +104,7 @@ export default function AddPractitioner({
     specialty: "",
     tags: "",
     rank: 1,
-    review: 1,
+    review: 0,
     meetinglink: "",
     profileLink: "",
     status: "pending",
@@ -518,6 +518,7 @@ export default function AddPractitioner({
               onChange={formik.handleChange}
               value={formik.values.review}
             >
+              <MenuItem value="0">0</MenuItem>
               <MenuItem value="1">1</MenuItem>
               <MenuItem value="2">2</MenuItem>
               <MenuItem value="3">3</MenuItem>

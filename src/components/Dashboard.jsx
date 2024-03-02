@@ -3,15 +3,22 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 import { Avatar, Button, Stack } from "@mui/material";
 import { Add, House, Logout, User } from "@mui/icons-material";
 import CustomTable from "@/components/CustomTable";
@@ -26,7 +33,6 @@ import * as XLSX from "xlsx";
 import AddPractitioner from "@/components/AddPractitioener";
 import AddCustomer from "@/components/AddCustomer";
 import UploadModal from "./UploadModal";
-import SearchBar from "material-ui-search-bar";
 
 const drawerWidth = 300;
 
@@ -321,32 +327,6 @@ export default function Dashboard({ isUser, isCustomer }) {
     setData([...data, practitioner]);
   }
 
-  const [searched, setSearched] = React.useState("");
-  const [filtered, setFiltered] = React.useState([]);
-
-  const requestSearch = (searchedVal) => {
-    if (searchedVal == "") {
-      setFiltered(data);
-      return;
-    }
-    const filteredRows = data.filter((row) => {
-      return Object.keys(row).some((field) => {
-        return String(row[field])
-          .toLowerCase()
-          .includes(searchedVal.toLowerCase());
-      });
-    });
-    setFiltered(filteredRows);
-  };
-
-  React.useEffect(() => {
-    setFiltered(data);
-  }, [data]);
-
-  const cancelSearch = () => {
-    getData();
-  };
-
   return loading ? (
     <Loading />
   ) : (
@@ -414,33 +394,22 @@ export default function Dashboard({ isUser, isCustomer }) {
         >
           {!isUser && page === "home" ? (
             <>
-              <Stack
-                direction="row"
-                justifyContent={"space-between"}
-                alignItems={"center"}
-              >
+              <Stack direction="row" justifyContent={"space-between"}>
                 <h3>Practitioner List</h3>
 
-                <Stack direction="row" gap={3}>
-                  <SearchBar
-                    value={searched}
-                    onChange={(searchVal) => requestSearch(searchVal)}
-                    onCancelSearch={() => cancelSearch()}
-                  />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      setOpenUploadModal(true);
-                    }}
-                  >
-                    Upload Excel
-                  </Button>
-                </Stack>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    setOpenUploadModal(true);
+                  }}
+                >
+                  Upload Excel
+                </Button>
               </Stack>
               <Box sx={{ my: 2 }}>
                 <CustomTable
-                  data={filtered}
+                  data={data}
                   handleEditModal={handleEditModal}
                   handleDeleteModal={handleDeleteModal}
                 />
@@ -449,33 +418,33 @@ export default function Dashboard({ isUser, isCustomer }) {
           ) : (
             <>
               <Stack direction="row" justifyContent={"center"} mb={11}>
-                {page === "addCustomer" ? (
-                  <Typography
-                    sx={{ fontWeight: "bold", color: "black" }}
-                    variant={"h5"}
-                  >
-                    Add a Customer
-                  </Typography>
-                ) : (
-                  <Typography
-                    sx={{ fontWeight: "bold", color: "black" }}
-                    variant={"h5"}
-                  >
-                    {isUser ? "Edit Profile" : "Add a Practitioner"}
-                  </Typography>
-                )}
+                {
+                  page === 'addCustomer' ? 
+                    <Typography
+                      sx={{ fontWeight: "bold", color: "black" }}
+                      variant={"h5"}
+                    >
+                      Add a Customer
+                    </Typography> : 
+                    <Typography
+                      sx={{ fontWeight: "bold", color: "black" }}
+                      variant={"h5"}
+                    >
+                      {isUser ? "Edit Profile" : "Add a Practitioner"}
+                    </Typography>
+                    
+                }
               </Stack>
               <Box sx={{ my: 2 }}>
-                {page === "addCustomer" ? (
-                  <AddCustomer />
-                ) : (
-                  <AddPractitioner
-                    addPractitioner={addPractitioner}
-                    userProfile={userProfile}
-                    isUser={isUser}
-                    handleUpdateProfile={handleSaveUser}
-                  />
-                )}
+                {
+                  page === 'addCustomer' ?
+                  <AddCustomer /> : <AddPractitioner
+                      addPractitioner={addPractitioner}
+                      userProfile={userProfile}
+                      isUser={isUser}
+                      handleUpdateProfile={handleSaveUser}
+                    />
+                }
               </Box>
             </>
           )}
@@ -493,66 +462,64 @@ const Sidebar = ({
   page,
   userProfile,
   isUser,
-  isCustomer,
+  isCustomer
 }) => {
   const buttons = !isUser
-    ? isCustomer
-      ? [
-          {
-            name: "Dashboard",
-            icon: House,
+    ? ( isCustomer ? [
+      {
+        name: "Dashboard",
+        icon: House,
+      },
+      {
+        name: "Recommendations",
+        icon: House,
+      },
+      {
+        name: "Nutrition",
+        icon: House,
+      },
+      {
+        name: "Essential Oils",
+        icon: House,
+      },
+      {
+        name: "Crystals",
+        icon: House,
+      },
+      {
+        name: "LifeStyle",
+        icon: House,
+      },
+      {
+        name: "Psycho Emotional",
+        icon: House,
+      },
+      {
+        name: "Physical",
+        icon: House,
+      },
+    ] : [
+        {
+          name: "Home",
+          icon: House,
+          onClick: () => setPage("home"),
+          active: page === "home",
+        },
+        {
+          name: "Add Practitioner",
+          icon: Add,
+          onClick: () => setPage("add"),
+          active: page === "add",
+        },
+        {
+          name: "Sign out",
+          icon: Logout,
+          onClick: () => {
+            Cookies.remove("token");
+            window.location.href = "/login";
           },
-          {
-            name: "Recommendations",
-            icon: House,
-          },
-          {
-            name: "Nutrition",
-            icon: House,
-          },
-          {
-            name: "Essential Oils",
-            icon: House,
-          },
-          {
-            name: "Crystals",
-            icon: House,
-          },
-          {
-            name: "LifeStyle",
-            icon: House,
-          },
-          {
-            name: "Psycho Emotional",
-            icon: House,
-          },
-          {
-            name: "Physical",
-            icon: House,
-          },
-        ]
-      : [
-          {
-            name: "Home",
-            icon: House,
-            onClick: () => setPage("home"),
-            active: page === "home",
-          },
-          {
-            name: "Add Practitioner",
-            icon: Add,
-            onClick: () => setPage("add"),
-            active: page === "add",
-          },
-          {
-            name: "Sign out",
-            icon: Logout,
-            onClick: () => {
-              Cookies.remove("token");
-              window.location.href = "/login";
-            },
-          },
-        ]
+        },
+      ])
     : [
         {
           name: "Home",
@@ -573,7 +540,7 @@ const Sidebar = ({
             Cookies.remove("token");
             window.location.href = "/login";
           },
-        },
+        }
       ];
   console.log(userProfile);
   return (
@@ -653,9 +620,7 @@ const Sidebar = ({
             color: "white",
           }}
         >
-          {isUser
-            ? `${userProfile.firstname} ${userProfile.lastname}`
-            : "Administrator"}
+          {isUser ? `${userProfile.firstname} ${userProfile.lastname}` : "Administrator"}
         </Typography>
       </Box>
       <List
