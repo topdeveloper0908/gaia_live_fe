@@ -239,6 +239,7 @@ export default function Dashboard({ isUser, isCustomer }) {
             return user;
           });
           setData(newData);
+          setDataTmp(newData);
           setOpenEditModal(false);
         } else {
           setuserProfile(newuser);
@@ -271,6 +272,7 @@ export default function Dashboard({ isUser, isCustomer }) {
         // set new data
         let newData = data.filter((user) => user.id != userId);
         setData(newData);
+        setDataTmp(newData);
         setOpenDeleteModal(false);
       })
       .catch((err) => {
@@ -354,6 +356,7 @@ export default function Dashboard({ isUser, isCustomer }) {
         }
       });
       setData(tmp);
+      setDataTmp(tmp);
     }
   }, [search]);
 
