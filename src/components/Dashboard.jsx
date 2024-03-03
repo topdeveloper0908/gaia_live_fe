@@ -356,7 +356,6 @@ export default function Dashboard({ isUser, isCustomer }) {
         }
       });
       setData(tmp);
-      setDataTmp(tmp);
     }
   }, [search]);
 
