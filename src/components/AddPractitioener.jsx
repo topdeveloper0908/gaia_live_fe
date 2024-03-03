@@ -136,9 +136,7 @@ export default function AddPractitioner({
       setIsSubmitting(false);
       return;
     }
-    const response = await axios.post(
-      `${API_URL}admin_new`,
-      JSON.stringify(values),
+    const response = await axios.post(`${API_URL}admin_new`, JSON.stringify(values),
       {
         headers: {
           "Content-Type": "application/json",
@@ -147,17 +145,7 @@ export default function AddPractitioner({
     );
 
     const result = response.data;
-    if (result == "success") {
-      toast.success("Practitioner registered successfully!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-      addPractitioner(values);
-    } else if (result == "duplicated") {
+    if (result == "duplicated") {
       toast.error("Practitioner already exists!", {
         position: "top-center",
         autoClose: 5000,
@@ -166,6 +154,17 @@ export default function AddPractitioner({
         pauseOnHover: true,
         draggable: true,
       });
+    } else {
+      toast.success("Practitioner registered successfully!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      values.id=result;
+      addPractitioner(values);
     }
     setIsSubmitting(false);
   };
