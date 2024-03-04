@@ -210,10 +210,6 @@ export default function UserInfoModal({ open, handleClose, user }) {
                 href={user.meetinglink}
                 variant="contained"
                 co="correctValue"
-                onClick={(e) => {
-                  // stop propagation to prevent the page from scrolling to the top
-                  e.stopPropagation();
-                }}
               >
                 Schedule a Meeting
               </Button>

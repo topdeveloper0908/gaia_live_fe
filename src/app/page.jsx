@@ -80,7 +80,7 @@ export default function Home() {
   // Value
   const [selectedPractitioner, setSelectedPractitioner] = useState(null);
   const [practitioners, setPractitioners] = useState([]);
-  const [zipcode, setZipcode] = useState(0);
+  const [zipcode, setZipcode] = useState(null);
   const [mile, setMile] = useState(0);
   const [practitionerType, setPractitionerType] = useState("All");
   const [filter, setFilter] = useState([]);

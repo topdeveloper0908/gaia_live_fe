@@ -187,6 +187,9 @@ button {
   .header button .text {
     display: none;
   }
+  .header a .text {
+    display: none;
+  }
   .main-content {
     overflow: visible;
     height: auto;
